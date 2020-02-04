@@ -1,0 +1,20 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    <include file="changelog/01-user-schema.xml"
+             relativeToChangelogFile="true" />
+    <include file="changelog/02-category-schema.xml"
+             relativeToChangelogFile="true" />
+    <include file="changelog/03-status-schema.xml"
+             relativeToChangelogFile="true" />
+    <include file="changelog/04-tag-schema.xml"
+             relativeToChangelogFile="true" />
+    <include file="changelog/05-advert-schema.xml"
+             relativeToChangelogFile="true" />
+    <include file="changelog/06-chat-schema.xml"
+             relativeToChangelogFile="true" />
+    <include file="changelog/07-message-schema.xml"
+             relativeToChangelogFile="true" />
+    <include file="changelog/08-comment-schema.xml"
+             relativeToChangelogFile="true" />
+</databaseChangeLog>
