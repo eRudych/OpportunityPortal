@@ -39,18 +39,18 @@ public class ChatRepositoryImpl implements ChatRepository {
 
     @Override
     public Chat getChat(Long chatId) {
-        log.info("Select chat "+chatId);
+        log.info("Select chat {}", chatId);
         Chat chat = dsl.selectFrom(CHAT)
                 .where(CHAT.ID.eq(chatId))
                 .fetchOneInto(Chat.class);
-        log.info("Set selected data "+chatId);
+        log.info("Set selected data {}", chatId);
         chat.setCreateAt(dsl.select(CHAT.CREATED_AT).from(CHAT).where(CHAT.ID.eq(chatId)).fetchOneInto((Timestamp.class)));
         return chat;
     }
 
     @Override
     public Chat updateChat(Chat chat) {
-        log.info("Update text chat "+chat.getId());
+        log.info("Update text chat {}", chat.getId());
         return getChat((long) dsl.update(CHAT)
                 .set(CHAT.NAME, chat.getName())
                 .set(CHAT.USERSID, (Long[]) chat.getUsersId().toArray())
@@ -59,7 +59,7 @@ public class ChatRepositoryImpl implements ChatRepository {
 
     @Override
     public boolean removeChat(Long chatId) {
-        log.info("Remove chat "+chatId);
+        log.info("Remove chat {}", chatId);
         try {
             dsl.deleteFrom(CHAT)
                     .where(CHAT.ID.eq(chatId)).execute();
@@ -72,6 +72,7 @@ public class ChatRepositoryImpl implements ChatRepository {
 
     @Override
     public Set<Long> getMessages(Long chatId) {
+        log.info("Get messages from chat {}", chatId);
         return (Set<Long>) dsl.select(MESSAGE.ID)
                 .from(MESSAGE)
                 .where(MESSAGE.CHATID.eq(chatId))
