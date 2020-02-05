@@ -17,25 +17,25 @@ public class AdvertServiceImpl implements AdvertService {
 
     @Override
     public Long createAdvert(Advert advert) {
-        log.info("create advert "+ advert.getId());
+        log.info("Create advert: {}",  advert.getId());
         return repository.createAdvert(advert);
     }
 
     @Override
     public Advert updateAdvert(Advert advert) {
-        log.info("update advert "+ advert.getId());
+        log.info("Update advert: {}",  advert.getId());
         return repository.updateAdvert(advert);
     }
 
     @Override
     public Advert getAdvert(Long advertId) {
-        log.info("get advert "+advertId);
+        log.info("Get advert: {}", advertId);
         return repository.getAdvert(advertId);
     }
 
     @Override
     public boolean removeAdvert(Long advertId) {
-        log.info("remove advert "+ advertId);
+        log.info("Remove advert: {}",  advertId);
         return repository.removeAdvert(advertId);
     }
 }

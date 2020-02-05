@@ -17,21 +17,25 @@ public class AdvertController {
 
     @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE})
     public long create(@RequestBody Advert advert){
+        log.info("Create advert {}", advert.toString());
         return service.createAdvert(advert);
     }
 
-    @DeleteMapping("/{id}")
-    public boolean remove(@PathVariable("id") long id){
-        return service.removeAdvert(id);
+    @DeleteMapping("/{advertId}")
+    public boolean remove(@PathVariable("advertId") long advertId){
+        log.info("Remove advert {}", advertId);
+        return service.removeAdvert(advertId);
     }
 
     @PutMapping(consumes = {MediaType.APPLICATION_JSON_VALUE})
     public Advert update(@RequestBody Advert advert){
+        log.info("Update advert {}", advert.toString());
         return service.updateAdvert(advert);
     }
 
-    @GetMapping("/{id}")
-    public Advert get(@PathVariable("id") long id){
-        return service.getAdvert(id);
+    @GetMapping("/{advertId}")
+    public Advert get(@PathVariable("advertId") long advertId){
+        log.info("Get advert {}", advertId);
+        return service.getAdvert(advertId);
     }
 }

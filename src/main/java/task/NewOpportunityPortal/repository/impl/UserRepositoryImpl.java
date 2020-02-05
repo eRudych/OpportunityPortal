@@ -37,7 +37,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public User getUserById(Long userId) {
-        log.info("Select user by id"+userId);
+        log.info("Select user by id {}", userId);
         User user = dsl.selectFrom(USER)
                 .where(USER.ID.eq(userId))
                 .fetchOneInto(User.class);
@@ -48,7 +48,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public User getUserByLogin(String userLogin) {
-        log.info("Select user by id"+userLogin);
+        log.info("Select user by id {}", userLogin);
         User user = dsl.selectFrom(USER)
                 .where(USER.LOGIN.eq(userLogin))
                 .fetchOneInto(User.class);
