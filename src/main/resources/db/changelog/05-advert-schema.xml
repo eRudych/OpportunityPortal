@@ -1,0 +1,44 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    <changeSet author="root" id="05">
+        <createTable tableName="advert">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="creatorId" type="bigint">
+                <constraints nullable="false" unique="true" foreignKeyName="fk_advert_user" references="user(id)" />
+            </column>
+            <column name="categoryId" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_advert_category" references="category(id)"/>
+            </column>
+            <column name="workersId" type="bigint[]">
+                <constraints nullable="false"/>
+            </column>
+            <column name="subject" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="info" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="linkToDoc" type="varchar(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="statusId" type="bigint">
+                <constraints nullable="false" unique="true" foreignKeyName="fk_advert_status" references="status(id)" />
+            </column>
+            <column name="tagsId" type="bigint[]">
+                <constraints nullable="true"/>
+            </column>
+            <column name="amountOfMarks" type="bigint[]">
+                <constraints nullable="false"/>
+            </column>
+            <column name="averageMark" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
