@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Timestamp;
-import java.util.LinkedHashSet;
+import java.util.Set;
 
 import static task.NewOpportunityPortal.db.tables.Chat.CHAT;
 import static task.NewOpportunityPortal.db.tables.Message.MESSAGE;
@@ -33,24 +33,24 @@ public class ChatRepositoryImpl implements ChatRepository {
     
     @Override
     public Long createChat(Chat chat) {
-        log.info("create chat "+chat.getId());
+        log.info("Create chat: {}", chat.getId());
         return insert(chat);
     }
 
     @Override
     public Chat getChat(Long chatId) {
-        log.info("select chat "+chatId);
+        log.info("Select chat "+chatId);
         Chat chat = dsl.selectFrom(CHAT)
                 .where(CHAT.ID.eq(chatId))
                 .fetchOneInto(Chat.class);
-        log.info("set selected data "+chatId);
+        log.info("Set selected data "+chatId);
         chat.setCreateAt(dsl.select(CHAT.CREATED_AT).from(CHAT).where(CHAT.ID.eq(chatId)).fetchOneInto((Timestamp.class)));
         return chat;
     }
 
     @Override
     public Chat updateChat(Chat chat) {
-        log.info("update text chat "+chat.getId());
+        log.info("Update text chat "+chat.getId());
         return getChat((long) dsl.update(CHAT)
                 .set(CHAT.NAME, chat.getName())
                 .set(CHAT.USERSID, (Long[]) chat.getUsersId().toArray())
@@ -59,7 +59,7 @@ public class ChatRepositoryImpl implements ChatRepository {
 
     @Override
     public boolean removeChat(Long chatId) {
-        log.info("remove chat "+chatId);
+        log.info("Remove chat "+chatId);
         try {
             dsl.deleteFrom(CHAT)
                     .where(CHAT.ID.eq(chatId)).execute();
@@ -71,8 +71,8 @@ public class ChatRepositoryImpl implements ChatRepository {
     }
 
     @Override
-    public LinkedHashSet<Long> getMessages(Long chatId) {
-        return (LinkedHashSet<Long>) dsl.select(MESSAGE.ID)
+    public Set<Long> getMessages(Long chatId) {
+        return (Set<Long>) dsl.select(MESSAGE.ID)
                 .from(MESSAGE)
                 .where(MESSAGE.CHATID.eq(chatId))
                 .orderBy(MESSAGE.CREATED_AT).fetchSet(String.valueOf(Long.class));

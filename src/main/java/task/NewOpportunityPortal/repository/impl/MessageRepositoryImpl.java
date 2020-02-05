@@ -32,24 +32,24 @@ public class MessageRepositoryImpl implements MessageRepository {
 
     @Override
     public Long createMessage(Message message) {
-        log.info("create message "+message.getId());
+        log.info("Create message: {}", message.getId());
         return insert(message);
     }
 
     @Override
     public Message getMessage(Long messageId) {
-        log.info("select message "+messageId);
+        log.info("Select message: {}", messageId);
         Message message = dsl.selectFrom(MESSAGE)
                 .where(MESSAGE.ID.eq(messageId))
                 .fetchOneInto(Message.class);
-        log.info("set selected data "+messageId);
+        log.info("Set selected data: {}", messageId);
         message.setCreateAt(dsl.select(MESSAGE.CREATED_AT).from(MESSAGE).where(MESSAGE.ID.eq(messageId)).fetchOneInto((Timestamp.class)));
         return message;
     }
 
     @Override
     public Message updateMessage(Message message) {
-        log.info("update text message "+message.getId());
+        log.info("Update text message: {}", message.getId());
         return getMessage((long) dsl.update(MESSAGE)
                .set(MESSAGE.TEXT, message.getText())
                .where(MESSAGE.ID.eq(message.getId())).execute());
@@ -57,7 +57,7 @@ public class MessageRepositoryImpl implements MessageRepository {
 
     @Override
     public boolean removeMessage(Long messageId) {
-        log.info("remove message "+messageId);
+        log.info("Remove message: {}", messageId);
         try {
             dsl.deleteFrom(MESSAGE)
                     .where(MESSAGE.ID.eq(messageId)).execute();

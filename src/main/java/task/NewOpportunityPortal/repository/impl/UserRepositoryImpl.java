@@ -31,35 +31,35 @@ public class UserRepositoryImpl implements UserRepository {
     
     @Override
     public Long createUser(User user) {
-        log.info("create user "+user.getId());
+        log.info("Create user: {}", user.getId());
         return insert(user);
     }
 
     @Override
     public User getUserById(Long userId) {
-        log.info("select user by id"+userId);
+        log.info("Select user by id"+userId);
         User user = dsl.selectFrom(USER)
                 .where(USER.ID.eq(userId))
                 .fetchOneInto(User.class);
-        log.info("set selected data "+userId);
+        log.info("Set selected data: {}", userId);
         user.setCreateAt(dsl.select(USER.CREATED_AT).from(USER).where(USER.ID.eq(userId)).fetchOneInto(Timestamp.class));
         return user;
     }
 
     @Override
     public User getUserByLogin(String userLogin) {
-        log.info("select user by id"+userLogin);
+        log.info("Select user by id"+userLogin);
         User user = dsl.selectFrom(USER)
                 .where(USER.LOGIN.eq(userLogin))
                 .fetchOneInto(User.class);
-        log.info("set selected data "+userLogin);
+        log.info("Set selected data: {}", userLogin);
         user.setCreateAt(dsl.select(USER.CREATED_AT).from(USER).where(USER.LOGIN.eq(userLogin)).fetchOneInto(Timestamp.class));
         return user;
     }
 
     @Override
     public User updateUser(User user) {
-        log.info("update text user "+user.getId());
+        log.info("Update text user: {}", user.getId());
         return getUserById((long) dsl.update(USER)
                 .set(USER.LOGIN, user.getLogin())
                 .set(USER.NAME, user.getName())
@@ -70,7 +70,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public boolean removeUser(Long userId) {
-        log.info("remove user "+userId);
+        log.info("Remove user: {}", userId);
         try {
             dsl.deleteFrom(USER)
                     .where(USER.ID.eq(userId)).execute();
