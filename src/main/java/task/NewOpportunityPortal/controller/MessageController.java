@@ -17,21 +17,25 @@ public class MessageController {
 
     @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE})
     public long send(@RequestBody Message message){
+        log.info("Send message {}", message.toString());
         return service.createMessage(message);
     }
 
-    @DeleteMapping("/{id}")
-    public boolean remove(@PathVariable("id") long id){
-        return service.removeMessage(id);
+    @DeleteMapping("/{messageId}")
+    public boolean remove(@PathVariable("messageId") long messageId){
+        log.info("Remove message {}", messageId);
+        return service.removeMessage(messageId);
     }
 
     @PutMapping(consumes = {MediaType.APPLICATION_JSON_VALUE})
     public Message update(@RequestBody Message message){
+        log.info("Update message {}", message.toString());
         return service.updateMessage(message);
     }
 
-    @GetMapping("/{id}")
-    public Message get(@PathVariable("id") long id){
-        return service.getMessage(id);
+    @GetMapping("/{messageId}")
+    public Message get(@PathVariable("messageId") long messageId){
+        log.info("Get message {}", messageId);
+        return service.getMessage(messageId);
     }
 }

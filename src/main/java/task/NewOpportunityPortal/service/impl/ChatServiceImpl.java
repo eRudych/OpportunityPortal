@@ -20,26 +20,31 @@ public class ChatServiceImpl implements ChatService {
 
     @Override
     public Long createChat(Chat chat) {
+        log.info("Create chat: {}",  chat.getId());
         return repository.createChat(chat);
     }
 
     @Override
     public Chat getChat(Long chatId) {
+        log.info("Get chat: {}",  chatId);
         return repository.getChat(chatId);
     }
 
     @Override
     public Chat updateChat(Chat chat) {
+        log.info("Update chat: {}", chat.getId());
         return repository.updateChat(chat);
     }
 
     @Override
     public boolean removeChat(Long chatId) {
+        log.info("Remove chat: {}",  chatId);
         return repository.removeChat(chatId);
     }
 
     @Override
-    public LinkedHashSet<Long> getMessages(Long chatId) {
+    public Set<Long> getMessages(Long chatId) {
+        log.info("Get messages from chat: {}",  chatId);
         return repository.getMessages(chatId);
     }
 }

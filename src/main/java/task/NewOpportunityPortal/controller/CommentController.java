@@ -19,25 +19,31 @@ public class CommentController {
 
     @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE})
     public long send(@RequestBody Comment comment){
+        log.info("Send comment {}", comment.toString());
         return service.createComment(comment);
     }
 
-    @DeleteMapping("/{id}")
-    public boolean remove(@PathVariable("id") long id){
-        return service.removeComment(id);
+    @DeleteMapping("/{commentId}")
+    public boolean remove(@PathVariable("commentId") long commentId){
+        log.info("Remove comment {}", commentId);
+        return service.removeComment(commentId);
     }
 
     @PutMapping(consumes = {MediaType.APPLICATION_JSON_VALUE})
     public Comment update(@RequestBody Comment comment){
+        log.info("Update comment {}", comment.toString());
         return service.updateComment(comment);
     }
 
-    @GetMapping("/{id}")
-    public Comment get(@PathVariable("id") long id){
-        return service.getComment(id);
+    @GetMapping("/{commentId}")
+    public Comment get(@PathVariable("commentId") long commentId){
+        log.info("Get comment {}", commentId);
+        return service.getComment(commentId);
     }
 
     @GetMapping("/advert/{advertId}")
-    public List<Comment> getCommentAdverts(@PathVariable("advertId") long advertId){ return service.getCommentAdverts(advertId); }
+    public List<Comment> getCommentAdverts(@PathVariable("advertId") long advertId){
+        log.info("Get comment adverts {}", advertId);
+        return service.getCommentAdverts(advertId); }
 
 }

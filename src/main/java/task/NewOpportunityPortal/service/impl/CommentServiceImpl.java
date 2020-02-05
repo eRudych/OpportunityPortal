@@ -19,30 +19,30 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public Long createComment(Comment comment) {
-        log.info("create comment "+comment.getId());
+        log.info("Create comment: {}", comment.getId());
         return repository.createComment(comment);
     }
 
     @Override
     public Comment getComment(Long commentId) {
-        log.info("get comment "+commentId);
+        log.info("Get comment: {}", commentId);
         return repository.getComment(commentId);
     }
 
     @Override
     public Comment updateComment(Comment comment) {
-        log.info("update comment "+comment.getId());
+        log.info("Update comment: {}", comment.getId());
         return repository.updateComment(comment);
     }
 
     @Override
     public boolean removeComment(Long commentId) {
-        log.info("remove comment "+commentId);
+        log.info("Remove comment: {}", commentId);
         return repository.removeComment(commentId);
     }
     @Override
     public List<Comment> getCommentAdverts(Long advertId){
-        log.info("get comment adverts "+advertId);
+        log.info("Get comment adverts: {}", advertId);
         return repository.getCommentAdverts(advertId);
     };
 }

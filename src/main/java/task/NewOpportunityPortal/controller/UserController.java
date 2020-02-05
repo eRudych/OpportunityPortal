@@ -18,21 +18,25 @@ public class UserController {
 
     @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE})
     public long create(@RequestBody User user){
+        log.info("Create user {}", user.toString());
         return service.createUser(user);
     }
 
-    @DeleteMapping("/{id}")
-    public boolean remove(@PathVariable("id") long id){
-        return service.removeUser(id);
+    @DeleteMapping("/{userId}")
+    public boolean remove(@PathVariable("userId") long userId){
+        log.info("Remove user {}", userId);
+        return service.removeUser(userId);
     }
 
     @PutMapping(consumes = {MediaType.APPLICATION_JSON_VALUE})
-    public User update(@RequestBody User User){
-        return service.updateUser(User);
+    public User update(@RequestBody User user){
+        log.info("Update user {}", user.toString());
+        return service.updateUser(user);
     }
 
-    @GetMapping("/{id}")
-    public User get(@PathVariable("id") long id){
-        return service.getUserById(id);
+    @GetMapping("/{userId}")
+    public User get(@PathVariable("userId") long userId){
+        log.info("Get user {}", userId);
+        return service.getUserById(userId);
     }
 }

@@ -33,24 +33,24 @@ public class AdvertRepositoryImpl implements AdvertRepository {
 
     @Override
     public Long createAdvert(Advert advert) {
-        log.info("create advert "+advert.getId());
+        log.info("Create advert: {}", advert.getId());
         return insert(advert);
     }
 
     @Override
     public Advert getAdvert(Long advertId) {
-        log.info("select advert "+advertId);
+        log.info("Select advert: {}", advertId);
         Advert advert = dsl.selectFrom(ADVERT)
                 .where(ADVERT.ID.eq(advertId))
                 .fetchOneInto(Advert.class);
-        log.info("set selected data "+advertId);
+        log.info("Set selected data: {}", advertId);
         advert.setCreateAt(dsl.select(ADVERT.CREATED_AT).from(ADVERT).where(ADVERT.ID.eq(advertId)).fetchOneInto((Timestamp.class)));
         return advert;
     }
 
     @Override
     public Advert updateAdvert(Advert advert) {
-        log.info("update text advert "+advert.getId());
+        log.info("Update text advert: {}", advert.getId());
         return getAdvert((long) dsl.update(ADVERT)
                 .set(ADVERT.INFO, advert.getInfo())
                 .set(ADVERT.SUBJECT, advert.getSubject())
@@ -65,7 +65,7 @@ public class AdvertRepositoryImpl implements AdvertRepository {
 
     @Override
     public boolean removeAdvert(Long advertId) {
-        log.info("remove advert "+advertId);
+        log.info("Remove advert: {}", advertId);
         try {
             dsl.deleteFrom(ADVERT)
                     .where(ADVERT.ID.eq(advertId)).execute();

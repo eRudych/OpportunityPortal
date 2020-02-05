@@ -17,25 +17,25 @@ public class MessageServiceImpl implements MessageService{
 
     @Override
     public Long createMessage(Message message) {
-        log.info("create message "+message.getId());
+        log.info("Create message: {}", message.getId());
         return repository.createMessage(message);
     }
 
     @Override
     public Message getMessage(Long userId) {
-        log.info("get message "+userId);
+        log.info("Get message: {}", userId);
         return repository.getMessage(userId);
     }
 
     @Override
     public Message updateMessage(Message message) {
-        log.info("update message "+message.getId());
+        log.info("Update message: {}", message.getId());
         return repository.updateMessage(message);
     }
 
     @Override
     public boolean removeMessage(Long userId) {
-        log.info("remove message "+userId);
+        log.info("Remove message: {}", userId);
         return repository.removeMessage(userId);
     }
 }
