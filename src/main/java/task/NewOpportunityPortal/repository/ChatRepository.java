@@ -2,7 +2,7 @@ package task.NewOpportunityPortal.repository;
 
 import task.NewOpportunityPortal.entity.Chat;
 
-import java.util.LinkedHashSet;
+import java.util.Set;
 
 
 public interface ChatRepository {
@@ -15,5 +15,5 @@ public interface ChatRepository {
 
     boolean removeChat(Long chatId);
 
-    LinkedHashSet<Long> getMessages(Long chatId);
+    Set<Long> getMessages(Long chatId);
 }

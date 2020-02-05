@@ -32,24 +32,24 @@ public class CommentRepositoryImpl implements CommentRepository {
     
     @Override
     public Long createComment(Comment comment) {
-        log.info("create comment "+comment.getId());
+        log.info("Create comment: {}", comment.getId());
         return insert(comment);
     }
 
     @Override
     public Comment getComment(Long commentId) {
-        log.info("select comment "+commentId);
+        log.info("Select comment: {}", commentId);
         Comment comment = dsl.selectFrom(COMMENT)
                 .where(COMMENT.ID.eq(commentId))
                 .fetchOneInto(Comment.class);
-        log.info("set selected data "+commentId);
+        log.info("Set selected data: {}", commentId);
         comment.setCreteAt(dsl.select(COMMENT.CREATED_AT).from(COMMENT).where(COMMENT.ID.eq(commentId)).fetchOneInto((Timestamp.class)));
         return comment;
     }
 
     @Override
     public Comment updateComment(Comment comment) {
-        log.info("update text comment "+comment.getId());
+        log.info("Update text comment: {}", comment.getId());
         return getComment((long) dsl.update(COMMENT)
                 .set(COMMENT.TEXT, comment.getText())
                 .where(COMMENT.ID.eq(comment.getId())).execute());
@@ -57,7 +57,7 @@ public class CommentRepositoryImpl implements CommentRepository {
 
     @Override
     public boolean removeComment(Long commentId) {
-        log.info("remove comment "+commentId);
+        log.info("Remove comment: {}", commentId);
         try {
             dsl.deleteFrom(COMMENT)
                     .where(COMMENT.ID.eq(commentId)).execute();
@@ -70,7 +70,7 @@ public class CommentRepositoryImpl implements CommentRepository {
 
     @Override
     public List<Comment> getCommentAdverts(Long advertId){
-        log.info("get comment adverts "+advertId);
+        log.info("Get comment adverts: {}", advertId);
         return dsl.selectFrom(COMMENT)
                 .orderBy(COMMENT.ID.desc())
                 .fetch(r -> {
