@@ -2,6 +2,7 @@ package task.NewOpportunityPortal.service;
 
 import task.NewOpportunityPortal.entity.Chat;
 
+import java.util.List;
 import java.util.Set;
 
 public interface ChatService {
@@ -14,5 +15,5 @@ public interface ChatService {
 
     boolean removeChat(Long chatId);
 
-    Set<Long> getMessages(Long chatId);
+    List<Long> getMessages(Long chatId);
 }

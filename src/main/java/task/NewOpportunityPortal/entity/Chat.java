@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.sql.Timestamp;
-import java.util.LinkedHashSet;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -15,6 +15,6 @@ public class Chat {
     private Long creatorId;
     private Long advertId;
     private String name;
-    private LinkedHashSet<Long> usersId;
+    private List<Long> usersId;
     private Timestamp createAt;
 }

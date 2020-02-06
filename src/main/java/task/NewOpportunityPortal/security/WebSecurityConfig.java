@@ -28,9 +28,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/", "/welcome","/adverts","/users/**","/comments/**").permitAll()
-                .antMatchers("/chats","/messages").authenticated()
-                .antMatchers("/getEmployees").hasAnyRole( "ADMIN")
+                .antMatchers("/", "/welcome","/adverts/*","/users/*","/comments/*").permitAll()
+                .antMatchers("/chats/*","/messages/*","/users/**").hasAnyRole( "USER", "ADMIN")
+                .antMatchers("/admin").hasAnyRole( "ADMIN")
                 .and().formLogin().loginPage("/login").permitAll()
                 .and().logout().permitAll()
                 .and().logout().logoutSuccessUrl("/welcome").deleteCookies("JSESSIONID")
