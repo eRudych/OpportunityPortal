@@ -23,7 +23,7 @@ public class CommentRepositoryImpl implements CommentRepository {
 
     private Long insert(Comment comment) {
         CommentRecord commentsRecord = dsl.insertInto(COMMENT, COMMENT.CREATORID, COMMENT.ADVERTID, COMMENT.TEXT, COMMENT.CREATED_AT)
-                .values(comment.getCreatorId(), comment.getAdvertId(), comment.getText(), comment.getCreteAt())
+                .values(comment.getCreatorId(), comment.getAdvertId(), comment.getText(), comment.getCreateAt())
                 .returning(COMMENT.ID)
                 .fetchOne();
         log.info("Insert into db: {}", comment.toString());
@@ -43,7 +43,7 @@ public class CommentRepositoryImpl implements CommentRepository {
                 .where(COMMENT.ID.eq(commentId))
                 .fetchOneInto(Comment.class);
         log.info("Set selected data: {}", commentId);
-        comment.setCreteAt(dsl.select(COMMENT.CREATED_AT).from(COMMENT).where(COMMENT.ID.eq(commentId)).fetchOneInto((Timestamp.class)));
+        comment.setCreateAt(dsl.select(COMMENT.CREATED_AT).from(COMMENT).where(COMMENT.ID.eq(commentId)).fetchOneInto((Timestamp.class)));
         return comment;
     }
 

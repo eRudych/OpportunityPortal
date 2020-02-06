@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -20,6 +21,9 @@ public class ChatServiceImpl implements ChatService {
 
     @Override
     public Long createChat(Chat chat) {
+        Date now = new java.util.Date();
+        log.info("Set time creates: {}",  now);
+        chat.setCreateAt(new java.sql.Timestamp(now.getTime()));
         log.info("Create chat: {}",  chat.getId());
         return repository.createChat(chat);
     }

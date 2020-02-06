@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -19,6 +20,9 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public Long createComment(Comment comment) {
+        Date now = new java.util.Date();
+        log.info("Set time creates: {}",  now);
+        comment.setCreateAt(new java.sql.Timestamp(now.getTime()));
         log.info("Create comment: {}", comment.getId());
         return repository.createComment(comment);
     }

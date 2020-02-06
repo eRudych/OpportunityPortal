@@ -8,6 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 @Slf4j
@@ -17,6 +19,9 @@ public class MessageServiceImpl implements MessageService{
 
     @Override
     public Long createMessage(Message message) {
+        Date now = new java.util.Date();
+        log.info("Set time creates: {}",  now);
+        message.setCreateAt(new java.sql.Timestamp(now.getTime()));
         log.info("Create message: {}", message.getId());
         return repository.createMessage(message);
     }

@@ -14,5 +14,5 @@ public class Comment {
     private Long creatorId;
     private Long advertId;
     private String text;
-    private Timestamp creteAt;
+    private Timestamp createAt;
 }
