@@ -3,6 +3,7 @@ package task.NewOpportunityPortal.cryp;
 
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.codec.binary.Base64;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.BadPaddingException;
@@ -18,7 +19,8 @@ import java.security.NoSuchAlgorithmException;
 @Component
 public class EncryptDecrypt {
 
-    private String secretKey=System.getenv("SECRET_KEY");
+    @Value("#{environment.SECRET_KEY}")
+    private String secretKey;
 
     private SecretKeySpec secretKeySpec;
     private Cipher cipher;
