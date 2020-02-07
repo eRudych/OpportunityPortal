@@ -16,5 +16,5 @@ public interface ChatRepository {
 
     List<Long> getMessages(Long chatId);
 
-    List getAllAvailChats(Long userId);
+    List<Long> getAllAvailChats(Long userId);
 }

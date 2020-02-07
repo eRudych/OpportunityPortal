@@ -8,7 +8,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
-import task.NewOpportunityPortal.service.impl.UserServiceImpl;
+import task.NewOpportunityPortal.service.UserService;
 
 import java.util.Collections;
 
@@ -16,7 +16,7 @@ import java.util.Collections;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
-    private final UserServiceImpl service;
+    private final UserService service;
 
     @Override
     public Authentication authenticate(Authentication auth) {

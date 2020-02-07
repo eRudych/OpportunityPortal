@@ -1,7 +1,7 @@
 package task.NewOpportunityPortal.service;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import task.NewOpportunityPortal.entity.User;
 
 import java.util.List;
@@ -18,5 +18,7 @@ public interface UserService {
 
     boolean removeUser(Long userId);
 
-    List getAllAvailChats(Long userId);
+    List<Long> getAllAvailChats(Long userId);
+
+    UserDetails loadUserByUsername(String login);
 }

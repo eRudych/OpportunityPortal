@@ -15,6 +15,7 @@ import javax.crypto.NoSuchPaddingException;
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 import java.util.Date;
 
 @Service
@@ -33,27 +34,23 @@ public class MessageServiceImpl implements MessageService{
         try {
             log.info("Encoder message");
             message.setText(encryptDecrypt.encrypt(message.getText()));
-        } catch (BadPaddingException | IllegalBlockSizeException e) {
-            log.error(e.getMessage());
-        } catch (NoSuchAlgorithmException | InvalidKeyException | NoSuchPaddingException | UnsupportedEncodingException e) {
-            e.printStackTrace();
+        } catch (BadPaddingException | IllegalBlockSizeException | NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | UnsupportedEncodingException e) {
+            log.error(Arrays.toString(e.getStackTrace()));
         }
         log.info("Create message: {}", message.getId());
         return repository.createMessage(message);
     }
 
     @Override
-    public Message getMessage(Long userId) {
-        log.info("Get message: {}", userId);
-        Message message = repository.getMessage(userId);
+    public Message getMessage(Long messageId) {
+        log.info("Get message: {}", messageId);
+        Message message = repository.getMessage(messageId);
         log.info("Encoder message");
         try {
             log.info("Encoder message");
             message.setText(encryptDecrypt.decrypt(message.getText()));
-        } catch (BadPaddingException | IllegalBlockSizeException e) {
-            log.error(e.getMessage());
-        } catch (NoSuchAlgorithmException | InvalidKeyException | NoSuchPaddingException | UnsupportedEncodingException e) {
-            e.printStackTrace();
+        } catch (BadPaddingException | IllegalBlockSizeException | NoSuchAlgorithmException | InvalidKeyException | NoSuchPaddingException | UnsupportedEncodingException e) {
+            log.error(Arrays.toString(e.getStackTrace()));
         }
         return message;
     }
@@ -65,8 +62,8 @@ public class MessageServiceImpl implements MessageService{
     }
 
     @Override
-    public boolean removeMessage(Long userId) {
-        log.info("Remove message: {}", userId);
-        return repository.removeMessage(userId);
+    public boolean removeMessage(Long messageId) {
+        log.info("Remove message: {}", messageId);
+        return repository.removeMessage(messageId);
     }
 }

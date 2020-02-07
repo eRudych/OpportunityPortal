@@ -2,15 +2,11 @@ package task.NewOpportunityPortal.service;
 
 import task.NewOpportunityPortal.entity.Message;
 
-import javax.crypto.BadPaddingException;
-import javax.crypto.IllegalBlockSizeException;
-import java.util.List;
-
 public interface MessageService {
 
-    Long createMessage(Message message) throws BadPaddingException, IllegalBlockSizeException;
+    Long createMessage(Message message);
 
-    Message getMessage(Long messageId) throws BadPaddingException, IllegalBlockSizeException;
+    Message getMessage(Long messageId);
 
     Message updateMessage(Message message);
 
