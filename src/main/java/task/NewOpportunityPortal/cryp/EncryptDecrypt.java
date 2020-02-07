@@ -3,7 +3,6 @@ package task.NewOpportunityPortal.cryp;
 
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.codec.binary.Base64;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.BadPaddingException;
@@ -15,11 +14,11 @@ import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 @Component
 public class EncryptDecrypt {
 
-    private static final String SECRET_KEY="${secret.key}";
+    private String secretKey=System.getenv("SECRET_KEY");
 
     private SecretKeySpec secretKeySpec;
     private Cipher cipher;
@@ -27,7 +26,7 @@ public class EncryptDecrypt {
 
     public String encrypt(String toBeEncrypt) throws BadPaddingException, IllegalBlockSizeException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException {
         cipher = Cipher.getInstance("AES");
-        secretKeySpec = new SecretKeySpec(SECRET_KEY.getBytes(StandardCharsets.UTF_8), "AES");
+        secretKeySpec = new SecretKeySpec(secretKey.getBytes(StandardCharsets.UTF_8), "AES");
         cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec);
         byte[] encrypted = cipher.doFinal(toBeEncrypt.getBytes());
         return Base64.encodeBase64String(encrypted);
@@ -35,7 +34,7 @@ public class EncryptDecrypt {
 
     public String decrypt(String encrypted) throws BadPaddingException, IllegalBlockSizeException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException {
         cipher = Cipher.getInstance("AES");
-        secretKeySpec = new SecretKeySpec(SECRET_KEY.getBytes(StandardCharsets.UTF_8), "AES");
+        secretKeySpec = new SecretKeySpec(secretKey.getBytes(StandardCharsets.UTF_8), "AES");
         cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec);
         byte[] decryptedBytes = cipher.doFinal(Base64.decodeBase64(encrypted));
         return new String(decryptedBytes);
