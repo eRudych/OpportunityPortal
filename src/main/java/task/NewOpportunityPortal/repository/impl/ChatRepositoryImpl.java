@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Timestamp;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class ChatRepositoryImpl implements ChatRepository {
 
     private Long insert(Chat chat) {
         ChatRecord chatsRecord = dsl.insertInto(CHAT, CHAT.CREATORID, CHAT.ADVERTID, CHAT.NAME, CHAT.USERSID,CHAT.CREATED_AT)
-                .values(chat.getCreatorId(), chat.getAdvertId(), chat.getName(), (Long[]) chat.getUsersId().toArray(), chat.getCreateAt())
+                .values(chat.getCreatorId(), chat.getAdvertId(), chat.getName(), chat.getUsersId().toArray(new Long[chat.getUsersId().size()]), chat.getCreateAt())
                 .returning(CHAT.ID)
                 .fetchOne();
         log.info("Insert into db: {}", chat.toString());
@@ -54,7 +55,7 @@ public class ChatRepositoryImpl implements ChatRepository {
         log.info("Update text chat {}", chat.getId());
         return getChat((long) dsl.update(CHAT)
                 .set(CHAT.NAME, chat.getName())
-                .set(CHAT.USERSID, (Long[]) chat.getUsersId().toArray())
+                .set(CHAT.USERSID, chat.getUsersId().toArray(new Long[chat.getUsersId().size()]))
                 .where(CHAT.ID.eq(chat.getId())).execute());
     }
 
@@ -84,7 +85,7 @@ public class ChatRepositoryImpl implements ChatRepository {
     public List<Long> getAllAvailChats(Long userId) {
         log.info("Get all avail chats for user: {}", userId);
         return dsl.select(CHAT.ID).from(CHAT)
-                .where(CHAT.USERSID.in(Collections.singleton(userId)))
+                .where(CHAT.USERSID.in(new Long[]{userId}))
                 .fetch(r->(r.get(0, Long.class)));
     }
 }

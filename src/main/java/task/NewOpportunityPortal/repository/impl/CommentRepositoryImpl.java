@@ -72,9 +72,8 @@ public class CommentRepositoryImpl implements CommentRepository {
     public List<Comment> getCommentAdverts(Long advertId){
         log.info("Get comment adverts: {}", advertId);
         return dsl.selectFrom(COMMENT)
+                .where(COMMENT.ADVERTID.eq(advertId))
                 .orderBy(COMMENT.ID.desc())
-                .fetch(r -> {
-                    return new Comment(r.get(0, Long.class), r.get(1, Long.class), r.get(2, Long.class), r.get(3, String.class), r.get(4, Timestamp.class));
-                });
+                .fetch(r -> new Comment(r.get(0, Long.class), r.get(1, Long.class), r.get(2, Long.class), r.get(3, String.class), r.get(4, Timestamp.class)));
     }
 }
