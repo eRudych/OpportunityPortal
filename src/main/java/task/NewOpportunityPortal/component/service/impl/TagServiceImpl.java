@@ -2,7 +2,6 @@ package task.NewOpportunityPortal.component.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import task.NewOpportunityPortal.component.entity.Tag;
 import task.NewOpportunityPortal.component.repository.TagRepository;
@@ -11,7 +10,7 @@ import task.NewOpportunityPortal.component.service.TagService;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 @Slf4j
 public class TagServiceImpl implements TagService {
 

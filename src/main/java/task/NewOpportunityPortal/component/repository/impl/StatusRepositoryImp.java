@@ -3,7 +3,6 @@ package task.NewOpportunityPortal.component.repository.impl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jooq.DSLContext;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import task.NewOpportunityPortal.component.entity.Status;
 import task.NewOpportunityPortal.component.repository.StatusRepository;
@@ -14,7 +13,7 @@ import java.util.List;
 import static task.NewOpportunityPortal.db.tables.Status.STATUS;
 
 @Repository
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 @Slf4j
 public class StatusRepositoryImp implements StatusRepository {
 
