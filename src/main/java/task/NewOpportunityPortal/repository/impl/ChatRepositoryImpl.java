@@ -10,7 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Timestamp;
-import java.util.Set;
+import java.util.Collections;
+import java.util.List;
 
 import static task.NewOpportunityPortal.db.tables.Chat.CHAT;
 import static task.NewOpportunityPortal.db.tables.Message.MESSAGE;
@@ -71,11 +72,19 @@ public class ChatRepositoryImpl implements ChatRepository {
     }
 
     @Override
-    public Set<Long> getMessages(Long chatId) {
+    public List<Long> getMessages(Long chatId) {
         log.info("Get messages from chat {}", chatId);
-        return (Set<Long>) dsl.select(MESSAGE.ID)
-                .from(MESSAGE)
+        return dsl.selectFrom(MESSAGE)
                 .where(MESSAGE.CHATID.eq(chatId))
-                .orderBy(MESSAGE.CREATED_AT).fetchSet(String.valueOf(Long.class));
+                .orderBy(MESSAGE.CREATED_AT)
+                .fetch(r -> (r.get(0, Long.class)));
+    }
+
+    @Override
+    public List<Long> getAllAvailChats(Long userId) {
+        log.info("Get all avail chats for user: {}", userId);
+        return dsl.select(CHAT.ID).from(CHAT)
+                .where(CHAT.USERSID.in(Collections.singleton(userId)))
+                .fetch(r->(r.get(0, Long.class)));
     }
 }

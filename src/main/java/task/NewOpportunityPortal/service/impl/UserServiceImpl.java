@@ -1,6 +1,11 @@
 package task.NewOpportunityPortal.service.impl;
 
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import task.NewOpportunityPortal.entity.User;
+import task.NewOpportunityPortal.repository.ChatRepository;
 import task.NewOpportunityPortal.repository.UserRepository;
 import task.NewOpportunityPortal.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -9,13 +14,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 @Slf4j
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, UserDetailsService {
 
     private final UserRepository repository;
+    private final ChatRepository chatRepository;
 
     @Override
     public Long createUser(User user) {
@@ -49,4 +56,19 @@ public class UserServiceImpl implements UserService {
         log.info("Remove user: {}", userId);
         return repository.removeUser(userId);
     }
+
+    @Override
+    public List<Long> getAllAvailChats(Long userId) {
+        log.info("Get all available chats for user: {}", userId);
+        return chatRepository.getAllAvailChats(userId);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
+        UserDetails user = getUserByLogin(login);
+        org.springframework.security.core.userdetails.User.UserBuilder builder;
+        builder = org.springframework.security.core.userdetails.User.withUsername(user.getUsername());
+        builder.password(new BCryptPasswordEncoder().encode(user.getPassword()));
+        builder.roles("USER");
+        return builder.build();    }
 }

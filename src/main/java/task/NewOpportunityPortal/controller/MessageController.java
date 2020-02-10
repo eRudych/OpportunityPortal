@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.*;
 import task.NewOpportunityPortal.entity.Message;
 import task.NewOpportunityPortal.service.MessageService;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+
 @RestController
 @RequestMapping(value = "/messages")
 @RequiredArgsConstructor
@@ -16,7 +19,7 @@ public class MessageController {
     private final MessageService service;
 
     @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE})
-    public long send(@RequestBody Message message){
+    public long send(@RequestBody Message message) throws BadPaddingException, IllegalBlockSizeException {
         log.info("Send message {}", message.toString());
         return service.createMessage(message);
     }
@@ -34,7 +37,7 @@ public class MessageController {
     }
 
     @GetMapping("/{messageId}")
-    public Message get(@PathVariable("messageId") long messageId){
+    public Message get(@PathVariable("messageId") long messageId) throws BadPaddingException, IllegalBlockSizeException {
         log.info("Get message {}", messageId);
         return service.getMessage(messageId);
     }

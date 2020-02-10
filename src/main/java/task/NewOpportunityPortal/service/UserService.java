@@ -1,6 +1,10 @@
 package task.NewOpportunityPortal.service;
 
+import org.springframework.security.core.userdetails.UserDetails;
+
 import task.NewOpportunityPortal.entity.User;
+
+import java.util.List;
 
 public interface UserService {
 
@@ -13,4 +17,8 @@ public interface UserService {
     User updateUser(User user);
 
     boolean removeUser(Long userId);
+
+    List<Long> getAllAvailChats(Long userId);
+
+    UserDetails loadUserByUsername(String login);
 }

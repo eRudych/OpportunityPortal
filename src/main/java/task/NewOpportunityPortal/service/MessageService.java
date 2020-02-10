@@ -6,9 +6,9 @@ public interface MessageService {
 
     Long createMessage(Message message);
 
-    Message getMessage(Long userId);
+    Message getMessage(Long messageId);
 
     Message updateMessage(Message message);
 
-    boolean removeMessage(Long userId);
+    boolean removeMessage(Long messageId);
 }

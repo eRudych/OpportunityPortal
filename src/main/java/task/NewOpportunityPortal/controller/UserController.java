@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import task.NewOpportunityPortal.entity.User;
 import task.NewOpportunityPortal.service.UserService;
 
+import java.util.List;
+
 
 @RestController
 @RequestMapping(value = "/users")
@@ -38,5 +40,11 @@ public class UserController {
     public User get(@PathVariable("userId") long userId){
         log.info("Get user {}", userId);
         return service.getUserById(userId);
+    }
+
+    @GetMapping("/{userId}/chats")
+    public List getAllAvailChats(@PathVariable("userId") long userId){
+        log.info("Get user {}", userId);
+        return service.getAllAvailChats(userId);
     }
 }

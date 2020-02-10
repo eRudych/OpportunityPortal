@@ -6,8 +6,8 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
-import task.NewOpportunityPortal.entity.User;
 import task.NewOpportunityPortal.service.UserService;
 
 import java.util.Collections;
@@ -23,8 +23,8 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         String login = auth.getName();
         String password = auth.getCredentials()
                 .toString();
-        User user=service.getUserByLogin(login);
-        if (user.getLogin().equals(login) && user.getPassword().equals(password)) {
+        UserDetails user=service.loadUserByUsername(login);
+        if (user.getUsername().equals(login) && user.getPassword().equals(password)) {
             return new UsernamePasswordAuthenticationToken
                     (login, password, Collections.emptyList());
         } else {

@@ -2,6 +2,8 @@ package task.NewOpportunityPortal.repository;
 
 import task.NewOpportunityPortal.entity.User;
 
+import java.util.List;
+
 public interface UserRepository {
 
     Long createUser(User user);

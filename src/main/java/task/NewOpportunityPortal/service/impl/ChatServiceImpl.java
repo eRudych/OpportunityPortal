@@ -9,8 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
@@ -47,7 +46,7 @@ public class ChatServiceImpl implements ChatService {
     }
 
     @Override
-    public Set<Long> getMessages(Long chatId) {
+    public List<Long> getMessages(Long chatId) {
         log.info("Get messages from chat: {}",  chatId);
         return repository.getMessages(chatId);
     }
