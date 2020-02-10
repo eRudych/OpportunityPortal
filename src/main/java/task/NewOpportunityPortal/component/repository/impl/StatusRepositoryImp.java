@@ -1,13 +1,13 @@
-package task.NewOpportunityPortal.repository.impl;
+package task.NewOpportunityPortal.component.repository.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jooq.DSLContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import task.NewOpportunityPortal.component.entity.Status;
+import task.NewOpportunityPortal.component.repository.StatusRepository;
 import task.NewOpportunityPortal.db.tables.records.StatusRecord;
-import task.NewOpportunityPortal.entity.Status;
-import task.NewOpportunityPortal.repository.StatusRepository;
 
 import java.util.List;
 

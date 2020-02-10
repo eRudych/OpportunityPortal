@@ -1,13 +1,13 @@
-package task.NewOpportunityPortal.repository.impl;
+package task.NewOpportunityPortal.component.repository.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jooq.DSLContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import task.NewOpportunityPortal.component.entity.Category;
+import task.NewOpportunityPortal.component.repository.CategoryRepository;
 import task.NewOpportunityPortal.db.tables.records.CategoryRecord;
-import task.NewOpportunityPortal.entity.Category;
-import task.NewOpportunityPortal.repository.CategoryRepository;
 
 import java.util.List;
 

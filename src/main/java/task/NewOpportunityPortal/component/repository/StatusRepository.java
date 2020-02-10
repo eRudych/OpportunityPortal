@@ -1,6 +1,6 @@
-package task.NewOpportunityPortal.repository;
+package task.NewOpportunityPortal.component.repository;
 
-import task.NewOpportunityPortal.entity.Status;
+import task.NewOpportunityPortal.component.entity.Status;
 
 import java.util.List;
 

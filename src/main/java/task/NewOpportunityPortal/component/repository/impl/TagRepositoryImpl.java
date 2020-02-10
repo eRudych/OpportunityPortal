@@ -1,13 +1,13 @@
-package task.NewOpportunityPortal.repository.impl;
+package task.NewOpportunityPortal.component.repository.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jooq.DSLContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import task.NewOpportunityPortal.component.entity.Tag;
+import task.NewOpportunityPortal.component.repository.TagRepository;
 import task.NewOpportunityPortal.db.tables.records.TagRecord;
-import task.NewOpportunityPortal.entity.Tag;
-import task.NewOpportunityPortal.repository.TagRepository;
 
 import java.util.List;
 
