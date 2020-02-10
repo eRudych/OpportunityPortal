@@ -5,14 +5,13 @@ import task.NewOpportunityPortal.repository.ChatRepository;
 import task.NewOpportunityPortal.service.ChatService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 @Slf4j
 public class ChatServiceImpl implements ChatService {
 

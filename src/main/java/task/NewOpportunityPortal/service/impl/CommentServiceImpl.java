@@ -5,14 +5,13 @@ import task.NewOpportunityPortal.repository.CommentRepository;
 import task.NewOpportunityPortal.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 @Slf4j
 public class CommentServiceImpl implements CommentService {
 

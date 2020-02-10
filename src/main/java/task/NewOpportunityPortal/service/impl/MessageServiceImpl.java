@@ -6,7 +6,6 @@ import task.NewOpportunityPortal.repository.MessageRepository;
 import task.NewOpportunityPortal.service.MessageService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.BadPaddingException;
@@ -17,7 +16,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 
 @Service
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 @Slf4j
 public class MessageServiceImpl implements MessageService{
 

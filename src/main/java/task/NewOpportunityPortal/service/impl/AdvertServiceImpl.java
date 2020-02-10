@@ -5,13 +5,12 @@ import task.NewOpportunityPortal.repository.AdvertRepository;
 import task.NewOpportunityPortal.service.AdvertService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 
 @Service
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 @Slf4j
 public class AdvertServiceImpl implements AdvertService {
 

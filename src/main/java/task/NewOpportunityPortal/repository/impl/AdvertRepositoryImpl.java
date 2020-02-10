@@ -6,7 +6,6 @@ import task.NewOpportunityPortal.entity.Advert;
 import task.NewOpportunityPortal.repository.AdvertRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Timestamp;
@@ -14,7 +13,7 @@ import java.sql.Timestamp;
 import static task.NewOpportunityPortal.db.tables.Advert.ADVERT;
 
 @Repository
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 @Slf4j
 public class AdvertRepositoryImpl implements AdvertRepository {
 
