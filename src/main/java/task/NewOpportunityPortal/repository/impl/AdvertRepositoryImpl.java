@@ -23,8 +23,17 @@ public class AdvertRepositoryImpl implements AdvertRepository {
     private Long insert(Advert advert) {
         AdvertRecord advertsRecord = dsl.insertInto(ADVERT, ADVERT.CREATORID, ADVERT.CATEGORYID, ADVERT.SUBJECT, ADVERT.INFO, ADVERT.STATUSID, ADVERT.LINKTODOC,
                 ADVERT.AVERAGEMARK, ADVERT.AMOUNTOFMARKS, ADVERT.WORKERSID, ADVERT.TAGSID, ADVERT.CREATED_AT)
-                .values(advert.getCreatorId(), advert.getCategoryId(),advert.getSubject(), advert.getInfo(), advert.getStatusId(), advert.getLinkToDocument(),
-                        Long.valueOf(advert.getMark()), (Long [])advert.getWorkersHowCheckMark().toArray(), (Long [])advert.getWorkersId().toArray(), (Long [])advert.getTagsId().toArray(), advert.getCreateAt())
+                .values(advert.getCreatorId(),
+                        advert.getCategoryId(),
+                        advert.getSubject(),
+                        advert.getInfo(),
+                        advert.getStatusId(),
+                        advert.getLinkToDocument(),
+                        advert.getMark(),
+                        advert.getWorkersHowCheckMark().toArray(new Long[advert.getWorkersHowCheckMark().size()]),
+                        advert.getWorkersId().toArray(new Long[advert.getWorkersId().size()]),
+                        advert.getTagsId().toArray(new Long[advert.getTagsId().size()]),
+                        advert.getCreateAt())
                 .returning(ADVERT.ID)
                 .fetchOne();
         log.info("Insert into db: {}", advert.toString());
@@ -56,10 +65,10 @@ public class AdvertRepositoryImpl implements AdvertRepository {
                 .set(ADVERT.SUBJECT, advert.getSubject())
                 .set(ADVERT.STATUSID, advert.getStatusId())
                 .set(ADVERT.LINKTODOC, advert.getLinkToDocument())
-                .set(ADVERT.AMOUNTOFMARKS, (Long [])advert.getWorkersHowCheckMark().toArray())
-                .set(ADVERT.AVERAGEMARK, Long.valueOf(advert.getMark()))
-                .set(ADVERT.TAGSID, (Long [])advert.getTagsId().toArray())
-                .set(ADVERT.WORKERSID, (Long [])advert.getWorkersId().toArray())
+                .set(ADVERT.AMOUNTOFMARKS, advert.getWorkersHowCheckMark().toArray(new Long[advert.getWorkersHowCheckMark().size()]))
+                .set(ADVERT.AVERAGEMARK, advert.getMark())
+                .set(ADVERT.TAGSID, advert.getTagsId().toArray(new Long[advert.getTagsId().size()]))
+                .set(ADVERT.WORKERSID, (advert.getWorkersId().toArray(new Long[advert.getWorkersId().size()])))
                 .where(ADVERT.ID.eq(advert.getId())).execute());
     }
 

@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.sql.Timestamp;
-import java.util.LinkedHashSet;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -13,15 +13,14 @@ import java.util.LinkedHashSet;
 public class Advert {
     private final Long id;
     private Long creatorId;
-    private Long profileId;
     private Long categoryId;
     private Long statusId;
     private String subject;
     private String info;
-    private LinkedHashSet<Long> workersId;
-    private LinkedHashSet<Long> tagsId;
-    private LinkedHashSet<Long> workersHowCheckMark;
-    private int mark;
+    private List<Long> workersId;
+    private List<Long> tagsId;
+    private List<Long> workersHowCheckMark;
+    private long mark;
     private String linkToDocument;
     private Timestamp createAt;
 }

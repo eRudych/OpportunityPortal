@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import task.NewOpportunityPortal.entity.Chat;
 import task.NewOpportunityPortal.service.ChatService;
 
+import java.util.List;
+
 
 @RestController
 @RequestMapping(value = "/chats")
@@ -41,8 +43,8 @@ public class ChatController {
     }
 
     @GetMapping("getMessages/{chatId}")
-    public Chat getMessages(@PathVariable("chatId") long chatId){
+    public List<Long> getMessages(@PathVariable("chatId") long chatId){
         log.info("Get messages from chat {}", chatId);
-        return service.getChat(chatId);
+        return service.getMessages(chatId);
     }
 }
