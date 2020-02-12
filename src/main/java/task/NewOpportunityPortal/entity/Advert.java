@@ -9,7 +9,7 @@ import java.util.List;
 
 @Data
 @AllArgsConstructor
-@JsonIgnoreProperties(ignoreUnknown=true)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Advert {
     private final Long id;
     private Long creatorId;
@@ -23,4 +23,8 @@ public class Advert {
     private long mark;
     private String linkToDocument;
     private Timestamp createAt;
+
+    public Advert(Long id) {
+        this.id = id;
+    }
 }

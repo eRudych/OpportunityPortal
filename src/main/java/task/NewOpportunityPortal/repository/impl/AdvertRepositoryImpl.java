@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import static task.NewOpportunityPortal.db.tables.Advert.ADVERT;
 
@@ -82,5 +83,13 @@ public class AdvertRepositoryImpl implements AdvertRepository {
             log.error(ex.getMessage());
             return false;
         }
+    }
+
+    @Override
+    public List<Long> getAllIdAdverts() {
+        log.info("Get all adverts from db");
+        return dsl.selectFrom(ADVERT)
+                .orderBy(ADVERT.CREATED_AT)
+                .fetch(r -> r.get(0, Long.class));
     }
 }

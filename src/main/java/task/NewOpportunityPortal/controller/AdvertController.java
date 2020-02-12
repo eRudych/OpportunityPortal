@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import task.NewOpportunityPortal.entity.Advert;
 import task.NewOpportunityPortal.service.AdvertService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(value = "/adverts")
 @RequiredArgsConstructor
@@ -37,5 +39,11 @@ public class AdvertController {
     public Advert get(@PathVariable("advertId") long advertId){
         log.info("Get advert {}", advertId);
         return service.getAdvert(advertId);
+    }
+
+    @GetMapping
+    public List<Long> getAllIdAdverts(){
+        log.info("Get all adverts");
+        return service.getAllIdAdverts();
     }
 }

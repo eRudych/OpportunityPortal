@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -41,5 +42,11 @@ public class AdvertServiceImpl implements AdvertService {
     public boolean removeAdvert(Long advertId) {
         log.info("Remove advert: {}",  advertId);
         return repository.removeAdvert(advertId);
+    }
+
+    @Override
+    public List<Long> getAllIdAdverts() {
+        log.info("Get all adverts");
+        return repository.getAllIdAdverts();
     }
 }

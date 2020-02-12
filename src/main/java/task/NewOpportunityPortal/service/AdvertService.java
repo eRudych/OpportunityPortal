@@ -2,6 +2,8 @@ package task.NewOpportunityPortal.service;
 
 import task.NewOpportunityPortal.entity.Advert;
 
+import java.util.List;
+
 public interface AdvertService {
 
     Long createAdvert(Advert advert);
@@ -11,4 +13,6 @@ public interface AdvertService {
     Advert getAdvert(Long advertId);
 
     boolean removeAdvert(Long advertId);
+
+    List<Long> getAllIdAdverts();
 }
