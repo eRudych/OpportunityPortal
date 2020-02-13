@@ -1,5 +1,8 @@
 package task.NewOpportunityPortal.service.impl;
 
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -24,6 +27,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private final ChatRepository chatRepository;
 
     @Override
+    @Cacheable(value = "users", key = "user.id")
     public Long createUser(User user) {
         Date now = new java.util.Date();
         log.info("Set time creates: {}",  now);
@@ -33,6 +37,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
+    @Cacheable("users")
     public User getUserById(Long userId) {
         log.info("Get user by id"+ userId);
         return repository.getUserById(userId);
@@ -45,17 +50,20 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
+    @CachePut(value = "users", key = "user.id")
     public User updateUser(User user) {
         log.info("Update user: {}", user.getId());
         return repository.updateUser(user);
     }
 
     @Override
+    @CacheEvict(value = "users")
     public boolean removeUser(Long userId) {
         log.info("Remove user: {}", userId);
         return repository.removeUser(userId);
     }
 
+    @Cacheable("chats")
     @Override
     public List<Long> getAllAvailChats(Long userId) {
         log.info("Get all available chats for user: {}", userId);

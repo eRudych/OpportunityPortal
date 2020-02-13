@@ -1,5 +1,8 @@
 package task.NewOpportunityPortal.service.impl;
 
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import task.NewOpportunityPortal.entity.Comment;
 import task.NewOpportunityPortal.repository.CommentRepository;
 import task.NewOpportunityPortal.service.CommentService;
@@ -18,6 +21,7 @@ public class CommentServiceImpl implements CommentService {
     private final CommentRepository repository;
 
     @Override
+    @Cacheable(value = "comments", key = "comment.id")
     public Long createComment(Comment comment) {
         Date now = new java.util.Date();
         log.info("Set time creates: {}",  now);
@@ -27,25 +31,30 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
+    @Cacheable("comments")
     public Comment getComment(Long commentId) {
         log.info("Get comment: {}", commentId);
         return repository.getComment(commentId);
     }
 
     @Override
+    @CachePut(value = "comments", key = "comment.id")
     public Comment updateComment(Comment comment) {
         log.info("Update comment: {}", comment.getId());
         return repository.updateComment(comment);
     }
 
     @Override
+    @CacheEvict("comments")
     public boolean removeComment(Long commentId) {
         log.info("Remove comment: {}", commentId);
         return repository.removeComment(commentId);
     }
+
+
     @Override
     public List<Comment> getCommentAdverts(Long advertId){
         log.info("Get comment adverts: {}", advertId);
         return repository.getCommentAdverts(advertId);
-    };
+    }
 }

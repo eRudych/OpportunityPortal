@@ -1,5 +1,8 @@
 package task.NewOpportunityPortal.service.impl;
 
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import task.NewOpportunityPortal.cryp.EncryptDecrypt;
 import task.NewOpportunityPortal.entity.Message;
 import task.NewOpportunityPortal.repository.MessageRepository;
@@ -10,9 +13,8 @@ import org.springframework.stereotype.Service;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
+import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 
 @Service
@@ -24,6 +26,7 @@ public class MessageServiceImpl implements MessageService{
     private final EncryptDecrypt encryptDecrypt;
 
     @Override
+    @Cacheable(value = "messages", key = "message.id")
     public Long createMessage(Message message) {
         Date now = new java.util.Date();
         log.info("Set time creates: {}",  now);
@@ -31,7 +34,7 @@ public class MessageServiceImpl implements MessageService{
         try {
             log.info("Encoder message");
             message.setText(encryptDecrypt.encrypt(message.getText()));
-        } catch (BadPaddingException | IllegalBlockSizeException | NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException  e) {
+        } catch (BadPaddingException | IllegalBlockSizeException | InvalidKeyException | InvalidAlgorithmParameterException e) {
             log.error("Error during text encryption: ", e);
         }
         log.info("Create message: {}", message.getId());
@@ -39,25 +42,29 @@ public class MessageServiceImpl implements MessageService{
     }
 
     @Override
+    @Cacheable("messages")
     public Message getMessage(Long messageId) {
         log.info("Get message: {}", messageId);
         Message message = repository.getMessage(messageId);
         try {
             log.info("Decoder message");
             message.setText(encryptDecrypt.decrypt(message.getText()));
-        } catch (BadPaddingException | IllegalBlockSizeException | NoSuchAlgorithmException | InvalidKeyException | NoSuchPaddingException  e) {
+            log.info("mess {}", message.getText());
+        } catch (BadPaddingException | IllegalBlockSizeException | InvalidKeyException | InvalidAlgorithmParameterException e) {
             log.error("Error during text decryption: ", e);
         }
         return message;
     }
 
     @Override
+    @CachePut(value = "messages", key = "message.id")
     public Message updateMessage(Message message) {
         log.info("Update message: {}", message.getId());
         return repository.updateMessage(message);
     }
 
     @Override
+    @CacheEvict("messages")
     public boolean removeMessage(Long messageId) {
         log.info("Remove message: {}", messageId);
         return repository.removeMessage(messageId);
