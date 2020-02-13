@@ -19,7 +19,6 @@ public class TagServiceImpl implements TagService {
     private final TagRepository repository;
 
     @Override
-    @Cacheable(value = "tags", key = "#tag.id")
     public Long createTag(Tag tag) {
         log.info("Create tag: {}", tag.toString());
         return repository.createTag(tag);

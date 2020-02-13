@@ -19,7 +19,6 @@ public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepository repository;
 
     @Override
-    @Cacheable(value = "categories", key = "#category.id")
     public Long createCategory(Category category) {
         log.info("Create category: {}", category.toString());
         return repository.createCategory(category);

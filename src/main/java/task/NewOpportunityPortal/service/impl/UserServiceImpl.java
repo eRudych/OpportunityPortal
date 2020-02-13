@@ -27,7 +27,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private final ChatRepository chatRepository;
 
     @Override
-    @Cacheable(value = "users", key = "user.id")
     public Long createUser(User user) {
         Date now = new java.util.Date();
         log.info("Set time creates: {}",  now);
@@ -50,7 +49,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    @CachePut(value = "users", key = "user.id")
+    @CachePut(value = "users", key = "#user.id")
     public User updateUser(User user) {
         log.info("Update user: {}", user.getId());
         return repository.updateUser(user);

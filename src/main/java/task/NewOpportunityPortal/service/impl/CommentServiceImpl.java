@@ -21,7 +21,6 @@ public class CommentServiceImpl implements CommentService {
     private final CommentRepository repository;
 
     @Override
-    @Cacheable(value = "comments", key = "comment.id")
     public Long createComment(Comment comment) {
         Date now = new java.util.Date();
         log.info("Set time creates: {}",  now);
@@ -38,7 +37,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    @CachePut(value = "comments", key = "comment.id")
+    @CachePut(value = "comments", key = "#comment.id")
     public Comment updateComment(Comment comment) {
         log.info("Update comment: {}", comment.getId());
         return repository.updateComment(comment);

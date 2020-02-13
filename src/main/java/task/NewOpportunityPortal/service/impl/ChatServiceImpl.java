@@ -21,7 +21,6 @@ public class ChatServiceImpl implements ChatService {
     private final ChatRepository repository;
 
     @Override
-    @Cacheable(value = "chats", key = "chat.id")
     public Long createChat(Chat chat) {
         Date now = new java.util.Date();
         log.info("Set time creates: {}",  now);
@@ -38,7 +37,7 @@ public class ChatServiceImpl implements ChatService {
     }
 
     @Override
-    @CachePut("chats")
+    @CachePut(value = "chats", key = "#chat.id")
     public Chat updateChat(Chat chat) {
         log.info("Update chat: {}", chat.getId());
         return repository.updateChat(chat);

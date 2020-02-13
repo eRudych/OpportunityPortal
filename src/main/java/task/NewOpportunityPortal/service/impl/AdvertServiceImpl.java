@@ -21,7 +21,6 @@ public class AdvertServiceImpl implements AdvertService {
     private final AdvertRepository repository;
 
     @Override
-    @Cacheable(value = "adverts", key = "advert.id")
     public Long createAdvert(Advert advert) {
         Date now = new java.util.Date();
         log.info("Set time creates: {}",  now);
@@ -31,7 +30,7 @@ public class AdvertServiceImpl implements AdvertService {
     }
 
     @Override
-    @CachePut("adverts")
+    @CachePut(value = "adverts", key = "#advert.id")
     public Advert updateAdvert(Advert advert) {
         log.info("Update advert: {}",  advert.getId());
         return repository.updateAdvert(advert);

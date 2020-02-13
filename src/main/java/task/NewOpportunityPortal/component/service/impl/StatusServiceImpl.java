@@ -19,7 +19,6 @@ public class StatusServiceImpl implements StatusService {
     private final StatusRepository repository;
 
     @Override
-    @Cacheable(value = "statuses", key = "#status.id")
     public Long createStatus(Status status) {
         log.info("Create status: {}", status.toString());
         return repository.createStatus(status);
@@ -33,7 +32,7 @@ public class StatusServiceImpl implements StatusService {
     }
 
     @Override
-    @CacheEvict(value="statuses", key = "#status.id")
+    @CacheEvict(value="statuses")
     public boolean removeStatus(Long statusId) {
         log.info("Remove status: {}", statusId );
         return repository.removeStatus(statusId);

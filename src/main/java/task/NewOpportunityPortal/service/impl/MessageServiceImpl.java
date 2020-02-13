@@ -26,7 +26,6 @@ public class MessageServiceImpl implements MessageService{
     private final EncryptDecrypt encryptDecrypt;
 
     @Override
-    @Cacheable(value = "messages", key = "message.id")
     public Long createMessage(Message message) {
         Date now = new java.util.Date();
         log.info("Set time creates: {}",  now);
@@ -57,7 +56,7 @@ public class MessageServiceImpl implements MessageService{
     }
 
     @Override
-    @CachePut(value = "messages", key = "message.id")
+    @CachePut(value = "messages", key = "#message.id")
     public Message updateMessage(Message message) {
         log.info("Update message: {}", message.getId());
         return repository.updateMessage(message);
