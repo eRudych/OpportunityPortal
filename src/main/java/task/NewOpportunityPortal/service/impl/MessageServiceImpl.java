@@ -1,57 +1,42 @@
 package task.NewOpportunityPortal.service.impl;
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
-import task.NewOpportunityPortal.cryp.EncryptDecrypt;
+import org.springframework.stereotype.Service;
+import task.NewOpportunityPortal.aop.DecryptMethod;
+import task.NewOpportunityPortal.aop.EncryptMethod;
 import task.NewOpportunityPortal.entity.Message;
 import task.NewOpportunityPortal.repository.MessageRepository;
 import task.NewOpportunityPortal.service.MessageService;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
 
-import javax.crypto.BadPaddingException;
-import javax.crypto.IllegalBlockSizeException;
-import java.security.InvalidAlgorithmParameterException;
-import java.security.InvalidKeyException;
 import java.util.Date;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class MessageServiceImpl implements MessageService{
+public class MessageServiceImpl implements MessageService {
 
     private final MessageRepository repository;
-    private final EncryptDecrypt encryptDecrypt;
 
     @Override
+    @EncryptMethod
     public Long createMessage(Message message) {
         Date now = new java.util.Date();
-        log.info("Set time creates: {}",  now);
+        log.info("Set time creates: {}", now);
         message.setCreateAt(new java.sql.Timestamp(now.getTime()));
-        try {
-            log.info("Encoder message");
-            message.setText(encryptDecrypt.encrypt(message.getText()));
-        } catch (BadPaddingException | IllegalBlockSizeException | InvalidKeyException | InvalidAlgorithmParameterException e) {
-            log.error("Error during text encryption: ", e);
-        }
         log.info("Create message: {}", message.getId());
         return repository.createMessage(message);
     }
 
     @Override
     @Cacheable("messages")
+    @DecryptMethod
     public Message getMessage(Long messageId) {
         log.info("Get message: {}", messageId);
         Message message = repository.getMessage(messageId);
-        try {
-            log.info("Decoder message");
-            message.setText(encryptDecrypt.decrypt(message.getText()));
-            log.info("mess {}", message.getText());
-        } catch (BadPaddingException | IllegalBlockSizeException | InvalidKeyException | InvalidAlgorithmParameterException e) {
-            log.error("Error during text decryption: ", e);
-        }
         return message;
     }
 
