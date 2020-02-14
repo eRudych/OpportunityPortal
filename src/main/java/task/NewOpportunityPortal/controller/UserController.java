@@ -4,7 +4,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import task.NewOpportunityPortal.ability.entity.CommentAbility;
 import task.NewOpportunityPortal.entity.User;
+import task.NewOpportunityPortal.ability.entity.UserAbility;
+import task.NewOpportunityPortal.ability.service.CommentAbilityService;
+import task.NewOpportunityPortal.ability.service.UserAbilityService;
 import task.NewOpportunityPortal.service.UserService;
 
 import java.util.List;
@@ -16,35 +20,91 @@ import java.util.List;
 @Slf4j
 public class UserController {
 
-    private final UserService service;
+    private final UserService userService;
+    private final UserAbilityService userAbilityService;
+    private final CommentAbilityService commentAbilityService;
 
     @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE})
-    public long create(@RequestBody User user){
+    public long createUser(@RequestBody User user){
         log.info("Create user {}", user.toString());
-        return service.createUser(user);
+        return userService.createUser(user);
     }
 
     @DeleteMapping("/{userId}")
-    public boolean remove(@PathVariable("userId") long userId){
+    public boolean removeUser(@PathVariable("userId") long userId){
         log.info("Remove user {}", userId);
-        return service.removeUser(userId);
+        return userService.removeUser(userId);
     }
 
     @PutMapping(consumes = {MediaType.APPLICATION_JSON_VALUE})
-    public User update(@RequestBody User user){
+    public User updateUser(@RequestBody User user){
         log.info("Update user {}", user.toString());
-        return service.updateUser(user);
+        return userService.updateUser(user);
     }
 
     @GetMapping("/{userId}")
-    public User get(@PathVariable("userId") long userId){
+    public User getUser(@PathVariable("userId") long userId){
         log.info("Get user {}", userId);
-        return service.getUserById(userId);
+        return userService.getUserById(userId);
     }
 
     @GetMapping("/{userId}/chats")
-    public List getAllAvailChats(@PathVariable("userId") long userId){
+    public List<Long> getAllAvailChats(@PathVariable("userId") long userId){
         log.info("Get user {}", userId);
-        return service.getAllAvailChats(userId);
+        return userService.getAllAvailChats(userId);
+    }
+
+    @PostMapping(value = "/abilities", consumes = {MediaType.APPLICATION_JSON_VALUE})
+    public long createUserAbilityRate(@RequestBody UserAbility userAbility){
+        log.info("Create user ability rate {}", userAbility.toString());
+        return userAbilityService.createUserAbilityRate(userAbility);
+    }
+
+    @DeleteMapping("/abilities/{userAbilityId}")
+    public boolean removeUserAbilityRate(@PathVariable("userAbilityId") long userAbilityId){
+        log.info("Remove user ability rate {}", userAbilityId);
+        return userAbilityService.removeUserAbilityRate(userAbilityId);
+    }
+
+    @PutMapping(value = "/abilities", consumes = {MediaType.APPLICATION_JSON_VALUE})
+    public UserAbility updateUserAbilityRate(@RequestBody UserAbility userAbility){
+        log.info("Update user ability rate {}", userAbility.toString());
+        return userAbilityService.updateUserAbilityRate(userAbility);
+    }
+
+    @GetMapping("/abilities/{userAbilityId}")
+    public UserAbility getUserAbilityRate(@PathVariable("userAbilityId") long userAbilityId){
+        log.info("Get user ability rate {}", userAbilityId);
+        return userAbilityService.getUserAbilityRate(userAbilityId);
+    }
+
+    @GetMapping("/{userId}/abilities")
+    public List<Long> getAllAbilityRate(@PathVariable("userId") long userId){
+        log.info("Get all ability rate for user {}", userId);
+        return userAbilityService.getAllAbilitiesRate(userId);
+    }
+
+    @PostMapping(value = "/abilities/comments", consumes = {MediaType.APPLICATION_JSON_VALUE})
+    public long createCommentAbilityRate(@RequestBody CommentAbility comment){
+        log.info("Create comment ability rate {}", comment.toString());
+        return commentAbilityService.createCommentAbilityRate(comment);
+    }
+
+    @DeleteMapping("/abilities/comments/{commentId}")
+    public boolean removeCommentAbilityRate(@PathVariable("commentId") long commentId){
+        log.info("Remove comment ability rate {}", commentId);
+        return commentAbilityService.removeCommentAbilityRate(commentId);
+    }
+
+    @PutMapping(value = "/abilities/comments", consumes = {MediaType.APPLICATION_JSON_VALUE})
+    public CommentAbility updateCommentAbilityRate(@RequestBody CommentAbility comment){
+        log.info("Update comment ability rate {}", comment.toString());
+        return commentAbilityService.updateCommentAbilityRate(comment);
+    }
+
+    @GetMapping("/abilities/comments/{commentId}")
+    public CommentAbility getCommentAbilityRate(@PathVariable("commentId") long commentId){
+        log.info("Get comment ability rate {}", commentId);
+        return commentAbilityService.getCommentAbilityRate(commentId);
     }
 }

@@ -10,6 +10,7 @@ import org.jooq.Index;
 import org.jooq.OrderField;
 import org.jooq.impl.Internal;
 
+import task.NewOpportunityPortal.db.tables.AbilityComment;
 import task.NewOpportunityPortal.db.tables.Adverts;
 import task.NewOpportunityPortal.db.tables.Category;
 import task.NewOpportunityPortal.db.tables.Chats_;
@@ -18,6 +19,7 @@ import task.NewOpportunityPortal.db.tables.Messages__;
 import task.NewOpportunityPortal.db.tables.Status;
 import task.NewOpportunityPortal.db.tables.Tag;
 import task.NewOpportunityPortal.db.tables.User;
+import task.NewOpportunityPortal.db.tables.UserAbility;
 
 
 /**
@@ -37,6 +39,7 @@ public class Indexes {
     // INDEX definitions
     // -------------------------------------------------------------------------
 
+    public static final Index ABILITY_COMMENT_PKEY = Indexes0.ABILITY_COMMENT_PKEY;
     public static final Index ADVERTS_PKEY = Indexes0.ADVERTS_PKEY;
     public static final Index CATEGORY_NAME_KEY = Indexes0.CATEGORY_NAME_KEY;
     public static final Index CATEGORY_PKEY = Indexes0.CATEGORY_PKEY;
@@ -50,12 +53,14 @@ public class Indexes {
     public static final Index USER_LOGIN_KEY = Indexes0.USER_LOGIN_KEY;
     public static final Index USER_NICK_KEY = Indexes0.USER_NICK_KEY;
     public static final Index USER_PKEY = Indexes0.USER_PKEY;
+    public static final Index USER_ABILITY_PKEY = Indexes0.USER_ABILITY_PKEY;
 
     // -------------------------------------------------------------------------
     // [#1459] distribute members to avoid static initialisers > 64kb
     // -------------------------------------------------------------------------
 
     private static class Indexes0 {
+        public static Index ABILITY_COMMENT_PKEY = Internal.createIndex("ability_comment_pkey", AbilityComment.ABILITY_COMMENT, new OrderField[] { AbilityComment.ABILITY_COMMENT.ID }, true);
         public static Index ADVERTS_PKEY = Internal.createIndex("adverts_pkey", Adverts.ADVERTS, new OrderField[] { Adverts.ADVERTS.ID }, true);
         public static Index CATEGORY_NAME_KEY = Internal.createIndex("category_name_key", Category.CATEGORY, new OrderField[] { Category.CATEGORY.NAME }, true);
         public static Index CATEGORY_PKEY = Internal.createIndex("category_pkey", Category.CATEGORY, new OrderField[] { Category.CATEGORY.ID }, true);
@@ -69,5 +74,6 @@ public class Indexes {
         public static Index USER_LOGIN_KEY = Internal.createIndex("user_login_key", User.USER, new OrderField[] { User.USER.LOGIN }, true);
         public static Index USER_NICK_KEY = Internal.createIndex("user_nick_key", User.USER, new OrderField[] { User.USER.NICK }, true);
         public static Index USER_PKEY = Internal.createIndex("user_pkey", User.USER, new OrderField[] { User.USER.ID }, true);
+        public static Index USER_ABILITY_PKEY = Internal.createIndex("user_ability_pkey", UserAbility.USER_ABILITY, new OrderField[] { UserAbility.USER_ABILITY.ID }, true);
     }
 }

@@ -18,6 +18,7 @@ public class User implements UserDetails {
     private String password;
     private String name;
     private String nick;
+    private int averageAssessment;
     private Timestamp createAt;
 
     @Override

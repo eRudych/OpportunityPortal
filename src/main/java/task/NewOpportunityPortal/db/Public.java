@@ -14,6 +14,7 @@ import org.jooq.Catalog;
 import org.jooq.Table;
 import org.jooq.impl.SchemaImpl;
 
+import task.NewOpportunityPortal.db.tables.AbilityComment;
 import task.NewOpportunityPortal.db.tables.Adverts;
 import task.NewOpportunityPortal.db.tables.Category;
 import task.NewOpportunityPortal.db.tables.Chats_;
@@ -22,6 +23,7 @@ import task.NewOpportunityPortal.db.tables.Messages__;
 import task.NewOpportunityPortal.db.tables.Status;
 import task.NewOpportunityPortal.db.tables.Tag;
 import task.NewOpportunityPortal.db.tables.User;
+import task.NewOpportunityPortal.db.tables.UserAbility;
 
 
 /**
@@ -37,12 +39,17 @@ import task.NewOpportunityPortal.db.tables.User;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Public extends SchemaImpl {
 
-    private static final long serialVersionUID = 425717179;
+    private static final long serialVersionUID = 1472529235;
 
     /**
      * The reference instance of <code>public</code>
      */
     public static final Public PUBLIC = new Public();
+
+    /**
+     * The table <code>public.ability_comment</code>.
+     */
+    public final AbilityComment ABILITY_COMMENT = task.NewOpportunityPortal.db.tables.AbilityComment.ABILITY_COMMENT;
 
     /**
      * The table <code>public.adverts</code>.
@@ -85,6 +92,11 @@ public class Public extends SchemaImpl {
     public final User USER = task.NewOpportunityPortal.db.tables.User.USER;
 
     /**
+     * The table <code>public.user_ability</code>.
+     */
+    public final UserAbility USER_ABILITY = task.NewOpportunityPortal.db.tables.UserAbility.USER_ABILITY;
+
+    /**
      * No further instances allowed
      */
     private Public() {
@@ -106,6 +118,7 @@ public class Public extends SchemaImpl {
 
     private final List<Table<?>> getTables0() {
         return Arrays.<Table<?>>asList(
+            AbilityComment.ABILITY_COMMENT,
             Adverts.ADVERTS,
             Category.CATEGORY,
             Chats_.CHATS_,
@@ -113,6 +126,7 @@ public class Public extends SchemaImpl {
             Messages__.MESSAGES__,
             Status.STATUS,
             Tag.TAG,
-            User.USER);
+            User.USER,
+            UserAbility.USER_ABILITY);
     }
 }

@@ -17,4 +17,8 @@
              relativeToChangelogFile="true" />
     <include file="changelog/14-comment-schema.xml"
              relativeToChangelogFile="true" />
+    <include file="changelog/17-comment-ability-schema.xml"
+             relativeToChangelogFile="true" />
+    <include file="changelog/18-user-ability-schema.xml"
+             relativeToChangelogFile="true" />
 </databaseChangeLog>

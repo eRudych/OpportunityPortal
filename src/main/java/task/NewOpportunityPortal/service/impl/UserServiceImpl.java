@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     @Cacheable("users")
     public User getUserById(Long userId) {
-        log.info("Get user by id"+ userId);
+        log.info("Get user by id: {}", userId);
         return repository.getUserById(userId);
     }
 
@@ -62,7 +62,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return repository.removeUser(userId);
     }
 
-    @Cacheable("chats")
     @Override
     public List<Long> getAllAvailChats(Long userId) {
         log.info("Get all available chats for user: {}", userId);
