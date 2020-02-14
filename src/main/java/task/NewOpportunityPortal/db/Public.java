@@ -14,11 +14,11 @@ import org.jooq.Catalog;
 import org.jooq.Table;
 import org.jooq.impl.SchemaImpl;
 
-import task.NewOpportunityPortal.db.tables.Advert;
+import task.NewOpportunityPortal.db.tables.Adverts;
 import task.NewOpportunityPortal.db.tables.Category;
-import task.NewOpportunityPortal.db.tables.Chat;
-import task.NewOpportunityPortal.db.tables.Comment;
-import task.NewOpportunityPortal.db.tables.Message;
+import task.NewOpportunityPortal.db.tables.Chats_;
+import task.NewOpportunityPortal.db.tables.Comments_;
+import task.NewOpportunityPortal.db.tables.Messages__;
 import task.NewOpportunityPortal.db.tables.Status;
 import task.NewOpportunityPortal.db.tables.Tag;
 import task.NewOpportunityPortal.db.tables.User;
@@ -37,7 +37,7 @@ import task.NewOpportunityPortal.db.tables.User;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Public extends SchemaImpl {
 
-    private static final long serialVersionUID = -2127240809;
+    private static final long serialVersionUID = 425717179;
 
     /**
      * The reference instance of <code>public</code>
@@ -45,9 +45,9 @@ public class Public extends SchemaImpl {
     public static final Public PUBLIC = new Public();
 
     /**
-     * The table <code>public.advert</code>.
+     * The table <code>public.adverts</code>.
      */
-    public final Advert ADVERT = task.NewOpportunityPortal.db.tables.Advert.ADVERT;
+    public final Adverts ADVERTS = task.NewOpportunityPortal.db.tables.Adverts.ADVERTS;
 
     /**
      * The table <code>public.category</code>.
@@ -55,19 +55,19 @@ public class Public extends SchemaImpl {
     public final Category CATEGORY = task.NewOpportunityPortal.db.tables.Category.CATEGORY;
 
     /**
-     * The table <code>public.chat</code>.
+     * The table <code>public.chats_</code>.
      */
-    public final Chat CHAT = task.NewOpportunityPortal.db.tables.Chat.CHAT;
+    public final Chats_ CHATS_ = task.NewOpportunityPortal.db.tables.Chats_.CHATS_;
 
     /**
-     * The table <code>public.comment</code>.
+     * The table <code>public.comments_</code>.
      */
-    public final Comment COMMENT = task.NewOpportunityPortal.db.tables.Comment.COMMENT;
+    public final Comments_ COMMENTS_ = task.NewOpportunityPortal.db.tables.Comments_.COMMENTS_;
 
     /**
-     * The table <code>public.message</code>.
+     * The table <code>public.messages__</code>.
      */
-    public final Message MESSAGE = task.NewOpportunityPortal.db.tables.Message.MESSAGE;
+    public final Messages__ MESSAGES__ = task.NewOpportunityPortal.db.tables.Messages__.MESSAGES__;
 
     /**
      * The table <code>public.status</code>.
@@ -106,11 +106,11 @@ public class Public extends SchemaImpl {
 
     private final List<Table<?>> getTables0() {
         return Arrays.<Table<?>>asList(
-            Advert.ADVERT,
+            Adverts.ADVERTS,
             Category.CATEGORY,
-            Chat.CHAT,
-            Comment.COMMENT,
-            Message.MESSAGE,
+            Chats_.CHATS_,
+            Comments_.COMMENTS_,
+            Messages__.MESSAGES__,
             Status.STATUS,
             Tag.TAG,
             User.USER);

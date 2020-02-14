@@ -1,13 +1,13 @@
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
-    <changeSet author="root" id="05">
-        <createTable tableName="advert">
+    <changeSet author="root" id="12">
+        <createTable tableName="adverts">
             <column name="id" type="bigint" autoIncrement="true">
-                <constraints primaryKey="true" nullable="false" />
+                <constraints primaryKey="true" unique="true" nullable="false" />
             </column>
             <column name="creatorId" type="bigint">
-                <constraints nullable="false" unique="true" foreignKeyName="fk_advert_user" references="user(id)" />
+                <constraints nullable="false" foreignKeyName="fk_advert_user" references="user(id)" />
             </column>
             <column name="categoryId" type="bigint">
                 <constraints nullable="false" foreignKeyName="fk_advert_category" references="category(id)"/>

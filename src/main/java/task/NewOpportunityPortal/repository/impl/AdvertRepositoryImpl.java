@@ -1,7 +1,7 @@
 package task.NewOpportunityPortal.repository.impl;
 
 import org.jooq.DSLContext;
-import task.NewOpportunityPortal.db.tables.records.AdvertRecord;
+import task.NewOpportunityPortal.db.tables.records.AdvertsRecord;
 import task.NewOpportunityPortal.entity.Advert;
 import task.NewOpportunityPortal.repository.AdvertRepository;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import java.sql.Timestamp;
 import java.util.List;
 
-import static task.NewOpportunityPortal.db.tables.Advert.ADVERT;
+import static task.NewOpportunityPortal.db.tables.Adverts.ADVERTS;
 
 @Repository
 @RequiredArgsConstructor
@@ -21,8 +21,8 @@ public class AdvertRepositoryImpl implements AdvertRepository {
     private final DSLContext dsl;
 
     private Long insert(Advert advert) {
-        AdvertRecord advertsRecord = dsl.insertInto(ADVERT, ADVERT.CREATORID, ADVERT.CATEGORYID, ADVERT.SUBJECT, ADVERT.INFO, ADVERT.STATUSID, ADVERT.LINKTODOC,
-                ADVERT.AVERAGEMARK, ADVERT.AMOUNTOFMARKS, ADVERT.WORKERSID, ADVERT.TAGSID, ADVERT.CREATED_AT)
+        AdvertsRecord advertsRecord = dsl.insertInto(ADVERTS, ADVERTS.CREATORID, ADVERTS.CATEGORYID, ADVERTS.SUBJECT, ADVERTS.INFO, ADVERTS.STATUSID, ADVERTS.LINKTODOC,
+                ADVERTS.AVERAGEMARK, ADVERTS.AMOUNTOFMARKS, ADVERTS.WORKERSID, ADVERTS.TAGSID, ADVERTS.CREATED_AT)
                 .values(advert.getCreatorId(),
                         advert.getCategoryId(),
                         advert.getSubject(),
@@ -34,10 +34,10 @@ public class AdvertRepositoryImpl implements AdvertRepository {
                         advert.getWorkersId().toArray(new Long[advert.getWorkersId().size()]),
                         advert.getTagsId().toArray(new Long[advert.getTagsId().size()]),
                         advert.getCreateAt())
-                .returning(ADVERT.ID)
+                .returning(ADVERTS.ID)
                 .fetchOne();
         log.info("Insert into db: {}", advert.toString());
-        return advertsRecord.getValue(ADVERT.ID);
+        return advertsRecord.getValue(ADVERTS.ID);
     }
 
     @Override
@@ -49,35 +49,35 @@ public class AdvertRepositoryImpl implements AdvertRepository {
     @Override
     public Advert getAdvert(Long advertId) {
         log.info("Select advert: {}", advertId);
-        Advert advert = dsl.selectFrom(ADVERT)
-                .where(ADVERT.ID.eq(advertId))
+        Advert advert = dsl.selectFrom(ADVERTS)
+                .where(ADVERTS.ID.eq(advertId))
                 .fetchOneInto(Advert.class);
         log.info("Set selected data: {}", advertId);
-        advert.setCreateAt(dsl.select(ADVERT.CREATED_AT).from(ADVERT).where(ADVERT.ID.eq(advertId)).fetchOneInto((Timestamp.class)));
+        advert.setCreateAt(dsl.select(ADVERTS.CREATED_AT).from(ADVERTS).where(ADVERTS.ID.eq(advertId)).fetchOneInto((Timestamp.class)));
         return advert;
     }
 
     @Override
     public Advert updateAdvert(Advert advert) {
         log.info("Update text advert: {}", advert.getId());
-        return getAdvert((long) dsl.update(ADVERT)
-                .set(ADVERT.INFO, advert.getInfo())
-                .set(ADVERT.SUBJECT, advert.getSubject())
-                .set(ADVERT.STATUSID, advert.getStatusId())
-                .set(ADVERT.LINKTODOC, advert.getLinkToDocument())
-                .set(ADVERT.AMOUNTOFMARKS, advert.getWorkersHowCheckMark().toArray(new Long[advert.getWorkersHowCheckMark().size()]))
-                .set(ADVERT.AVERAGEMARK, advert.getMark())
-                .set(ADVERT.TAGSID, advert.getTagsId().toArray(new Long[advert.getTagsId().size()]))
-                .set(ADVERT.WORKERSID, (advert.getWorkersId().toArray(new Long[advert.getWorkersId().size()])))
-                .where(ADVERT.ID.eq(advert.getId())).execute());
+        return getAdvert((long) dsl.update(ADVERTS)
+                .set(ADVERTS.INFO, advert.getInfo())
+                .set(ADVERTS.SUBJECT, advert.getSubject())
+                .set(ADVERTS.STATUSID, advert.getStatusId())
+                .set(ADVERTS.LINKTODOC, advert.getLinkToDocument())
+                .set(ADVERTS.AMOUNTOFMARKS, advert.getWorkersHowCheckMark().toArray(new Long[advert.getWorkersHowCheckMark().size()]))
+                .set(ADVERTS.AVERAGEMARK, advert.getMark())
+                .set(ADVERTS.TAGSID, advert.getTagsId().toArray(new Long[advert.getTagsId().size()]))
+                .set(ADVERTS.WORKERSID, (advert.getWorkersId().toArray(new Long[advert.getWorkersId().size()])))
+                .where(ADVERTS.ID.eq(advert.getId())).execute());
     }
 
     @Override
     public boolean removeAdvert(Long advertId) {
         log.info("Remove advert: {}", advertId);
         try {
-            dsl.deleteFrom(ADVERT)
-                    .where(ADVERT.ID.eq(advertId)).execute();
+            dsl.deleteFrom(ADVERTS)
+                    .where(ADVERTS.ID.eq(advertId)).execute();
             return true;
         } catch (Exception ex) {
             log.error(ex.getMessage());
@@ -88,8 +88,8 @@ public class AdvertRepositoryImpl implements AdvertRepository {
     @Override
     public List<Long> getAllIdAdverts() {
         log.info("Get all adverts from db");
-        return dsl.selectFrom(ADVERT)
-                .orderBy(ADVERT.CREATED_AT)
+        return dsl.selectFrom(ADVERTS)
+                .orderBy(ADVERTS.CREATED_AT)
                 .fetch(r -> r.get(0, Long.class));
     }
 }

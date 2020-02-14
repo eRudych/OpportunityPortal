@@ -6,11 +6,11 @@ package task.NewOpportunityPortal.db;
 
 import javax.annotation.processing.Generated;
 
-import task.NewOpportunityPortal.db.tables.Advert;
+import task.NewOpportunityPortal.db.tables.Adverts;
 import task.NewOpportunityPortal.db.tables.Category;
-import task.NewOpportunityPortal.db.tables.Chat;
-import task.NewOpportunityPortal.db.tables.Comment;
-import task.NewOpportunityPortal.db.tables.Message;
+import task.NewOpportunityPortal.db.tables.Chats_;
+import task.NewOpportunityPortal.db.tables.Comments_;
+import task.NewOpportunityPortal.db.tables.Messages__;
 import task.NewOpportunityPortal.db.tables.Status;
 import task.NewOpportunityPortal.db.tables.Tag;
 import task.NewOpportunityPortal.db.tables.User;
@@ -30,9 +30,9 @@ import task.NewOpportunityPortal.db.tables.User;
 public class Tables {
 
     /**
-     * The table <code>public.advert</code>.
+     * The table <code>public.adverts</code>.
      */
-    public static final Advert ADVERT = Advert.ADVERT;
+    public static final Adverts ADVERTS = Adverts.ADVERTS;
 
     /**
      * The table <code>public.category</code>.
@@ -40,19 +40,19 @@ public class Tables {
     public static final Category CATEGORY = Category.CATEGORY;
 
     /**
-     * The table <code>public.chat</code>.
+     * The table <code>public.chats_</code>.
      */
-    public static final Chat CHAT = Chat.CHAT;
+    public static final Chats_ CHATS_ = Chats_.CHATS_;
 
     /**
-     * The table <code>public.comment</code>.
+     * The table <code>public.comments_</code>.
      */
-    public static final Comment COMMENT = Comment.COMMENT;
+    public static final Comments_ COMMENTS_ = Comments_.COMMENTS_;
 
     /**
-     * The table <code>public.message</code>.
+     * The table <code>public.messages__</code>.
      */
-    public static final Message MESSAGE = Message.MESSAGE;
+    public static final Messages__ MESSAGES__ = Messages__.MESSAGES__;
 
     /**
      * The table <code>public.status</code>.

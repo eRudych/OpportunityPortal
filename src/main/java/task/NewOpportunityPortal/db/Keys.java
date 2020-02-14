@@ -10,19 +10,19 @@ import org.jooq.ForeignKey;
 import org.jooq.UniqueKey;
 import org.jooq.impl.Internal;
 
-import task.NewOpportunityPortal.db.tables.Advert;
+import task.NewOpportunityPortal.db.tables.Adverts;
 import task.NewOpportunityPortal.db.tables.Category;
-import task.NewOpportunityPortal.db.tables.Chat;
-import task.NewOpportunityPortal.db.tables.Comment;
-import task.NewOpportunityPortal.db.tables.Message;
+import task.NewOpportunityPortal.db.tables.Chats_;
+import task.NewOpportunityPortal.db.tables.Comments_;
+import task.NewOpportunityPortal.db.tables.Messages__;
 import task.NewOpportunityPortal.db.tables.Status;
 import task.NewOpportunityPortal.db.tables.Tag;
 import task.NewOpportunityPortal.db.tables.User;
-import task.NewOpportunityPortal.db.tables.records.AdvertRecord;
+import task.NewOpportunityPortal.db.tables.records.AdvertsRecord;
 import task.NewOpportunityPortal.db.tables.records.CategoryRecord;
-import task.NewOpportunityPortal.db.tables.records.ChatRecord;
-import task.NewOpportunityPortal.db.tables.records.CommentRecord;
-import task.NewOpportunityPortal.db.tables.records.MessageRecord;
+import task.NewOpportunityPortal.db.tables.records.Chats_Record;
+import task.NewOpportunityPortal.db.tables.records.Comments_Record;
+import task.NewOpportunityPortal.db.tables.records.Messages__Record;
 import task.NewOpportunityPortal.db.tables.records.StatusRecord;
 import task.NewOpportunityPortal.db.tables.records.TagRecord;
 import task.NewOpportunityPortal.db.tables.records.UserRecord;
@@ -51,17 +51,13 @@ public class Keys {
     // UNIQUE and PRIMARY KEY definitions
     // -------------------------------------------------------------------------
 
-    public static final UniqueKey<AdvertRecord> ADVERT_PKEY = UniqueKeys0.ADVERT_PKEY;
-    public static final UniqueKey<AdvertRecord> ADVERT_CREATORID_KEY = UniqueKeys0.ADVERT_CREATORID_KEY;
-    public static final UniqueKey<AdvertRecord> ADVERT_STATUSID_KEY = UniqueKeys0.ADVERT_STATUSID_KEY;
+    public static final UniqueKey<AdvertsRecord> ADVERTS_PKEY = UniqueKeys0.ADVERTS_PKEY;
+    public static final UniqueKey<AdvertsRecord> ADVERTS_STATUSID_KEY = UniqueKeys0.ADVERTS_STATUSID_KEY;
     public static final UniqueKey<CategoryRecord> CATEGORY_PKEY = UniqueKeys0.CATEGORY_PKEY;
     public static final UniqueKey<CategoryRecord> CATEGORY_NAME_KEY = UniqueKeys0.CATEGORY_NAME_KEY;
-    public static final UniqueKey<ChatRecord> CHAT_PKEY = UniqueKeys0.CHAT_PKEY;
-    public static final UniqueKey<ChatRecord> CHAT_CREATORID_KEY = UniqueKeys0.CHAT_CREATORID_KEY;
-    public static final UniqueKey<CommentRecord> COMMENT_PKEY = UniqueKeys0.COMMENT_PKEY;
-    public static final UniqueKey<CommentRecord> COMMENT_CREATORID_KEY = UniqueKeys0.COMMENT_CREATORID_KEY;
-    public static final UniqueKey<MessageRecord> MESSAGE_PKEY = UniqueKeys0.MESSAGE_PKEY;
-    public static final UniqueKey<MessageRecord> MESSAGE_CREATORID_KEY = UniqueKeys0.MESSAGE_CREATORID_KEY;
+    public static final UniqueKey<Chats_Record> CHATS__PKEY = UniqueKeys0.CHATS__PKEY;
+    public static final UniqueKey<Comments_Record> COMMENTS__PKEY = UniqueKeys0.COMMENTS__PKEY;
+    public static final UniqueKey<Messages__Record> MESSAGES___PKEY = UniqueKeys0.MESSAGES___PKEY;
     public static final UniqueKey<StatusRecord> STATUS_PKEY = UniqueKeys0.STATUS_PKEY;
     public static final UniqueKey<StatusRecord> STATUS_NAME_KEY = UniqueKeys0.STATUS_NAME_KEY;
     public static final UniqueKey<TagRecord> TAG_PKEY = UniqueKeys0.TAG_PKEY;
@@ -74,32 +70,28 @@ public class Keys {
     // FOREIGN KEY definitions
     // -------------------------------------------------------------------------
 
-    public static final ForeignKey<AdvertRecord, UserRecord> ADVERT__FK_ADVERT_USER = ForeignKeys0.ADVERT__FK_ADVERT_USER;
-    public static final ForeignKey<AdvertRecord, CategoryRecord> ADVERT__FK_ADVERT_CATEGORY = ForeignKeys0.ADVERT__FK_ADVERT_CATEGORY;
-    public static final ForeignKey<AdvertRecord, StatusRecord> ADVERT__FK_ADVERT_STATUS = ForeignKeys0.ADVERT__FK_ADVERT_STATUS;
-    public static final ForeignKey<ChatRecord, UserRecord> CHAT__FK_CHAT_USER = ForeignKeys0.CHAT__FK_CHAT_USER;
-    public static final ForeignKey<ChatRecord, AdvertRecord> CHAT__FK_CHAT_ADVERT = ForeignKeys0.CHAT__FK_CHAT_ADVERT;
-    public static final ForeignKey<CommentRecord, UserRecord> COMMENT__FK_COMMENT_USER = ForeignKeys0.COMMENT__FK_COMMENT_USER;
-    public static final ForeignKey<CommentRecord, AdvertRecord> COMMENT__FK_COMMENT_ADVERT = ForeignKeys0.COMMENT__FK_COMMENT_ADVERT;
-    public static final ForeignKey<MessageRecord, UserRecord> MESSAGE__FK_MESSAGE_USER = ForeignKeys0.MESSAGE__FK_MESSAGE_USER;
-    public static final ForeignKey<MessageRecord, ChatRecord> MESSAGE__FK_MESSAGE_CHAT = ForeignKeys0.MESSAGE__FK_MESSAGE_CHAT;
+    public static final ForeignKey<AdvertsRecord, UserRecord> ADVERTS__FK_ADVERT_USER = ForeignKeys0.ADVERTS__FK_ADVERT_USER;
+    public static final ForeignKey<AdvertsRecord, CategoryRecord> ADVERTS__FK_ADVERT_CATEGORY = ForeignKeys0.ADVERTS__FK_ADVERT_CATEGORY;
+    public static final ForeignKey<AdvertsRecord, StatusRecord> ADVERTS__FK_ADVERT_STATUS = ForeignKeys0.ADVERTS__FK_ADVERT_STATUS;
+    public static final ForeignKey<Chats_Record, UserRecord> CHATS___FK_CHAT_USER = ForeignKeys0.CHATS___FK_CHAT_USER;
+    public static final ForeignKey<Chats_Record, AdvertsRecord> CHATS___FK_CHAT_ADVERT = ForeignKeys0.CHATS___FK_CHAT_ADVERT;
+    public static final ForeignKey<Comments_Record, UserRecord> COMMENTS___FK_COMMENT_USER = ForeignKeys0.COMMENTS___FK_COMMENT_USER;
+    public static final ForeignKey<Comments_Record, AdvertsRecord> COMMENTS___FK_COMMENT_ADVERT = ForeignKeys0.COMMENTS___FK_COMMENT_ADVERT;
+    public static final ForeignKey<Messages__Record, UserRecord> MESSAGES____FK_MESSAGE_USER = ForeignKeys0.MESSAGES____FK_MESSAGE_USER;
+    public static final ForeignKey<Messages__Record, Chats_Record> MESSAGES____FK_MESSAGE_CHAT = ForeignKeys0.MESSAGES____FK_MESSAGE_CHAT;
 
     // -------------------------------------------------------------------------
     // [#1459] distribute members to avoid static initialisers > 64kb
     // -------------------------------------------------------------------------
 
     private static class UniqueKeys0 {
-        public static final UniqueKey<AdvertRecord> ADVERT_PKEY = Internal.createUniqueKey(Advert.ADVERT, "advert_pkey", Advert.ADVERT.ID);
-        public static final UniqueKey<AdvertRecord> ADVERT_CREATORID_KEY = Internal.createUniqueKey(Advert.ADVERT, "advert_creatorId_key", Advert.ADVERT.CREATORID);
-        public static final UniqueKey<AdvertRecord> ADVERT_STATUSID_KEY = Internal.createUniqueKey(Advert.ADVERT, "advert_statusId_key", Advert.ADVERT.STATUSID);
+        public static final UniqueKey<AdvertsRecord> ADVERTS_PKEY = Internal.createUniqueKey(Adverts.ADVERTS, "adverts_pkey", Adverts.ADVERTS.ID);
+        public static final UniqueKey<AdvertsRecord> ADVERTS_STATUSID_KEY = Internal.createUniqueKey(Adverts.ADVERTS, "adverts_statusId_key", Adverts.ADVERTS.STATUSID);
         public static final UniqueKey<CategoryRecord> CATEGORY_PKEY = Internal.createUniqueKey(Category.CATEGORY, "category_pkey", Category.CATEGORY.ID);
         public static final UniqueKey<CategoryRecord> CATEGORY_NAME_KEY = Internal.createUniqueKey(Category.CATEGORY, "category_name_key", Category.CATEGORY.NAME);
-        public static final UniqueKey<ChatRecord> CHAT_PKEY = Internal.createUniqueKey(Chat.CHAT, "chat_pkey", Chat.CHAT.ID);
-        public static final UniqueKey<ChatRecord> CHAT_CREATORID_KEY = Internal.createUniqueKey(Chat.CHAT, "chat_creatorId_key", Chat.CHAT.CREATORID);
-        public static final UniqueKey<CommentRecord> COMMENT_PKEY = Internal.createUniqueKey(Comment.COMMENT, "comment_pkey", Comment.COMMENT.ID);
-        public static final UniqueKey<CommentRecord> COMMENT_CREATORID_KEY = Internal.createUniqueKey(Comment.COMMENT, "comment_creatorId_key", Comment.COMMENT.CREATORID);
-        public static final UniqueKey<MessageRecord> MESSAGE_PKEY = Internal.createUniqueKey(Message.MESSAGE, "message_pkey", Message.MESSAGE.ID);
-        public static final UniqueKey<MessageRecord> MESSAGE_CREATORID_KEY = Internal.createUniqueKey(Message.MESSAGE, "message_creatorId_key", Message.MESSAGE.CREATORID);
+        public static final UniqueKey<Chats_Record> CHATS__PKEY = Internal.createUniqueKey(Chats_.CHATS_, "chats__pkey", Chats_.CHATS_.ID);
+        public static final UniqueKey<Comments_Record> COMMENTS__PKEY = Internal.createUniqueKey(Comments_.COMMENTS_, "comments__pkey", Comments_.COMMENTS_.ID);
+        public static final UniqueKey<Messages__Record> MESSAGES___PKEY = Internal.createUniqueKey(Messages__.MESSAGES__, "messages___pkey", Messages__.MESSAGES__.ID);
         public static final UniqueKey<StatusRecord> STATUS_PKEY = Internal.createUniqueKey(Status.STATUS, "status_pkey", Status.STATUS.ID);
         public static final UniqueKey<StatusRecord> STATUS_NAME_KEY = Internal.createUniqueKey(Status.STATUS, "status_name_key", Status.STATUS.NAME);
         public static final UniqueKey<TagRecord> TAG_PKEY = Internal.createUniqueKey(Tag.TAG, "tag_pkey", Tag.TAG.ID);
@@ -110,14 +102,14 @@ public class Keys {
     }
 
     private static class ForeignKeys0 {
-        public static final ForeignKey<AdvertRecord, UserRecord> ADVERT__FK_ADVERT_USER = Internal.createForeignKey(task.NewOpportunityPortal.db.Keys.USER_PKEY, Advert.ADVERT, "advert__fk_advert_user", Advert.ADVERT.CREATORID);
-        public static final ForeignKey<AdvertRecord, CategoryRecord> ADVERT__FK_ADVERT_CATEGORY = Internal.createForeignKey(task.NewOpportunityPortal.db.Keys.CATEGORY_PKEY, Advert.ADVERT, "advert__fk_advert_category", Advert.ADVERT.CATEGORYID);
-        public static final ForeignKey<AdvertRecord, StatusRecord> ADVERT__FK_ADVERT_STATUS = Internal.createForeignKey(task.NewOpportunityPortal.db.Keys.STATUS_PKEY, Advert.ADVERT, "advert__fk_advert_status", Advert.ADVERT.STATUSID);
-        public static final ForeignKey<ChatRecord, UserRecord> CHAT__FK_CHAT_USER = Internal.createForeignKey(task.NewOpportunityPortal.db.Keys.USER_PKEY, Chat.CHAT, "chat__fk_chat_user", Chat.CHAT.CREATORID);
-        public static final ForeignKey<ChatRecord, AdvertRecord> CHAT__FK_CHAT_ADVERT = Internal.createForeignKey(task.NewOpportunityPortal.db.Keys.ADVERT_PKEY, Chat.CHAT, "chat__fk_chat_advert", Chat.CHAT.ADVERTID);
-        public static final ForeignKey<CommentRecord, UserRecord> COMMENT__FK_COMMENT_USER = Internal.createForeignKey(task.NewOpportunityPortal.db.Keys.USER_PKEY, Comment.COMMENT, "comment__fk_comment_user", Comment.COMMENT.CREATORID);
-        public static final ForeignKey<CommentRecord, AdvertRecord> COMMENT__FK_COMMENT_ADVERT = Internal.createForeignKey(task.NewOpportunityPortal.db.Keys.ADVERT_PKEY, Comment.COMMENT, "comment__fk_comment_advert", Comment.COMMENT.ADVERTID);
-        public static final ForeignKey<MessageRecord, UserRecord> MESSAGE__FK_MESSAGE_USER = Internal.createForeignKey(task.NewOpportunityPortal.db.Keys.USER_PKEY, Message.MESSAGE, "message__fk_message_user", Message.MESSAGE.CREATORID);
-        public static final ForeignKey<MessageRecord, ChatRecord> MESSAGE__FK_MESSAGE_CHAT = Internal.createForeignKey(task.NewOpportunityPortal.db.Keys.CHAT_PKEY, Message.MESSAGE, "message__fk_message_chat", Message.MESSAGE.CHATID);
+        public static final ForeignKey<AdvertsRecord, UserRecord> ADVERTS__FK_ADVERT_USER = Internal.createForeignKey(task.NewOpportunityPortal.db.Keys.USER_PKEY, Adverts.ADVERTS, "adverts__fk_advert_user", Adverts.ADVERTS.CREATORID);
+        public static final ForeignKey<AdvertsRecord, CategoryRecord> ADVERTS__FK_ADVERT_CATEGORY = Internal.createForeignKey(task.NewOpportunityPortal.db.Keys.CATEGORY_PKEY, Adverts.ADVERTS, "adverts__fk_advert_category", Adverts.ADVERTS.CATEGORYID);
+        public static final ForeignKey<AdvertsRecord, StatusRecord> ADVERTS__FK_ADVERT_STATUS = Internal.createForeignKey(task.NewOpportunityPortal.db.Keys.STATUS_PKEY, Adverts.ADVERTS, "adverts__fk_advert_status", Adverts.ADVERTS.STATUSID);
+        public static final ForeignKey<Chats_Record, UserRecord> CHATS___FK_CHAT_USER = Internal.createForeignKey(task.NewOpportunityPortal.db.Keys.USER_PKEY, Chats_.CHATS_, "chats___fk_chat_user", Chats_.CHATS_.CREATORID);
+        public static final ForeignKey<Chats_Record, AdvertsRecord> CHATS___FK_CHAT_ADVERT = Internal.createForeignKey(task.NewOpportunityPortal.db.Keys.ADVERTS_PKEY, Chats_.CHATS_, "chats___fk_chat_advert", Chats_.CHATS_.ADVERTID);
+        public static final ForeignKey<Comments_Record, UserRecord> COMMENTS___FK_COMMENT_USER = Internal.createForeignKey(task.NewOpportunityPortal.db.Keys.USER_PKEY, Comments_.COMMENTS_, "comments___fk_comment_user", Comments_.COMMENTS_.CREATORID);
+        public static final ForeignKey<Comments_Record, AdvertsRecord> COMMENTS___FK_COMMENT_ADVERT = Internal.createForeignKey(task.NewOpportunityPortal.db.Keys.ADVERTS_PKEY, Comments_.COMMENTS_, "comments___fk_comment_advert", Comments_.COMMENTS_.ADVERTID);
+        public static final ForeignKey<Messages__Record, UserRecord> MESSAGES____FK_MESSAGE_USER = Internal.createForeignKey(task.NewOpportunityPortal.db.Keys.USER_PKEY, Messages__.MESSAGES__, "messages____fk_message_user", Messages__.MESSAGES__.CREATORID);
+        public static final ForeignKey<Messages__Record, Chats_Record> MESSAGES____FK_MESSAGE_CHAT = Internal.createForeignKey(task.NewOpportunityPortal.db.Keys.CHATS__PKEY, Messages__.MESSAGES__, "messages____fk_message_chat", Messages__.MESSAGES__.CHATID);
     }
 }

@@ -10,11 +10,11 @@ import org.jooq.Index;
 import org.jooq.OrderField;
 import org.jooq.impl.Internal;
 
-import task.NewOpportunityPortal.db.tables.Advert;
+import task.NewOpportunityPortal.db.tables.Adverts;
 import task.NewOpportunityPortal.db.tables.Category;
-import task.NewOpportunityPortal.db.tables.Chat;
-import task.NewOpportunityPortal.db.tables.Comment;
-import task.NewOpportunityPortal.db.tables.Message;
+import task.NewOpportunityPortal.db.tables.Chats_;
+import task.NewOpportunityPortal.db.tables.Comments_;
+import task.NewOpportunityPortal.db.tables.Messages__;
 import task.NewOpportunityPortal.db.tables.Status;
 import task.NewOpportunityPortal.db.tables.Tag;
 import task.NewOpportunityPortal.db.tables.User;
@@ -37,12 +37,12 @@ public class Indexes {
     // INDEX definitions
     // -------------------------------------------------------------------------
 
-    public static final Index ADVERT_PKEY = Indexes0.ADVERT_PKEY;
+    public static final Index ADVERTS_PKEY = Indexes0.ADVERTS_PKEY;
     public static final Index CATEGORY_NAME_KEY = Indexes0.CATEGORY_NAME_KEY;
     public static final Index CATEGORY_PKEY = Indexes0.CATEGORY_PKEY;
-    public static final Index CHAT_PKEY = Indexes0.CHAT_PKEY;
-    public static final Index COMMENT_PKEY = Indexes0.COMMENT_PKEY;
-    public static final Index MESSAGE_PKEY = Indexes0.MESSAGE_PKEY;
+    public static final Index CHATS__PKEY = Indexes0.CHATS__PKEY;
+    public static final Index COMMENTS__PKEY = Indexes0.COMMENTS__PKEY;
+    public static final Index MESSAGES___PKEY = Indexes0.MESSAGES___PKEY;
     public static final Index STATUS_NAME_KEY = Indexes0.STATUS_NAME_KEY;
     public static final Index STATUS_PKEY = Indexes0.STATUS_PKEY;
     public static final Index TAG_NAME_KEY = Indexes0.TAG_NAME_KEY;
@@ -56,12 +56,12 @@ public class Indexes {
     // -------------------------------------------------------------------------
 
     private static class Indexes0 {
-        public static Index ADVERT_PKEY = Internal.createIndex("advert_pkey", Advert.ADVERT, new OrderField[] { Advert.ADVERT.ID }, true);
+        public static Index ADVERTS_PKEY = Internal.createIndex("adverts_pkey", Adverts.ADVERTS, new OrderField[] { Adverts.ADVERTS.ID }, true);
         public static Index CATEGORY_NAME_KEY = Internal.createIndex("category_name_key", Category.CATEGORY, new OrderField[] { Category.CATEGORY.NAME }, true);
         public static Index CATEGORY_PKEY = Internal.createIndex("category_pkey", Category.CATEGORY, new OrderField[] { Category.CATEGORY.ID }, true);
-        public static Index CHAT_PKEY = Internal.createIndex("chat_pkey", Chat.CHAT, new OrderField[] { Chat.CHAT.ID }, true);
-        public static Index COMMENT_PKEY = Internal.createIndex("comment_pkey", Comment.COMMENT, new OrderField[] { Comment.COMMENT.ID }, true);
-        public static Index MESSAGE_PKEY = Internal.createIndex("message_pkey", Message.MESSAGE, new OrderField[] { Message.MESSAGE.ID }, true);
+        public static Index CHATS__PKEY = Internal.createIndex("chats__pkey", Chats_.CHATS_, new OrderField[] { Chats_.CHATS_.ID }, true);
+        public static Index COMMENTS__PKEY = Internal.createIndex("comments__pkey", Comments_.COMMENTS_, new OrderField[] { Comments_.COMMENTS_.ID }, true);
+        public static Index MESSAGES___PKEY = Internal.createIndex("messages___pkey", Messages__.MESSAGES__, new OrderField[] { Messages__.MESSAGES__.ID }, true);
         public static Index STATUS_NAME_KEY = Internal.createIndex("status_name_key", Status.STATUS, new OrderField[] { Status.STATUS.NAME }, true);
         public static Index STATUS_PKEY = Internal.createIndex("status_pkey", Status.STATUS, new OrderField[] { Status.STATUS.ID }, true);
         public static Index TAG_NAME_KEY = Internal.createIndex("tag_name_key", Tag.TAG, new OrderField[] { Tag.TAG.NAME }, true);

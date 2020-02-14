@@ -9,12 +9,12 @@
              relativeToChangelogFile="true" />
     <include file="changelog/04-tag-schema.xml"
              relativeToChangelogFile="true" />
-    <include file="changelog/05-advert-schema.xml"
+    <include file="changelog/12-advert-schema.xml"
              relativeToChangelogFile="true" />
-    <include file="changelog/06-chat-schema.xml"
+    <include file="changelog/15-chat-schema.xml"
              relativeToChangelogFile="true" />
-    <include file="changelog/07-message-schema.xml"
+    <include file="changelog/16-message-schema.xml"
              relativeToChangelogFile="true" />
-    <include file="changelog/08-comment-schema.xml"
+    <include file="changelog/14-comment-schema.xml"
              relativeToChangelogFile="true" />
 </databaseChangeLog>
