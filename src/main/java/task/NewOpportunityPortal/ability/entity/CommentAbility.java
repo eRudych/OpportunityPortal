@@ -1,11 +1,9 @@
 package task.NewOpportunityPortal.ability.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Value;
 
-@Data
-@AllArgsConstructor
+@Value
 public class CommentAbility {
-    private final Long id;
+    private Long id;
     private String text;
 }

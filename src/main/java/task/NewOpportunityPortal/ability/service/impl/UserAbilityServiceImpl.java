@@ -10,7 +10,7 @@ import task.NewOpportunityPortal.ability.entity.UserAbility;
 import task.NewOpportunityPortal.ability.repository.UserAbilityRepository;
 import task.NewOpportunityPortal.ability.service.UserAbilityService;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -22,11 +22,14 @@ public class UserAbilityServiceImpl implements UserAbilityService {
 
     @Override
     public Long createUserAbilityRate(UserAbility userAbility) {
-        Date now = new java.util.Date();
-        log.info("Set time creates: {}",  now);
-        userAbility.setCreateAt(new java.sql.Timestamp(now.getTime()));
+        LocalDateTime now = LocalDateTime.now();
         log.info("Create user ability rate: {}", userAbility.toString());
-        return repository.createUserAbilityRate(userAbility) ;
+        return repository.createUserAbilityRate(new UserAbility(
+                userAbility.getId(),
+                userAbility.getAuthorId(),
+                userAbility.getUserId(),
+                userAbility.getAssessment(),
+                java.sql.Timestamp.valueOf(now))) ;
     }
 
     @Override
@@ -38,9 +41,9 @@ public class UserAbilityServiceImpl implements UserAbilityService {
 
     @Override
     @CacheEvict(value = "abilities")
-    public boolean removeUserAbilityRate(Long userAbilityId) {
+    public void removeUserAbilityRate(Long userAbilityId) {
         log.info("Remove user ability rate: {}", userAbilityId);
-        return repository.removeUserAbilityRate(userAbilityId);
+        repository.removeUserAbilityRate(userAbilityId);
     }
 
     @Override

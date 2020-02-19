@@ -11,7 +11,6 @@ import task.NewOpportunityPortal.ability.entity.UserAbility;
 import java.sql.Timestamp;
 import java.util.List;
 
-import static task.NewOpportunityPortal.db.tables.User.USER;
 import static task.NewOpportunityPortal.db.tables.UserAbility.USER_ABILITY;
 
 @Repository
@@ -22,8 +21,8 @@ public class UserAbilityRepositoryImpl implements UserAbilityRepository {
     private final DSLContext dsl;
 
     private Long insert(UserAbility userAbility) {
-        UserAbilityRecord userAbilityRecord = dsl.insertInto(USER_ABILITY, USER_ABILITY.AUTHORID, USER_ABILITY.USERID, USER_ABILITY.COMMENTID, USER_ABILITY.ASSESSMENT, USER_ABILITY.CREATED_AT)
-                .values(userAbility.getAuthorId(), userAbility.getUserId(), userAbility.getCommentId(), userAbility.getAssessment(), userAbility.getCreateAt())
+        UserAbilityRecord userAbilityRecord = dsl.insertInto(USER_ABILITY, USER_ABILITY.AUTHORID, USER_ABILITY.USERID, USER_ABILITY.ASSESSMENT, USER_ABILITY.CREATED_AT)
+                .values(userAbility.getAuthorId(), userAbility.getUserId(), userAbility.getAssessment(), userAbility.getCreateAt())
                 .returning(USER_ABILITY.ID)
                 .fetchOne();
         log.info("Insert into db: {}", userAbility.toString());
@@ -42,34 +41,28 @@ public class UserAbilityRepositoryImpl implements UserAbilityRepository {
         return getUserAbilityRate((long) dsl.update(USER_ABILITY)
                 .set(USER_ABILITY.AUTHORID, userAbility.getAuthorId())
                 .set(USER_ABILITY.USERID, userAbility.getUserId())
-                .set(USER_ABILITY.COMMENTID, userAbility.getCommentId())
                 .set(USER_ABILITY.ASSESSMENT, userAbility.getAssessment())
                 .where(USER_ABILITY.ID.eq(userAbility.getId())).execute());
     }
 
     @Override
-    public boolean removeUserAbilityRate(Long userAbilityId) {
+    public void removeUserAbilityRate(Long userAbilityId) {
         log.info("Remove user ability rate: {}", userAbilityId);
-
-        try {
-            dsl.deleteFrom(USER_ABILITY)
-                    .where(USER_ABILITY.ID.eq(userAbilityId)).execute();
-            return true;
-        } catch (Exception ex) {
-            log.error(ex.getMessage());
-            return false;
-        }
+        dsl.deleteFrom(USER_ABILITY)
+                .where(USER_ABILITY.ID.eq(userAbilityId)).execute();
     }
 
     @Override
     public UserAbility getUserAbilityRate(Long userAbilityId) {
         log.info("Get user ability rate by id: {}", userAbilityId);
-        UserAbility userAbility = dsl.selectFrom(USER_ABILITY)
+        return dsl.selectFrom(USER_ABILITY)
                 .where(USER_ABILITY.ID.eq(userAbilityId))
-                .fetchOneInto(UserAbility.class);
-        log.info("Set selected data: {}", userAbilityId);
-        userAbility.setCreateAt(dsl.select(USER.CREATED_AT).from(USER).where(USER.ID.eq(userAbilityId)).fetchOneInto(Timestamp.class));
-        return userAbility;
+                .fetchOne(r-> new UserAbility(
+                        r.get(0,Long.class),
+                        r.get(1,Long.class),
+                        r.get(2,Long.class),
+                        r.get(5,Integer.class),
+                        r.get(6,Timestamp.class)));
     }
 
     @Override

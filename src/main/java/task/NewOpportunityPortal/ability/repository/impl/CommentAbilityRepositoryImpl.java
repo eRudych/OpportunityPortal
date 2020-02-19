@@ -18,8 +18,8 @@ public class CommentAbilityRepositoryImpl implements CommentAbilityRepository {
     private final DSLContext dsl;
 
     private Long insert(CommentAbility comment) {
-        AbilityCommentRecord commentRecord = dsl.insertInto(ABILITY_COMMENT, ABILITY_COMMENT.TEXT)
-                .values(comment.getText())
+        AbilityCommentRecord commentRecord = dsl.insertInto(ABILITY_COMMENT, ABILITY_COMMENT.ID, ABILITY_COMMENT.TEXT)
+                .values(comment.getId(), comment.getText())
                 .returning(ABILITY_COMMENT.ID)
                 .fetchOne();
         log.info("Insert into db: {}", comment.toString());
@@ -33,17 +33,10 @@ public class CommentAbilityRepositoryImpl implements CommentAbilityRepository {
     }
 
     @Override
-    public boolean removeCommentAbilityRate(Long commentId) {
+    public void removeCommentAbilityRate(Long commentId) {
         log.info("Remove comment ability rate {}", commentId);
-
-        try {
-            dsl.deleteFrom(ABILITY_COMMENT)
+        dsl.deleteFrom(ABILITY_COMMENT)
                     .where(ABILITY_COMMENT.ID.eq(commentId)).execute();
-            return true;
-        } catch (Exception ex) {
-            log.error(ex.getMessage());
-            return false;
-        }
     }
 
     @Override

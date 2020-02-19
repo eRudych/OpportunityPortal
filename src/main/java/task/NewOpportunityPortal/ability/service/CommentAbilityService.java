@@ -6,7 +6,7 @@ public interface CommentAbilityService {
 
     Long createCommentAbilityRate( CommentAbility comment);
 
-    boolean removeCommentAbilityRate( Long commentId);
+    void removeCommentAbilityRate(Long commentId);
 
     CommentAbility updateCommentAbilityRate( CommentAbility comment);
 

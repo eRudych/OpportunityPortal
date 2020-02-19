@@ -21,9 +21,9 @@ public class CommentAbilityServiceImpl implements CommentAbilityService {
     }
 
     @Override
-    public boolean removeCommentAbilityRate(Long commentId) {
+    public void removeCommentAbilityRate(Long commentId) {
         log.info("Remove comment ability rate {}", commentId);
-        return repository.removeCommentAbilityRate(commentId);
+        repository.removeCommentAbilityRate(commentId);
     }
 
     @Override

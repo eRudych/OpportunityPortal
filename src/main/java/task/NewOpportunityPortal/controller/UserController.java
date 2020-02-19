@@ -61,9 +61,9 @@ public class UserController {
     }
 
     @DeleteMapping("/abilities/{userAbilityId}")
-    public boolean removeUserAbilityRate(@PathVariable("userAbilityId") long userAbilityId){
+    public void removeUserAbilityRate(@PathVariable("userAbilityId") long userAbilityId){
         log.info("Remove user ability rate {}", userAbilityId);
-        return userAbilityService.removeUserAbilityRate(userAbilityId);
+        userAbilityService.removeUserAbilityRate(userAbilityId);
     }
 
     @PutMapping(value = "/abilities", consumes = {MediaType.APPLICATION_JSON_VALUE})
@@ -91,9 +91,9 @@ public class UserController {
     }
 
     @DeleteMapping("/abilities/comments/{commentId}")
-    public boolean removeCommentAbilityRate(@PathVariable("commentId") long commentId){
+    public void removeCommentAbilityRate(@PathVariable("commentId") long commentId){
         log.info("Remove comment ability rate {}", commentId);
-        return commentAbilityService.removeCommentAbilityRate(commentId);
+        commentAbilityService.removeCommentAbilityRate(commentId);
     }
 
     @PutMapping(value = "/abilities/comments", consumes = {MediaType.APPLICATION_JSON_VALUE})

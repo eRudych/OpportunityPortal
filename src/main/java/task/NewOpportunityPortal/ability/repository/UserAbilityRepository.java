@@ -10,7 +10,7 @@ public interface UserAbilityRepository {
 
     UserAbility updateUserAbilityRate( UserAbility userAbility);
 
-    boolean removeUserAbilityRate(Long userAbilityId);
+    void removeUserAbilityRate(Long userAbilityId);
 
     UserAbility getUserAbilityRate(Long userAbilityId);
 
