@@ -10,6 +10,7 @@ import org.jooq.ForeignKey;
 import org.jooq.UniqueKey;
 import org.jooq.impl.Internal;
 
+import task.NewOpportunityPortal.db.tables.AbilityComment;
 import task.NewOpportunityPortal.db.tables.Adverts;
 import task.NewOpportunityPortal.db.tables.Category;
 import task.NewOpportunityPortal.db.tables.Chats_;
@@ -18,6 +19,8 @@ import task.NewOpportunityPortal.db.tables.Messages__;
 import task.NewOpportunityPortal.db.tables.Status;
 import task.NewOpportunityPortal.db.tables.Tag;
 import task.NewOpportunityPortal.db.tables.User;
+import task.NewOpportunityPortal.db.tables.UserAbility;
+import task.NewOpportunityPortal.db.tables.records.AbilityCommentRecord;
 import task.NewOpportunityPortal.db.tables.records.AdvertsRecord;
 import task.NewOpportunityPortal.db.tables.records.CategoryRecord;
 import task.NewOpportunityPortal.db.tables.records.Chats_Record;
@@ -25,6 +28,7 @@ import task.NewOpportunityPortal.db.tables.records.Comments_Record;
 import task.NewOpportunityPortal.db.tables.records.Messages__Record;
 import task.NewOpportunityPortal.db.tables.records.StatusRecord;
 import task.NewOpportunityPortal.db.tables.records.TagRecord;
+import task.NewOpportunityPortal.db.tables.records.UserAbilityRecord;
 import task.NewOpportunityPortal.db.tables.records.UserRecord;
 
 
@@ -51,6 +55,7 @@ public class Keys {
     // UNIQUE and PRIMARY KEY definitions
     // -------------------------------------------------------------------------
 
+    public static final UniqueKey<AbilityCommentRecord> ABILITY_COMMENT_PKEY = UniqueKeys0.ABILITY_COMMENT_PKEY;
     public static final UniqueKey<AdvertsRecord> ADVERTS_PKEY = UniqueKeys0.ADVERTS_PKEY;
     public static final UniqueKey<AdvertsRecord> ADVERTS_STATUSID_KEY = UniqueKeys0.ADVERTS_STATUSID_KEY;
     public static final UniqueKey<CategoryRecord> CATEGORY_PKEY = UniqueKeys0.CATEGORY_PKEY;
@@ -65,6 +70,8 @@ public class Keys {
     public static final UniqueKey<UserRecord> USER_PKEY = UniqueKeys0.USER_PKEY;
     public static final UniqueKey<UserRecord> USER_LOGIN_KEY = UniqueKeys0.USER_LOGIN_KEY;
     public static final UniqueKey<UserRecord> USER_NICK_KEY = UniqueKeys0.USER_NICK_KEY;
+    public static final UniqueKey<UserAbilityRecord> USER_ABILITY_PKEY = UniqueKeys0.USER_ABILITY_PKEY;
+    public static final UniqueKey<UserAbilityRecord> USER_ABILITY_COMMENTID_KEY = UniqueKeys0.USER_ABILITY_COMMENTID_KEY;
 
     // -------------------------------------------------------------------------
     // FOREIGN KEY definitions
@@ -79,12 +86,16 @@ public class Keys {
     public static final ForeignKey<Comments_Record, AdvertsRecord> COMMENTS___FK_COMMENT_ADVERT = ForeignKeys0.COMMENTS___FK_COMMENT_ADVERT;
     public static final ForeignKey<Messages__Record, UserRecord> MESSAGES____FK_MESSAGE_USER = ForeignKeys0.MESSAGES____FK_MESSAGE_USER;
     public static final ForeignKey<Messages__Record, Chats_Record> MESSAGES____FK_MESSAGE_CHAT = ForeignKeys0.MESSAGES____FK_MESSAGE_CHAT;
+    public static final ForeignKey<UserAbilityRecord, UserRecord> USER_ABILITY__FK_USER_ABILITY_AUTHOR = ForeignKeys0.USER_ABILITY__FK_USER_ABILITY_AUTHOR;
+    public static final ForeignKey<UserAbilityRecord, UserRecord> USER_ABILITY__FK_USER_ABILITY_USER = ForeignKeys0.USER_ABILITY__FK_USER_ABILITY_USER;
+    public static final ForeignKey<UserAbilityRecord, AbilityCommentRecord> USER_ABILITY__FK_USER_ABILITY_COMMENT = ForeignKeys0.USER_ABILITY__FK_USER_ABILITY_COMMENT;
 
     // -------------------------------------------------------------------------
     // [#1459] distribute members to avoid static initialisers > 64kb
     // -------------------------------------------------------------------------
 
     private static class UniqueKeys0 {
+        public static final UniqueKey<AbilityCommentRecord> ABILITY_COMMENT_PKEY = Internal.createUniqueKey(AbilityComment.ABILITY_COMMENT, "ability_comment_pkey", AbilityComment.ABILITY_COMMENT.ID);
         public static final UniqueKey<AdvertsRecord> ADVERTS_PKEY = Internal.createUniqueKey(Adverts.ADVERTS, "adverts_pkey", Adverts.ADVERTS.ID);
         public static final UniqueKey<AdvertsRecord> ADVERTS_STATUSID_KEY = Internal.createUniqueKey(Adverts.ADVERTS, "adverts_statusId_key", Adverts.ADVERTS.STATUSID);
         public static final UniqueKey<CategoryRecord> CATEGORY_PKEY = Internal.createUniqueKey(Category.CATEGORY, "category_pkey", Category.CATEGORY.ID);
@@ -99,6 +110,8 @@ public class Keys {
         public static final UniqueKey<UserRecord> USER_PKEY = Internal.createUniqueKey(User.USER, "user_pkey", User.USER.ID);
         public static final UniqueKey<UserRecord> USER_LOGIN_KEY = Internal.createUniqueKey(User.USER, "user_login_key", User.USER.LOGIN);
         public static final UniqueKey<UserRecord> USER_NICK_KEY = Internal.createUniqueKey(User.USER, "user_nick_key", User.USER.NICK);
+        public static final UniqueKey<UserAbilityRecord> USER_ABILITY_PKEY = Internal.createUniqueKey(UserAbility.USER_ABILITY, "user_ability_pkey", UserAbility.USER_ABILITY.ID);
+        public static final UniqueKey<UserAbilityRecord> USER_ABILITY_COMMENTID_KEY = Internal.createUniqueKey(UserAbility.USER_ABILITY, "user_ability_commentId_key", UserAbility.USER_ABILITY.COMMENTID);
     }
 
     private static class ForeignKeys0 {
@@ -111,5 +124,8 @@ public class Keys {
         public static final ForeignKey<Comments_Record, AdvertsRecord> COMMENTS___FK_COMMENT_ADVERT = Internal.createForeignKey(task.NewOpportunityPortal.db.Keys.ADVERTS_PKEY, Comments_.COMMENTS_, "comments___fk_comment_advert", Comments_.COMMENTS_.ADVERTID);
         public static final ForeignKey<Messages__Record, UserRecord> MESSAGES____FK_MESSAGE_USER = Internal.createForeignKey(task.NewOpportunityPortal.db.Keys.USER_PKEY, Messages__.MESSAGES__, "messages____fk_message_user", Messages__.MESSAGES__.CREATORID);
         public static final ForeignKey<Messages__Record, Chats_Record> MESSAGES____FK_MESSAGE_CHAT = Internal.createForeignKey(task.NewOpportunityPortal.db.Keys.CHATS__PKEY, Messages__.MESSAGES__, "messages____fk_message_chat", Messages__.MESSAGES__.CHATID);
+        public static final ForeignKey<UserAbilityRecord, UserRecord> USER_ABILITY__FK_USER_ABILITY_AUTHOR = Internal.createForeignKey(task.NewOpportunityPortal.db.Keys.USER_PKEY, UserAbility.USER_ABILITY, "user_ability__fk_user_ability_author", UserAbility.USER_ABILITY.AUTHORID);
+        public static final ForeignKey<UserAbilityRecord, UserRecord> USER_ABILITY__FK_USER_ABILITY_USER = Internal.createForeignKey(task.NewOpportunityPortal.db.Keys.USER_PKEY, UserAbility.USER_ABILITY, "user_ability__fk_user_ability_user", UserAbility.USER_ABILITY.USERID);
+        public static final ForeignKey<UserAbilityRecord, AbilityCommentRecord> USER_ABILITY__FK_USER_ABILITY_COMMENT = Internal.createForeignKey(task.NewOpportunityPortal.db.Keys.ABILITY_COMMENT_PKEY, UserAbility.USER_ABILITY, "user_ability__fk_user_ability_comment", UserAbility.USER_ABILITY.COMMENTID);
     }
 }

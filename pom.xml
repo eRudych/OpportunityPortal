@@ -151,7 +151,7 @@
                         </generate>
                         <database>
                             <name>org.jooq.meta.postgres.PostgresDatabase</name>
-                            <includes>user | category | status | tag | adverts | chats_ | messages__ | comments_ </includes>
+                            <includes>user | category | status | tag | adverts | chats_ | messages__ | comments_ | ability_comment | user_ability </includes>
                             <inputSchema>public</inputSchema>
                         </database>
                         <target>

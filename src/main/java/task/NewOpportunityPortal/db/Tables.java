@@ -6,6 +6,7 @@ package task.NewOpportunityPortal.db;
 
 import javax.annotation.processing.Generated;
 
+import task.NewOpportunityPortal.db.tables.AbilityComment;
 import task.NewOpportunityPortal.db.tables.Adverts;
 import task.NewOpportunityPortal.db.tables.Category;
 import task.NewOpportunityPortal.db.tables.Chats_;
@@ -14,6 +15,7 @@ import task.NewOpportunityPortal.db.tables.Messages__;
 import task.NewOpportunityPortal.db.tables.Status;
 import task.NewOpportunityPortal.db.tables.Tag;
 import task.NewOpportunityPortal.db.tables.User;
+import task.NewOpportunityPortal.db.tables.UserAbility;
 
 
 /**
@@ -28,6 +30,11 @@ import task.NewOpportunityPortal.db.tables.User;
 )
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Tables {
+
+    /**
+     * The table <code>public.ability_comment</code>.
+     */
+    public static final AbilityComment ABILITY_COMMENT = AbilityComment.ABILITY_COMMENT;
 
     /**
      * The table <code>public.adverts</code>.
@@ -68,4 +75,9 @@ public class Tables {
      * The table <code>public.user</code>.
      */
     public static final User USER = User.USER;
+
+    /**
+     * The table <code>public.user_ability</code>.
+     */
+    public static final UserAbility USER_ABILITY = UserAbility.USER_ABILITY;
 }
