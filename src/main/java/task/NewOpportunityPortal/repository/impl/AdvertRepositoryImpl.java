@@ -1,12 +1,12 @@
 package task.NewOpportunityPortal.repository.impl;
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.jooq.DSLContext;
+import org.springframework.stereotype.Repository;
 import task.NewOpportunityPortal.db.tables.records.AdvertsRecord;
 import task.NewOpportunityPortal.entity.Advert;
 import task.NewOpportunityPortal.repository.AdvertRepository;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Repository;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -42,24 +42,34 @@ public class AdvertRepositoryImpl implements AdvertRepository {
 
     @Override
     public Long createAdvert(Advert advert) {
-        log.info("Create advert: {}", advert.getId());
+        log.info("Create advert: {}", advert.toString());
         return insert(advert);
     }
 
     @Override
     public Advert getAdvert(Long advertId) {
         log.info("Select advert: {}", advertId);
-        Advert advert = dsl.selectFrom(ADVERTS)
+        return dsl.selectFrom(ADVERTS)
                 .where(ADVERTS.ID.eq(advertId))
-                .fetchOneInto(Advert.class);
-        log.info("Set selected data: {}", advertId);
-        advert.setCreateAt(dsl.select(ADVERTS.CREATED_AT).from(ADVERTS).where(ADVERTS.ID.eq(advertId)).fetchOneInto((Timestamp.class)));
-        return advert;
+                .fetchOne(r -> new Advert(
+                        r.get(0, Long.class),
+                        r.get(1, Long.class),
+                        r.get(2, Long.class),
+                        r.get(7, Long.class),
+                        r.get(4, String.class),
+                        r.get(5, String.class),
+                        r.get(3, List.class),
+                        r.get(8, List.class),
+                        r.get(9, List.class),
+                        r.get(10, Long.class),
+                        r.get(6, String.class),
+                        r.get(11, Timestamp.class)
+                ));
     }
 
     @Override
     public Advert updateAdvert(Advert advert) {
-        log.info("Update text advert: {}", advert.getId());
+        log.info("Update text advert: {}", advert.toString());
         return getAdvert((long) dsl.update(ADVERTS)
                 .set(ADVERTS.INFO, advert.getInfo())
                 .set(ADVERTS.SUBJECT, advert.getSubject())
@@ -73,16 +83,11 @@ public class AdvertRepositoryImpl implements AdvertRepository {
     }
 
     @Override
-    public boolean removeAdvert(Long advertId) {
+    public void removeAdvert(Long advertId) {
         log.info("Remove advert: {}", advertId);
-        try {
-            dsl.deleteFrom(ADVERTS)
-                    .where(ADVERTS.ID.eq(advertId)).execute();
-            return true;
-        } catch (Exception ex) {
-            log.error(ex.getMessage());
-            return false;
-        }
+        dsl.deleteFrom(ADVERTS)
+                .where(ADVERTS.ID.eq(advertId))
+                .execute();
     }
 
     @Override

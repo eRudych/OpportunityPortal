@@ -1,9 +1,9 @@
 package task.NewOpportunityPortal.component.entity;
 
-import lombok.Data;
+import lombok.Value;
 
-@Data
+@Value
 public class Status {
-    private final Long id;
-    private final String name;
+    final Long id;
+    final String name;
 }

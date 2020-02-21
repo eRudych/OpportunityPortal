@@ -1,9 +1,8 @@
 package task.NewOpportunityPortal.cryp;
 
 
-import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.BadPaddingException;
@@ -17,13 +16,20 @@ import java.security.NoSuchAlgorithmException;
 
 @RequiredArgsConstructor
 @Component
+@Slf4j
 public class EncryptDecrypt {
 
-    @Value("#{environment.SECRET_KEY}")
-    private String secretKey;
+    private final IvParameterSpec ivParameterSpec;
+    private final SecretKeySpec secretKeySpec;
+    private final Cipher cipher;
 
-    private SecretKeySpec secretKeySpec;
-    private Cipher cipher;
+    public EncryptDecrypt() throws NoSuchPaddingException, NoSuchAlgorithmException {
+        String initVector = System.getenv("INIT_VECTOR");
+        this.ivParameterSpec = new IvParameterSpec(initVector.getBytes(StandardCharsets.UTF_8));
+        String secretKey = System.getenv("SECRET_KEY");
+        this.secretKeySpec = new SecretKeySpec(secretKey.getBytes(StandardCharsets.UTF_8), "AES");
+        this.cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING");
+    }
 
 
     public String encrypt(String toBeEncrypt) throws BadPaddingException, IllegalBlockSizeException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException {
@@ -31,6 +37,7 @@ public class EncryptDecrypt {
         secretKeySpec = new SecretKeySpec(secretKey.getBytes(StandardCharsets.UTF_8), "AES");
         cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec);
         byte[] encrypted = cipher.doFinal(toBeEncrypt.getBytes());
+        log.info("encrypted: {}", Base64.encodeBase64String(encrypted));
         return Base64.encodeBase64String(encrypted);
     }
 

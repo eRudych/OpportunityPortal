@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface UserAbilityService {
 
-   Long createUserAbilityRate( UserAbility userAbility);
+    Long createUserAbilityRate(UserAbility userAbility);
 
-    UserAbility updateUserAbilityRate( UserAbility userAbility);
+    UserAbility updateUserAbilityRate(UserAbility userAbility);
 
     void removeUserAbilityRate(Long userAbilityId);
 

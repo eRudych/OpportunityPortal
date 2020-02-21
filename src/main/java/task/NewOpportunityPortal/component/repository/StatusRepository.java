@@ -10,7 +10,7 @@ public interface StatusRepository {
 
     Status getStatus(Long statusId);
 
-    boolean removeStatus(Long statusId);
+    void removeStatus(Long statusId);
 
     List<Status> getAllStatuses();
 }

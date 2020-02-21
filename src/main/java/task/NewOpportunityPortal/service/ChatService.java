@@ -3,7 +3,6 @@ package task.NewOpportunityPortal.service;
 import task.NewOpportunityPortal.entity.Chat;
 
 import java.util.List;
-import java.util.Set;
 
 public interface ChatService {
 
@@ -13,7 +12,7 @@ public interface ChatService {
 
     Chat updateChat(Chat chat);
 
-    boolean removeChat(Long chatId);
+    void removeChat(Long chatId);
 
     List<Long> getMessages(Long chatId);
 }

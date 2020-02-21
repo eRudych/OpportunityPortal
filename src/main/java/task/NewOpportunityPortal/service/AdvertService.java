@@ -12,7 +12,7 @@ public interface AdvertService {
 
     Advert getAdvert(Long advertId);
 
-    boolean removeAdvert(Long advertId);
+    void removeAdvert(Long advertId);
 
     List<Long> getAllIdAdverts();
 }

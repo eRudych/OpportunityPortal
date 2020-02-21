@@ -10,7 +10,7 @@ public interface TagService {
 
     Tag getTag(Long tagId);
 
-    boolean removeTag(Long tagId);
+    void removeTag(Long tagId);
 
     List<Tag> getAllTags();
 }

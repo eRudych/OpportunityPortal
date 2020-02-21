@@ -12,7 +12,7 @@ import task.NewOpportunityPortal.ability.service.CommentAbilityService;
 @Slf4j
 public class CommentAbilityServiceImpl implements CommentAbilityService {
 
-    private  final CommentAbilityRepository repository;
+    private final CommentAbilityRepository repository;
 
     @Override
     public Long createCommentAbilityRate(CommentAbility comment) {

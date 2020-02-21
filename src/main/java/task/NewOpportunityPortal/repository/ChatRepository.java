@@ -12,7 +12,7 @@ public interface ChatRepository {
 
     Chat updateChat(Chat chat);
 
-    boolean removeChat(Long chatId);
+    void removeChat(Long chatId);
 
     List<Long> getMessages(Long chatId);
 

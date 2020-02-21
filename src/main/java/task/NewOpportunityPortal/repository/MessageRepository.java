@@ -11,5 +11,5 @@ public interface MessageRepository {
 
     Message updateMessage(Message message);
 
-    boolean removeMessage(Long messageId);
+    void removeMessage(Long messageId);
 }

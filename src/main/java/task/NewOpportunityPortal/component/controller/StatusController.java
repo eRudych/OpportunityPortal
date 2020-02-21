@@ -18,24 +18,25 @@ public class StatusController {
     private final StatusService service;
 
     @GetMapping("/{statusId}")
-    public Status getStatus(@PathVariable("statusId") long statusId){
+    public Status getStatus(@PathVariable("statusId") long statusId) {
         log.info("Remove status {}", statusId);
         return service.getStatus(statusId);
     }
+
     @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE})
-    public long createStatus(@RequestBody Status status){
+    public long createStatus(@RequestBody Status status) {
         log.info("Create status {}", status.toString());
         return service.createStatus(status);
     }
 
     @DeleteMapping("/{statusId}")
-    public boolean removeStatus(@PathVariable("statusId") long statusId){
+    public void removeStatus(@PathVariable("statusId") long statusId) {
         log.info("Remove status {}", statusId);
-        return service.removeStatus(statusId);
+        service.removeStatus(statusId);
     }
 
     @GetMapping
-    public List<Status> getAllStatuses(){
+    public List<Status> getAllStatuses() {
         log.info("Get all statuses");
         return service.getAllStatuses();
     }

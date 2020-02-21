@@ -10,5 +10,7 @@ public interface AdvertRepository {
 
     Advert updateAdvert(Advert advert);
 
-    boolean removeAdvert(Long advertId);
+    void removeAdvert(Long advertId);
+
+    List<Long> getAllIdAdverts();
 }

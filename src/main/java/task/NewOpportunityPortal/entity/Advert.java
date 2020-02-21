@@ -1,30 +1,24 @@
 package task.NewOpportunityPortal.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Value;
 
 import java.sql.Timestamp;
 import java.util.List;
 
-@Data
-@AllArgsConstructor
+@Value
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Advert {
-    private final Long id;
-    private Long creatorId;
-    private Long categoryId;
-    private Long statusId;
-    private String subject;
-    private String info;
-    private List<Long> workersId;
-    private List<Long> tagsId;
-    private List<Long> workersHowCheckMark;
-    private long mark;
-    private String linkToDocument;
-    private Timestamp createAt;
-
-    public Advert(Long id) {
-        this.id = id;
-    }
+    final Long id;
+    Long creatorId;
+    Long categoryId;
+    Long statusId;
+    String subject;
+    String info;
+    List<Long> workersId;
+    List<Long> tagsId;
+    List<Long> workersHowCheckMark;
+    long mark;
+    String linkToDocument;
+    Timestamp createAt;
 }

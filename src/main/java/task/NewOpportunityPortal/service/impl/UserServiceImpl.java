@@ -1,5 +1,7 @@
 package task.NewOpportunityPortal.service.impl;
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
@@ -7,15 +9,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
 import task.NewOpportunityPortal.entity.User;
 import task.NewOpportunityPortal.repository.ChatRepository;
 import task.NewOpportunityPortal.repository.UserRepository;
 import task.NewOpportunityPortal.service.UserService;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -28,11 +28,16 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public Long createUser(User user) {
-        Date now = new java.util.Date();
-        log.info("Set time creates: {}",  now);
-        user.setCreateAt(new java.sql.Timestamp(now.getTime()));
-        log.info("Create user: {}", user.getId());
-        return repository.createUser(user);
+        LocalDateTime now = LocalDateTime.now();
+        log.info("Create user: {}", user.toString());
+        return repository.createUser(new User(
+                user.getId(),
+                user.getLogin(),
+                user.getPassword(),
+                user.getName(),
+                user.getNick(),
+                user.getAverageAssessment(),
+                java.sql.Timestamp.valueOf(now)));
     }
 
     @Override
@@ -44,22 +49,22 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public User getUserByLogin(String userLogin) {
-        log.info("Get user by login: {}",  userLogin);
+        log.info("Get user by login: {}", userLogin);
         return repository.getUserByLogin(userLogin);
     }
 
     @Override
     @CachePut(value = "users", key = "#user.id")
     public User updateUser(User user) {
-        log.info("Update user: {}", user.getId());
+        log.info("Update user: {}", user.toString());
         return repository.updateUser(user);
     }
 
     @Override
     @CacheEvict(value = "users")
-    public boolean removeUser(Long userId) {
+    public void removeUser(Long userId) {
         log.info("Remove user: {}", userId);
-        return repository.removeUser(userId);
+        repository.removeUser(userId);
     }
 
     @Override
@@ -75,5 +80,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         builder = org.springframework.security.core.userdetails.User.withUsername(user.getUsername());
         builder.password(new BCryptPasswordEncoder().encode(user.getPassword()));
         builder.roles("USER");
-        return builder.build();    }
+        return builder.build();
+    }
 }

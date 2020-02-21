@@ -18,24 +18,25 @@ public class TagController {
     private final TagService service;
 
     @GetMapping("/{tagId}")
-    public Tag getTag(@PathVariable("tagId") long tagId){
+    public Tag getTag(@PathVariable("tagId") long tagId) {
         log.info("Remove tag {}", tagId);
         return service.getTag(tagId);
     }
+
     @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE})
-    public long createTag(@RequestBody Tag tag){
+    public long createTag(@RequestBody Tag tag) {
         log.info("Create tag {}", tag.toString());
         return service.createTag(tag);
     }
 
     @DeleteMapping("/{tagId}")
-    public boolean removeTag(@PathVariable("tagId") long tagId){
+    public void removeTag(@PathVariable("tagId") long tagId) {
         log.info("Remove tag {}", tagId);
-        return service.removeTag(tagId);
+        service.removeTag(tagId);
     }
 
     @GetMapping
-    public List<Tag> getAllTags(){
+    public List<Tag> getAllTags() {
         log.info("Get all tags");
         return service.getAllTags();
     }

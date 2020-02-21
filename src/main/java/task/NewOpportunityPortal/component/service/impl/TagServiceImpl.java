@@ -27,15 +27,15 @@ public class TagServiceImpl implements TagService {
     @Override
     @Cacheable("tags")
     public Tag getTag(Long tagId) {
-        log.info("Get tag: {}", tagId );
+        log.info("Get tag: {}", tagId);
         return repository.getTag(tagId);
     }
 
     @Override
     @CacheEvict("tags")
-    public boolean removeTag(Long tagId) {
-        log.info("Remove tag: {}", tagId );
-        return repository.removeTag(tagId);
+    public void removeTag(Long tagId) {
+        log.info("Remove tag: {}", tagId);
+        repository.removeTag(tagId);
     }
 
     @Override

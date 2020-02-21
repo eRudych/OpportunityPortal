@@ -11,11 +11,11 @@
              relativeToChangelogFile="true" />
     <include file="changelog/12-advert-schema.xml"
              relativeToChangelogFile="true" />
-    <include file="changelog/15-chat-schema.xml"
+    <include file="changelog/23-chat-schema.xml"
              relativeToChangelogFile="true" />
-    <include file="changelog/16-message-schema.xml"
+    <include file="changelog/24-message-schema.xml"
              relativeToChangelogFile="true" />
-    <include file="changelog/14-comment-schema.xml"
+    <include file="changelog/22-comment-schema.xml"
              relativeToChangelogFile="true" />
     <include file="changelog/19-user-ability-schema.xml"
              relativeToChangelogFile="true" />

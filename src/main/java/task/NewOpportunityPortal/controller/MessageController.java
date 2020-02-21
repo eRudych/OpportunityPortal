@@ -19,19 +19,19 @@ public class MessageController {
     private final MessageService service;
 
     @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE})
-    public long send(@RequestBody Message message) throws BadPaddingException, IllegalBlockSizeException {
+    public long send(@RequestBody Message message) {
         log.info("Send message {}", message.toString());
         return service.createMessage(message);
     }
 
     @DeleteMapping("/{messageId}")
-    public boolean remove(@PathVariable("messageId") long messageId){
+    public void remove(@PathVariable("messageId") long messageId) {
         log.info("Remove message {}", messageId);
-        return service.removeMessage(messageId);
+        service.removeMessage(messageId);
     }
 
     @PutMapping(consumes = {MediaType.APPLICATION_JSON_VALUE})
-    public Message update(@RequestBody Message message){
+    public Message update(@RequestBody Message message) {
         log.info("Update message {}", message.toString());
         return service.updateMessage(message);
     }

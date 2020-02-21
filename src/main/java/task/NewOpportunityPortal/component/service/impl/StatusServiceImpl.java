@@ -27,15 +27,15 @@ public class StatusServiceImpl implements StatusService {
     @Override
     @Cacheable("statuses")
     public Status getStatus(Long statusId) {
-        log.info("Get status: {}", statusId );
+        log.info("Get status: {}", statusId);
         return repository.getStatus(statusId);
     }
 
     @Override
-    @CacheEvict(value="statuses")
-    public boolean removeStatus(Long statusId) {
-        log.info("Remove status: {}", statusId );
-        return repository.removeStatus(statusId);
+    @CacheEvict(value = "statuses")
+    public void removeStatus(Long statusId) {
+        log.info("Remove status: {}", statusId);
+        repository.removeStatus(statusId);
     }
 
     @Override

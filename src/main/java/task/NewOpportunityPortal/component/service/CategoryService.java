@@ -10,7 +10,7 @@ public interface CategoryService {
 
     Category getCategory(Long CategoryId);
 
-    boolean removeCategory(Long CategoryId);
+    void removeCategory(Long CategoryId);
 
     List<Category> getAllCategories();
 }

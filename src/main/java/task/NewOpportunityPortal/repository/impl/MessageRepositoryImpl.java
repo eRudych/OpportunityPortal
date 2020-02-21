@@ -1,16 +1,16 @@
 package task.NewOpportunityPortal.repository.impl;
 
-import org.jooq.DSLContext;
-import task.NewOpportunityPortal.db.tables.records.Messages__Record;
-import task.NewOpportunityPortal.entity.Message;
-import task.NewOpportunityPortal.repository.MessageRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.jooq.DSLContext;
 import org.springframework.stereotype.Repository;
+import task.NewOpportunityPortal.db.tables.records.MessagesRecord;
+import task.NewOpportunityPortal.entity.Message;
+import task.NewOpportunityPortal.repository.MessageRepository;
 
 import java.sql.Timestamp;
 
-import static task.NewOpportunityPortal.db.tables.Messages__.MESSAGES__;
+import static task.NewOpportunityPortal.db.tables.Messages.MESSAGES;
 
 @Repository
 @RequiredArgsConstructor
@@ -18,52 +18,50 @@ import static task.NewOpportunityPortal.db.tables.Messages__.MESSAGES__;
 public class MessageRepositoryImpl implements MessageRepository {
 
     private final DSLContext dsl;
-    
+
     private Long insert(Message message) {
-        Messages__Record messagesRecord = dsl.insertInto(MESSAGES__, MESSAGES__.CREATORID, MESSAGES__.CHATID, MESSAGES__.TEXT, MESSAGES__.CREATED_AT)
+        MessagesRecord messagesRecord = dsl.insertInto(MESSAGES, MESSAGES.CREATORID, MESSAGES.CHATID, MESSAGES.TEXT, MESSAGES.CREATED_AT)
                 .values(message.getAuthorId(), message.getChatId(), message.getText(), message.getCreateAt())
-                .returning(MESSAGES__.ID)
+                .returning(MESSAGES.ID)
                 .fetchOne();
         log.info("Insert into db: {}", message.toString());
-        return messagesRecord.getValue(MESSAGES__.ID);
+        return messagesRecord.getValue(MESSAGES.ID);
     }
 
 
     @Override
     public Long createMessage(Message message) {
-        log.info("Create message: {}", message.getId());
+        log.info("Create message: {}", message.toString());
         return insert(message);
     }
 
     @Override
     public Message getMessage(Long messageId) {
         log.info("Select message: {}", messageId);
-        Message message = dsl.selectFrom(MESSAGES__)
-                .where(MESSAGES__.ID.eq(messageId))
-                .fetchOneInto(Message.class);
-        log.info("Set selected data: {}", messageId);
-        message.setCreateAt(dsl.select(MESSAGES__.CREATED_AT).from(MESSAGES__).where(MESSAGES__.ID.eq(messageId)).fetchOneInto((Timestamp.class)));
-        return message;
+        return dsl.selectFrom(MESSAGES)
+                .where(MESSAGES.ID.eq(messageId))
+                .fetchOne(r -> new Message(
+                        r.get(MESSAGES.ID, Long.class),
+                        r.get(MESSAGES.CREATORID, Long.class),
+                        r.get(MESSAGES.CHATID, Long.class),
+                        r.get(MESSAGES.TEXT, String.class),
+                        r.get(MESSAGES.CREATED_AT, Timestamp.class)
+                ));
     }
 
     @Override
     public Message updateMessage(Message message) {
-        log.info("Update text message: {}", message.getId());
-        return getMessage((long) dsl.update(MESSAGES__)
-               .set(MESSAGES__.TEXT, message.getText())
-               .where(MESSAGES__.ID.eq(message.getId())).execute());
+        log.info("Update text message: {}", message.toString());
+        return getMessage((long) dsl.update(MESSAGES)
+                .set(MESSAGES.TEXT, message.getText())
+                .where(MESSAGES.ID.eq(message.getId())).execute());
     }
 
     @Override
-    public boolean removeMessage(Long messageId) {
+    public void removeMessage(Long messageId) {
         log.info("Remove message: {}", messageId);
-        try {
-            dsl.deleteFrom(MESSAGES__)
-                    .where(MESSAGES__.ID.eq(messageId)).execute();
-            return true;
-        } catch (Exception ex) {
-            log.error(ex.getMessage());
-            return false;
-        }
+        dsl.deleteFrom(MESSAGES)
+                .where(MESSAGES.ID.eq(messageId))
+                .execute();
     }
 }

@@ -12,7 +12,7 @@ public interface CommentRepository {
 
     Comment updateComment(Comment comment);
 
-    boolean removeComment(Long commentId);
+    void removeComment(Long commentId);
 
     List<Comment> getCommentAdverts(Long advertId);
 }

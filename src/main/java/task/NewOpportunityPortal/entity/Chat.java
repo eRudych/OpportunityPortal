@@ -1,20 +1,18 @@
 package task.NewOpportunityPortal.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Value;
 
 import java.sql.Timestamp;
 import java.util.List;
 
-@Data
-@AllArgsConstructor
-@JsonIgnoreProperties(ignoreUnknown=true)
+@Value
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Chat {
-    private final Long id;
-    private Long creatorId;
-    private Long advertId;
-    private String name;
-    private List<Long> usersId;
-    private Timestamp createAt;
+    final Long id;
+    Long creatorId;
+    Long advertId;
+    String name;
+    List<Long> usersId;
+    Timestamp createAt;
 }

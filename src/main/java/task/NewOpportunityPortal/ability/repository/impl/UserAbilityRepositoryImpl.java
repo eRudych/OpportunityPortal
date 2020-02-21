@@ -4,9 +4,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jooq.DSLContext;
 import org.springframework.stereotype.Repository;
+import task.NewOpportunityPortal.ability.entity.UserAbility;
 import task.NewOpportunityPortal.ability.repository.UserAbilityRepository;
 import task.NewOpportunityPortal.db.tables.records.UserAbilityRecord;
-import task.NewOpportunityPortal.ability.entity.UserAbility;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -57,12 +57,12 @@ public class UserAbilityRepositoryImpl implements UserAbilityRepository {
         log.info("Get user ability rate by id: {}", userAbilityId);
         return dsl.selectFrom(USER_ABILITY)
                 .where(USER_ABILITY.ID.eq(userAbilityId))
-                .fetchOne(r-> new UserAbility(
-                        r.get(0,Long.class),
-                        r.get(1,Long.class),
-                        r.get(2,Long.class),
-                        r.get(5,Integer.class),
-                        r.get(6,Timestamp.class)));
+                .fetchOne(r -> new UserAbility(
+                        r.get(0, Long.class),
+                        r.get(1, Long.class),
+                        r.get(2, Long.class),
+                        r.get(4, Integer.class),
+                        r.get(5, Timestamp.class)));
     }
 
     @Override

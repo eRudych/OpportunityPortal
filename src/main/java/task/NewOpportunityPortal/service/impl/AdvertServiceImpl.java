@@ -1,16 +1,16 @@
 package task.NewOpportunityPortal.service.impl;
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.stereotype.Service;
 import task.NewOpportunityPortal.entity.Advert;
 import task.NewOpportunityPortal.repository.AdvertRepository;
 import task.NewOpportunityPortal.service.AdvertService;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -22,17 +22,28 @@ public class AdvertServiceImpl implements AdvertService {
 
     @Override
     public Long createAdvert(Advert advert) {
-        Date now = new java.util.Date();
-        log.info("Set time creates: {}",  now);
-        advert.setCreateAt(new java.sql.Timestamp(now.getTime()));
-        log.info("Create advert: {}",  advert.getId());
-        return repository.createAdvert(advert);
+        LocalDateTime now = LocalDateTime.now();
+        log.info("Create advert: {}", advert.toString());
+        return repository.createAdvert(
+                new Advert(
+                        advert.getId(),
+                        advert.getCreatorId(),
+                        advert.getCategoryId(),
+                        advert.getStatusId(),
+                        advert.getSubject(),
+                        advert.getInfo(),
+                        advert.getWorkersId(),
+                        advert.getTagsId(),
+                        advert.getWorkersHowCheckMark(),
+                        advert.getMark(),
+                        advert.getLinkToDocument(),
+                        java.sql.Timestamp.valueOf(now)));
     }
 
     @Override
     @CachePut(value = "adverts", key = "#advert.id")
     public Advert updateAdvert(Advert advert) {
-        log.info("Update advert: {}",  advert.getId());
+        log.info("Update advert: {}", advert.toString());
         return repository.updateAdvert(advert);
     }
 
@@ -45,9 +56,9 @@ public class AdvertServiceImpl implements AdvertService {
 
     @Override
     @CacheEvict("adverts")
-    public boolean removeAdvert(Long advertId) {
-        log.info("Remove advert: {}",  advertId);
-        return repository.removeAdvert(advertId);
+    public void removeAdvert(Long advertId) {
+        log.info("Remove advert: {}", advertId);
+        repository.removeAdvert(advertId);
     }
 
     @Override

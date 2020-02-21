@@ -45,21 +45,19 @@ public class StatusRepositoryImp implements StatusRepository {
     }
 
     @Override
-    public boolean removeStatus(Long statusId) {
+    public void removeStatus(Long statusId) {
         log.info("Remove status: {}", statusId);
-        try {
-            dsl.deleteFrom(STATUS)
-                    .where(STATUS.ID.eq(statusId)).execute();
-            return true;
-        } catch (Exception ex) {
-            log.error(ex.getMessage());
-            return false;
-        }
+        dsl.deleteFrom(STATUS)
+                .where(STATUS.ID.eq(statusId))
+                .execute();
     }
 
     @Override
     public List<Status> getAllStatuses() {
         return dsl.selectFrom(STATUS)
-                .fetch(r -> new Status(r.get(0, Long.class), r.get(1, String.class)));
+                .fetch(r -> new Status(
+                        r.get(0, Long.class),
+                        r.get(1, String.class))
+                );
     }
 }

@@ -27,15 +27,15 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     @Cacheable("categories")
     public Category getCategory(Long categoryId) {
-        log.info("Get category: {}", categoryId );
+        log.info("Get category: {}", categoryId);
         return repository.getCategory(categoryId);
     }
 
     @Override
     @CacheEvict("categories")
-    public boolean removeCategory(Long categoryId) {
-        log.info("Remove category: {}", categoryId );
-        return repository.removeCategory(categoryId);
+    public void removeCategory(Long categoryId) {
+        log.info("Remove category: {}", categoryId);
+        repository.removeCategory(categoryId);
     }
 
     @Override

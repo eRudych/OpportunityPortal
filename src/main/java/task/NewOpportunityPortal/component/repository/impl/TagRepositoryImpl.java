@@ -29,7 +29,7 @@ public class TagRepositoryImpl implements TagRepository {
     }
 
     @Override
-    public Long createTag(Tag tag){
+    public Long createTag(Tag tag) {
         log.info("Create tag: {}", tag.getId());
         return insert(tag);
     }
@@ -45,21 +45,19 @@ public class TagRepositoryImpl implements TagRepository {
     }
 
     @Override
-    public boolean removeTag(Long tagId) {
+    public void removeTag(Long tagId) {
         log.info("Remove tag: {}", tagId);
-        try {
-            dsl.deleteFrom(TAG)
-                    .where(TAG.ID.eq(tagId)).execute();
-            return true;
-        } catch (Exception ex) {
-            log.error(ex.getMessage());
-            return false;
-        }
+        dsl.deleteFrom(TAG)
+                .where(TAG.ID.eq(tagId))
+                .execute();
     }
 
     @Override
     public List<Tag> getAllTags() {
         return dsl.selectFrom(TAG)
-                .fetch(r -> new Tag(r.get(0, Long.class), r.get(1, String.class)));
+                .fetch(r -> new Tag(
+                        r.get(0, Long.class),
+                        r.get(1, String.class))
+                );
     }
 }

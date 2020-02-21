@@ -10,7 +10,7 @@ public interface CategoryRepository {
 
     Category getCategory(Long CategoryId);
 
-    boolean removeCategory(Long CategoryId);
+    void removeCategory(Long CategoryId);
 
     List<Category> getAllCategories();
 

@@ -9,9 +9,9 @@ import javax.annotation.processing.Generated;
 import task.NewOpportunityPortal.db.tables.AbilityComment;
 import task.NewOpportunityPortal.db.tables.Adverts;
 import task.NewOpportunityPortal.db.tables.Category;
-import task.NewOpportunityPortal.db.tables.Chats_;
-import task.NewOpportunityPortal.db.tables.Comments_;
-import task.NewOpportunityPortal.db.tables.Messages__;
+import task.NewOpportunityPortal.db.tables.Chats;
+import task.NewOpportunityPortal.db.tables.Comments;
+import task.NewOpportunityPortal.db.tables.Messages;
 import task.NewOpportunityPortal.db.tables.Status;
 import task.NewOpportunityPortal.db.tables.Tag;
 import task.NewOpportunityPortal.db.tables.User;
@@ -47,19 +47,19 @@ public class Tables {
     public static final Category CATEGORY = Category.CATEGORY;
 
     /**
-     * The table <code>public.chats_</code>.
+     * The table <code>public.chats</code>.
      */
-    public static final Chats_ CHATS_ = Chats_.CHATS_;
+    public static final Chats CHATS = Chats.CHATS;
 
     /**
-     * The table <code>public.comments_</code>.
+     * The table <code>public.comments</code>.
      */
-    public static final Comments_ COMMENTS_ = Comments_.COMMENTS_;
+    public static final Comments COMMENTS = Comments.COMMENTS;
 
     /**
-     * The table <code>public.messages__</code>.
+     * The table <code>public.messages</code>.
      */
-    public static final Messages__ MESSAGES__ = Messages__.MESSAGES__;
+    public static final Messages MESSAGES = Messages.MESSAGES;
 
     /**
      * The table <code>public.status</code>.

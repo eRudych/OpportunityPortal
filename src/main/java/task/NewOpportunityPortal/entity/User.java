@@ -1,17 +1,15 @@
 package task.NewOpportunityPortal.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.sql.Timestamp;
 import java.util.Collection;
 
-@Data
-@AllArgsConstructor
-@JsonIgnoreProperties(ignoreUnknown=true)
+@Value
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class User implements UserDetails {
     private final Long id;
     private String login;

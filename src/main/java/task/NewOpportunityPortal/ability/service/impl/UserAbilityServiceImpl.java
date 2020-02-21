@@ -29,7 +29,7 @@ public class UserAbilityServiceImpl implements UserAbilityService {
                 userAbility.getAuthorId(),
                 userAbility.getUserId(),
                 userAbility.getAssessment(),
-                java.sql.Timestamp.valueOf(now))) ;
+                java.sql.Timestamp.valueOf(now)));
     }
 
     @Override

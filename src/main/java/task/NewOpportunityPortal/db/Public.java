@@ -17,9 +17,9 @@ import org.jooq.impl.SchemaImpl;
 import task.NewOpportunityPortal.db.tables.AbilityComment;
 import task.NewOpportunityPortal.db.tables.Adverts;
 import task.NewOpportunityPortal.db.tables.Category;
-import task.NewOpportunityPortal.db.tables.Chats_;
-import task.NewOpportunityPortal.db.tables.Comments_;
-import task.NewOpportunityPortal.db.tables.Messages__;
+import task.NewOpportunityPortal.db.tables.Chats;
+import task.NewOpportunityPortal.db.tables.Comments;
+import task.NewOpportunityPortal.db.tables.Messages;
 import task.NewOpportunityPortal.db.tables.Status;
 import task.NewOpportunityPortal.db.tables.Tag;
 import task.NewOpportunityPortal.db.tables.User;
@@ -39,7 +39,7 @@ import task.NewOpportunityPortal.db.tables.UserAbility;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Public extends SchemaImpl {
 
-    private static final long serialVersionUID = 1472529235;
+    private static final long serialVersionUID = -1303236039;
 
     /**
      * The reference instance of <code>public</code>
@@ -62,19 +62,19 @@ public class Public extends SchemaImpl {
     public final Category CATEGORY = task.NewOpportunityPortal.db.tables.Category.CATEGORY;
 
     /**
-     * The table <code>public.chats_</code>.
+     * The table <code>public.chats</code>.
      */
-    public final Chats_ CHATS_ = task.NewOpportunityPortal.db.tables.Chats_.CHATS_;
+    public final Chats CHATS = task.NewOpportunityPortal.db.tables.Chats.CHATS;
 
     /**
-     * The table <code>public.comments_</code>.
+     * The table <code>public.comments</code>.
      */
-    public final Comments_ COMMENTS_ = task.NewOpportunityPortal.db.tables.Comments_.COMMENTS_;
+    public final Comments COMMENTS = task.NewOpportunityPortal.db.tables.Comments.COMMENTS;
 
     /**
-     * The table <code>public.messages__</code>.
+     * The table <code>public.messages</code>.
      */
-    public final Messages__ MESSAGES__ = task.NewOpportunityPortal.db.tables.Messages__.MESSAGES__;
+    public final Messages MESSAGES = task.NewOpportunityPortal.db.tables.Messages.MESSAGES;
 
     /**
      * The table <code>public.status</code>.
@@ -121,9 +121,9 @@ public class Public extends SchemaImpl {
             AbilityComment.ABILITY_COMMENT,
             Adverts.ADVERTS,
             Category.CATEGORY,
-            Chats_.CHATS_,
-            Comments_.COMMENTS_,
-            Messages__.MESSAGES__,
+            Chats.CHATS,
+            Comments.COMMENTS,
+            Messages.MESSAGES,
             Status.STATUS,
             Tag.TAG,
             User.USER,

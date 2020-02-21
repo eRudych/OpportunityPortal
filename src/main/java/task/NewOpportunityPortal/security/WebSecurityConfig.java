@@ -22,15 +22,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.inMemoryAuthentication()
                 .withUser("admin")
                 .password(passwordEncoder().encode("pass"))
-                .roles("ADMIN");
+                .roles("ADMIN", "USER");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/", "/welcome","/adverts/*","/users/*","/comments/*","/users").permitAll()
+                .antMatchers("/", "/welcome", "/adverts/*", "/users/**", "/comments/*").permitAll()
 //                .antMatchers("/chats/**","/messages/*","/users/**").hasAnyRole( "USER", "ADMIN")
-                .antMatchers("/admin").hasAnyRole( "ADMIN")
+                .antMatchers("/admin").hasAnyRole("ADMIN")
                 .and().formLogin().loginPage("/login").permitAll()
                 .and().logout().permitAll()
                 .and().logout().logoutSuccessUrl("/welcome").deleteCookies("JSESSIONID")

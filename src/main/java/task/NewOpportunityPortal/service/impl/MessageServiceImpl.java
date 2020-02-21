@@ -12,7 +12,7 @@ import task.NewOpportunityPortal.entity.Message;
 import task.NewOpportunityPortal.repository.MessageRepository;
 import task.NewOpportunityPortal.service.MessageService;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
@@ -24,11 +24,14 @@ public class MessageServiceImpl implements MessageService {
     @Override
     @EncryptMethod
     public Long createMessage(Message message) {
-        Date now = new java.util.Date();
-        log.info("Set time creates: {}", now);
-        message.setCreateAt(new java.sql.Timestamp(now.getTime()));
-        log.info("Create message: {}", message.getId());
-        return repository.createMessage(message);
+        LocalDateTime now = LocalDateTime.now();
+        log.info("Create message: {}", message.toString());
+        return repository.createMessage(new Message(
+                message.getId(),
+                message.getAuthorId(),
+                message.getChatId(),
+                message.getText(),
+                java.sql.Timestamp.valueOf(now)));
     }
 
     @Override
@@ -43,14 +46,14 @@ public class MessageServiceImpl implements MessageService {
     @Override
     @CachePut(value = "messages", key = "#message.id")
     public Message updateMessage(Message message) {
-        log.info("Update message: {}", message.getId());
+        log.info("Update message: {}", message.toString());
         return repository.updateMessage(message);
     }
 
     @Override
     @CacheEvict("messages")
-    public boolean removeMessage(Long messageId) {
+    public void removeMessage(Long messageId) {
         log.info("Remove message: {}", messageId);
-        return repository.removeMessage(messageId);
+        repository.removeMessage(messageId);
     }
 }

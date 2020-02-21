@@ -8,8 +8,8 @@ import org.springframework.cache.annotation.EnableCaching;
 @EnableCaching
 public class NewOpportunityPortalApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(NewOpportunityPortalApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(NewOpportunityPortalApplication.class, args);
+    }
 
 }

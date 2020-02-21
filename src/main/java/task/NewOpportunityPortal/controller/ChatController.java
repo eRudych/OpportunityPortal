@@ -19,31 +19,31 @@ public class ChatController {
     private final ChatService service;
 
     @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE})
-    public long send(@RequestBody Chat chat){
+    public long send(@RequestBody Chat chat) {
         log.info("Send chat {}", chat.toString());
         return service.createChat(chat);
     }
 
     @DeleteMapping("/{chatId}")
-    public boolean remove(@PathVariable("chatId") long chatId){
+    public void remove(@PathVariable("chatId") long chatId) {
         log.info("Remove chat {}", chatId);
-        return service.removeChat(chatId);
+        service.removeChat(chatId);
     }
 
     @PutMapping(consumes = {MediaType.APPLICATION_JSON_VALUE})
-    public Chat update(@RequestBody Chat chat){
+    public Chat update(@RequestBody Chat chat) {
         log.info("Update chat {}", chat.toString());
         return service.updateChat(chat);
     }
 
     @GetMapping("/{chatId}")
-    public Chat get(@PathVariable("chatId") long chatId){
+    public Chat get(@PathVariable("chatId") long chatId) {
         log.info("Get chat {}", chatId);
         return service.getChat(chatId);
     }
 
     @GetMapping("getMessages/{chatId}")
-    public List<Long> getMessages(@PathVariable("chatId") long chatId){
+    public List<Long> getMessages(@PathVariable("chatId") long chatId) {
         log.info("Get messages from chat {}", chatId);
         return service.getMessages(chatId);
     }

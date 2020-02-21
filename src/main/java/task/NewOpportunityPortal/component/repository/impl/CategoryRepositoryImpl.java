@@ -45,21 +45,19 @@ public class CategoryRepositoryImpl implements CategoryRepository {
     }
 
     @Override
-    public boolean removeCategory(Long categoryId) {
+    public void removeCategory(Long categoryId) {
         log.info("Remove category: {}", categoryId);
-        try {
-            dsl.deleteFrom(CATEGORY)
-                    .where(CATEGORY.ID.eq(categoryId)).execute();
-            return true;
-        } catch (Exception ex) {
-            log.error(ex.getMessage());
-            return false;
-        }
+        dsl.deleteFrom(CATEGORY)
+                .where(CATEGORY.ID.eq(categoryId))
+                .execute();
     }
 
     @Override
     public List<Category> getAllCategories() {
         return dsl.selectFrom(CATEGORY)
-                .fetch(r -> new Category(r.get(0, Long.class), r.get(1, String.class)));
+                .fetch(r -> new Category(
+                        r.get(0, Long.class),
+                        r.get(1, String.class))
+                );
     }
 }

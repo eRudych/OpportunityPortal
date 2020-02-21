@@ -36,7 +36,7 @@ public class CommentAbilityRepositoryImpl implements CommentAbilityRepository {
     public void removeCommentAbilityRate(Long commentId) {
         log.info("Remove comment ability rate {}", commentId);
         dsl.deleteFrom(ABILITY_COMMENT)
-                    .where(ABILITY_COMMENT.ID.eq(commentId)).execute();
+                .where(ABILITY_COMMENT.ID.eq(commentId)).execute();
     }
 
     @Override
