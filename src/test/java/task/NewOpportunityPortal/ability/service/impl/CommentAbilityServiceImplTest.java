@@ -1,46 +1,58 @@
 package task.NewOpportunityPortal.ability.service.impl;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import task.NewOpportunityPortal.ability.entity.CommentAbility;
 import task.NewOpportunityPortal.ability.repository.CommentAbilityRepository;
 
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.*;
+import static org.hamcrest.Matchers.samePropertyValuesAs;
+import static org.junit.Assert.assertThat;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CommentAbilityServiceImplTest {
 
     @InjectMocks
-    CommentAbilityServiceImpl service;
+    private CommentAbilityServiceImpl service;
 
     @Mock
-    CommentAbilityRepository repository;
+    private CommentAbilityRepository repository;
+
+    private CommentAbility commentAbility;
+    private CommentAbility commentAbilityUpdate;
+    private Long commentId;
+
+    @Before
+    public void init() {
+        this.commentAbility = new CommentAbility(null, "text");
+        this.commentAbilityUpdate = new CommentAbility(null, "text464");
+        this.commentId = 1L;
+    }
 
     @Test
-    public void createCommentAbilityRate() {
-        CommentAbility commentAbility = new CommentAbility(1L, "text");
+    public void testCreateCommentAbilityRate() {
+        ArgumentCaptor<CommentAbility> commentAbilityArgs = ArgumentCaptor.forClass(CommentAbility.class);
         service.createCommentAbilityRate(commentAbility);
-        verify(repository, times(1)).createCommentAbilityRate(commentAbility);
+        verify(repository).createCommentAbilityRate(commentAbilityArgs.capture());
     }
 
     @Test
-    public void updateCommentAbilityRate() {
-        CommentAbility commentAbilityCreate = new CommentAbility(1L, "text");
-        CommentAbility commentAbilityUpdate = new CommentAbility(1L, "text464");
-        service.createCommentAbilityRate(commentAbilityCreate);
+    public void testUpdateCommentAbilityRate() {
         service.updateCommentAbilityRate(commentAbilityUpdate);
-        verify(repository, times(1)).updateCommentAbilityRate(commentAbilityUpdate);
+        verify(repository).updateCommentAbilityRate(commentAbilityUpdate);
     }
 
     @Test
-    public void getCommentAbilityRate() {
-        when(repository.getCommentAbilityRate(1L)).thenReturn(new CommentAbility(1L, "text"));
-        CommentAbility CommentAbility = service.getCommentAbilityRate(1L);
-        assertEquals(1, CommentAbility.getId().intValue());
-        assertEquals("text", CommentAbility.getText());
+    public void testGetCommentAbilityRate() {
+        when(repository.getCommentAbilityRate(eq(commentId))).thenReturn(commentAbility);
+        CommentAbility getCommentAbility = service.getCommentAbilityRate(commentId);
+        assertThat(commentAbility, samePropertyValuesAs(getCommentAbility));
     }
 }

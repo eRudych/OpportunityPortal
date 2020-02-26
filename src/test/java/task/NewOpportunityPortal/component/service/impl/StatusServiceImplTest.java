@@ -1,5 +1,6 @@
 package task.NewOpportunityPortal.component.service.impl;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -11,45 +12,57 @@ import task.NewOpportunityPortal.component.repository.StatusRepository;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.*;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.samePropertyValuesAs;
+import static org.junit.Assert.assertThat;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class StatusServiceImplTest {
 
     @InjectMocks
-    StatusServiceImpl service;
+    private StatusServiceImpl service;
 
     @Mock
-    StatusRepository repository;
+    private StatusRepository repository;
 
-    @Test
-    public void createStatus() {
-        Status status = new Status(1L, "name");
-        service.createStatus(status);
-        verify(repository, times(1)).createStatus(status);
-    }
+    private List<Status> list;
+    private Status status;
+    private Long statusId;
 
-    @Test
-    public void getStatus() {
-        when(repository.getStatus(1L)).thenReturn(new Status(1L, "name"));
-        Status status = service.getStatus(1L);
-        assertEquals(1, status.getId().intValue());
-        assertEquals("name", status.getName());
-    }
-
-    @Test
-    public void getAllStatuses() {
-        List<Status> list = new ArrayList<>();
+    @Before
+    public void init() {
+        this.list = new ArrayList<>();
         Status statusOne = new Status(null, "name1");
         Status statusTwo = new Status(null, "name2");
         Status statusTree = new Status(null, "name3");
-        list.add(statusOne);
-        list.add(statusTwo);
-        list.add(statusTree);
+        this.list.add(statusOne);
+        this.list.add(statusTwo);
+        this.list.add(statusTree);
+        this.status = new Status(null, "name");
+        this.statusId = 1L;
+    }
+
+    @Test
+    public void testCreateStatus() {
+        service.createStatus(status);
+        verify(repository).createStatus(status);
+    }
+
+    @Test
+    public void testGetStatus() {
+        when(repository.getStatus(eq(statusId))).thenReturn(status);
+        Status getStatus = service.getStatus(statusId);
+        assertThat(status, samePropertyValuesAs(getStatus));
+    }
+
+    @Test
+    public void testGetAllStatuses() {
         when(repository.getAllStatuses()).thenReturn(list);
         List<Status> empList = service.getAllStatuses();
-        assertEquals(3, empList.size());
-        verify(repository, times(1)).getAllStatuses();
+        assertThat(3, is(empList.size()));
+        verify(repository).getAllStatuses();
     }
 }

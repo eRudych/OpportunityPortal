@@ -1,7 +1,9 @@
 package task.NewOpportunityPortal.service.impl;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
@@ -9,66 +11,71 @@ import task.NewOpportunityPortal.entity.Chat;
 import task.NewOpportunityPortal.entity.Message;
 import task.NewOpportunityPortal.repository.ChatRepository;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.*;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.samePropertyValuesAs;
+import static org.junit.Assert.assertThat;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 
 @RunWith(MockitoJUnitRunner.class)
 public class ChatServiceImplTest {
 
     @InjectMocks
-    ChatServiceImpl service;
+    private ChatServiceImpl service;
 
     @Mock
-    ChatRepository repository;
+    private ChatRepository repository;
 
-    @Test
-    public void createChat() {
-        LocalDateTime now = LocalDateTime.now();
-        Chat chat = new Chat(1L, 5L, 1L, "chat", Arrays.asList(5L, 6L), Timestamp.valueOf(now));
-        service.createChat(chat);
-        verify(repository, times(1)).createChat(chat);
-    }
+    private List<Long> list;
+    private Chat chat;
+    private Chat chatUpdate;
+    private Long chatId;
 
-    @Test
-    public void getChat() {
-        when(repository.getChat(1L)).thenReturn(new Chat(1L, 5L, 1L, "chat", Arrays.asList(5L, 6L), null));
-        Chat chat = service.getChat(1L);
-        assertEquals(1, chat.getId().intValue());
-        assertEquals(5, chat.getCreatorId().intValue());
-        assertEquals(1, chat.getAdvertId().intValue());
-        assertEquals("chat", chat.getName());
-        assertEquals(Arrays.asList(5L, 6L), chat.getUsersId());
-    }
-
-    @Test
-    public void updateChat() {
-        LocalDateTime now = LocalDateTime.now();
-        Chat chatCreate = new Chat(1L, 5L, 1L, "chat", Arrays.asList(5L, 6L), Timestamp.valueOf(now));
-        Chat chatUpdate = new Chat(1L, 5L, 1L, "chat12", Arrays.asList(5L, 6L, 9L), Timestamp.valueOf(now));
-        service.createChat(chatCreate);
-        service.updateChat(chatUpdate);
-        verify(repository, times(1)).updateChat(chatUpdate);
-    }
-
-    @Test
-    public void getMessages() {
-        List<Long> list = new ArrayList<>();
+    @Before
+    public void init() {
+        this.list = new ArrayList<>();
         Message messageOne = new Message(1L, 5L, 1L, "chat", null);
         Message messageTwo = new Message(2L, 6L, 1L, "chat12", null);
         Message messageTree = new Message(3L, 9L, 1L, "chat12", null);
-        list.add(messageOne.getId());
-        list.add(messageTwo.getId());
-        list.add(messageTree.getId());
-        when(repository.getMessages(1L)).thenReturn(list);
-        List<Long> empList = service.getMessages(1L);
-        assertEquals(3, empList.size());
-        verify(repository, times(1)).getMessages(1L);
+        this.list.add(messageOne.getId());
+        this.list.add(messageTwo.getId());
+        this.list.add(messageTree.getId());
+        this.chat = new Chat(null, 5L, 1L, "chat", Arrays.asList(5L, 6L), null);
+        this.chatUpdate = new Chat(null, 5L, 1L, "chat12", Arrays.asList(5L, 6L, 9L), null);
+        this.chatId = 1L;
+    }
+
+    @Test
+    public void testCreateChat() {
+        ArgumentCaptor<Chat> chatArgs = ArgumentCaptor.forClass(Chat.class);
+        service.createChat(chat);
+        verify(repository).createChat(chatArgs.capture());
+    }
+
+    @Test
+    public void testGetChat() {
+        when(repository.getChat(eq(chatId))).thenReturn(chat);
+        Chat getChat = service.getChat(chatId);
+        assertThat(chat, samePropertyValuesAs(getChat, "create_at"));
+    }
+
+    @Test
+    public void testUpdateChat() {
+        service.updateChat(chatUpdate);
+        verify(repository).updateChat(chatUpdate);
+    }
+
+    @Test
+    public void testGetMessages() {
+        when(repository.getMessages(eq(chatId))).thenReturn(list);
+        List<Long> empList = service.getMessages(chatId);
+        assertThat(3, is(empList.size()));
+        verify(repository).getMessages(chatId);
     }
 }
