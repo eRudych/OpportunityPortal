@@ -29,20 +29,20 @@ public class UserAbilityServiceImplTest {
     @Mock
     private UserAbilityRepository repository;
 
-    private List<Long> list;
+    private List<Long> ids;
     private UserAbility userAbility;
     private UserAbility userAbilityUpdate;
     private Long userId;
 
     @Before
     public void init() {
-        this.list = new ArrayList<>();
+        this.ids = new ArrayList<>();
         UserAbility UserAbilityOne = new UserAbility(null, 5L, 1L, 3, null);
         UserAbility UserAbilityTwo = new UserAbility(null, 6L, 1L, 3, null);
         UserAbility UserAbilityTree = new UserAbility(null, 9L, 1L, 3, null);
-        this.list.add(UserAbilityOne.getId());
-        this.list.add(UserAbilityTwo.getId());
-        this.list.add(UserAbilityTree.getId());
+        this.ids.add(UserAbilityOne.getId());
+        this.ids.add(UserAbilityTwo.getId());
+        this.ids.add(UserAbilityTree.getId());
         this.userAbility = new UserAbility(null, 5L, 1L, 3, null);
         this.userAbilityUpdate = new UserAbility(null, 5L, 1L, 4, null);
         this.userId = 1L;
@@ -53,27 +53,28 @@ public class UserAbilityServiceImplTest {
         ArgumentCaptor<UserAbility> userAbilityArgs = ArgumentCaptor.forClass(UserAbility.class);
         service.createUserAbilityRate(userAbility);
         verify(repository).createUserAbilityRate(userAbilityArgs.capture());
+        UserAbility userAbilityArgsValue = userAbilityArgs.getValue();
+        assertThat(userAbilityArgsValue, samePropertyValuesAs(userAbility, "createAt"));
     }
 
     @Test
     public void testUpdateUserAbilityRate() {
         service.updateUserAbilityRate(userAbilityUpdate);
         verify(repository).updateUserAbilityRate(userAbilityUpdate);
-
     }
 
     @Test
     public void testGetUserAbilityRate() {
         when(repository.getUserAbilityRate(eq(userId))).thenReturn(userAbility);
         UserAbility getUserAbility = service.getUserAbilityRate(userId);
-        assertThat(userAbility, samePropertyValuesAs(getUserAbility, "create_at"));
+        assertThat(getUserAbility, samePropertyValuesAs(userAbility));
     }
 
     @Test
     public void testGetAllAbilitiesRate() {
-        when(repository.getAllAbilityRate(eq(userId))).thenReturn(list);
+        when(repository.getAllAbilityRate(eq(userId))).thenReturn(ids);
         List<Long> empList = service.getAllAbilitiesRate(userId);
-        assertThat(3, is(empList.size()));
+        assertThat(empList.size(), is(ids.size()));
         verify(repository).getAllAbilityRate(userId);
     }
 }

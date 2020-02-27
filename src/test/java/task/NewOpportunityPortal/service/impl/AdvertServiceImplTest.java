@@ -8,6 +8,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import task.NewOpportunityPortal.entity.Advert;
+import task.NewOpportunityPortal.entity.Chat;
 import task.NewOpportunityPortal.repository.AdvertRepository;
 
 import java.util.ArrayList;
@@ -30,22 +31,23 @@ public class AdvertServiceImplTest {
     @Mock
     private AdvertRepository repository;
 
-    private List<Long> list;
+    private List<Long> ids;
     private Advert advert;
     private Advert advertUpdate;
     private Long advertId;
 
     @Before
     public void init() {
-        this.list = new ArrayList<>();
+        this.ids = new ArrayList<>();
         Advert advertOne = new Advert(1L, 5L, 1L, 1L, "subject1", "info1", null, null, null, 0, "link1", null);
         Advert advertTwo = new Advert(2L, 9L, 1L, 1L, "subject2", "info2", null, null, null, 0, "link2", null);
         Advert advertTree = new Advert(3L, 7L, 1L, 1L, "subject3", "info3", null, null, null, 0, "link3", null);
-        this.list.add(advertOne.getId());
-        this.list.add(advertTwo.getId());
-        this.list.add(advertTree.getId());
+        this.ids.add(advertOne.getId());
+        this.ids.add(advertTwo.getId());
+        this.ids.add(advertTree.getId());
         this.advert = new Advert(null, 5L, 1L, 1L, "subject1", "info1", null, null, null, 0, "link1", null);
         this.advertUpdate = new Advert(null, 5L, 1L, 1L, "subject12", "info12", null, null, null, 5, "link12", null);
+        this.advertId = 1L;
     }
 
     @Test
@@ -53,6 +55,8 @@ public class AdvertServiceImplTest {
         ArgumentCaptor<Advert> advertArgs = ArgumentCaptor.forClass(Advert.class);
         service.createAdvert(advert);
         verify(repository).createAdvert(advertArgs.capture());
+        Advert advertArgsValue = advertArgs.getValue();
+        assertThat(advertArgsValue, samePropertyValuesAs(advert, "createAt"));
     }
 
     @Test
@@ -65,14 +69,14 @@ public class AdvertServiceImplTest {
     public void testGetAdvert() {
         when(repository.getAdvert(eq(advertId))).thenReturn(advert);
         Advert getAdvert = service.getAdvert(advertId);
-        assertThat(advert, samePropertyValuesAs(getAdvert, "create_at"));
+        assertThat(getAdvert, samePropertyValuesAs(advert));
     }
 
     @Test
     public void testGetAllIdAdverts() {
-        when(repository.getAllIdAdverts()).thenReturn(list);
+        when(repository.getAllIdAdverts()).thenReturn(ids);
         List<Long> empList = service.getAllIdAdverts();
-        assertThat(3, is(empList.size()));
+        assertThat(empList.size(), is(ids.size()));
         verify(repository).getAllIdAdverts();
     }
 }

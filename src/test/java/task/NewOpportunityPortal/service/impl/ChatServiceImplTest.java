@@ -32,20 +32,20 @@ public class ChatServiceImplTest {
     @Mock
     private ChatRepository repository;
 
-    private List<Long> list;
+    private List<Long> ids;
     private Chat chat;
     private Chat chatUpdate;
     private Long chatId;
 
     @Before
     public void init() {
-        this.list = new ArrayList<>();
+        this.ids = new ArrayList<>();
         Message messageOne = new Message(1L, 5L, 1L, "chat", null);
         Message messageTwo = new Message(2L, 6L, 1L, "chat12", null);
         Message messageTree = new Message(3L, 9L, 1L, "chat12", null);
-        this.list.add(messageOne.getId());
-        this.list.add(messageTwo.getId());
-        this.list.add(messageTree.getId());
+        this.ids.add(messageOne.getId());
+        this.ids.add(messageTwo.getId());
+        this.ids.add(messageTree.getId());
         this.chat = new Chat(null, 5L, 1L, "chat", Arrays.asList(5L, 6L), null);
         this.chatUpdate = new Chat(null, 5L, 1L, "chat12", Arrays.asList(5L, 6L, 9L), null);
         this.chatId = 1L;
@@ -56,13 +56,15 @@ public class ChatServiceImplTest {
         ArgumentCaptor<Chat> chatArgs = ArgumentCaptor.forClass(Chat.class);
         service.createChat(chat);
         verify(repository).createChat(chatArgs.capture());
+        Chat chatArgsValue = chatArgs.getValue();
+        assertThat(chatArgsValue, samePropertyValuesAs(chat, "createAt"));
     }
 
     @Test
     public void testGetChat() {
         when(repository.getChat(eq(chatId))).thenReturn(chat);
         Chat getChat = service.getChat(chatId);
-        assertThat(chat, samePropertyValuesAs(getChat, "create_at"));
+        assertThat(chat, samePropertyValuesAs(getChat));
     }
 
     @Test
@@ -73,9 +75,9 @@ public class ChatServiceImplTest {
 
     @Test
     public void testGetMessages() {
-        when(repository.getMessages(eq(chatId))).thenReturn(list);
+        when(repository.getMessages(eq(chatId))).thenReturn(ids);
         List<Long> empList = service.getMessages(chatId);
-        assertThat(3, is(empList.size()));
+        assertThat(empList.size(), is(ids.size()));
         verify(repository).getMessages(chatId);
     }
 }

@@ -29,19 +29,19 @@ public class CategoryServiceImplTest {
     @Mock
     private CategoryRepository repository;
 
-    private List<Category> list;
+    private List<Category> ids;
     private Category category;
     private Long categoryId;
 
     @Before
     public void init() {
-        this.list = new ArrayList<>();
+        this.ids = new ArrayList<>();
         Category categoryOne = new Category(null, "name1");
         Category categoryTwo = new Category(null, "name2");
         Category categoryTree = new Category(null, "name3");
-        this.list.add(categoryOne);
-        this.list.add(categoryTwo);
-        this.list.add(categoryTree);
+        this.ids.add(categoryOne);
+        this.ids.add(categoryTwo);
+        this.ids.add(categoryTree);
         this.category = new Category(null, "name");
         this.categoryId = 1L;
     }
@@ -61,9 +61,9 @@ public class CategoryServiceImplTest {
 
     @Test
     public void testGetAllCategories() {
-        when(repository.getAllCategories()).thenReturn(list);
+        when(repository.getAllCategories()).thenReturn(ids);
         List<Category> empList = service.getAllCategories();
-        assertThat(3, is(empList.size()));
+        assertThat(empList.size(), is(ids.size()));
         verify(repository).getAllCategories();
     }
 }

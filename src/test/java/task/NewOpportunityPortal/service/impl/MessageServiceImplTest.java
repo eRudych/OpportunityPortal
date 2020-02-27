@@ -8,6 +8,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import task.NewOpportunityPortal.entity.Message;
+import task.NewOpportunityPortal.entity.User;
 import task.NewOpportunityPortal.repository.MessageRepository;
 
 import static org.hamcrest.Matchers.samePropertyValuesAs;
@@ -41,13 +42,15 @@ public class MessageServiceImplTest {
         ArgumentCaptor<Message> messageArgs = ArgumentCaptor.forClass(Message.class);
         service.createMessage(message);
         verify(repository).createMessage(messageArgs.capture());
+        Message messageArgsValue = messageArgs.getValue();
+        assertThat(messageArgsValue, samePropertyValuesAs(message, "createAt"));
     }
 
     @Test
     public void testGetMessage() {
         when(repository.getMessage(eq(messageId))).thenReturn(message);
         Message getMessage = service.getMessage(messageId);
-        assertThat(message, samePropertyValuesAs(getMessage, "create_at"));
+        assertThat(getMessage, samePropertyValuesAs(message));
     }
 
     @Test

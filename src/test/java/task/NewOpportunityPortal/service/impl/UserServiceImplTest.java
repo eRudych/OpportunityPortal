@@ -35,7 +35,7 @@ public class UserServiceImplTest {
     @Mock
     private ChatRepository chatRepository;
 
-    private List<Long> list;
+    private List<Long> ids;
     private User user;
     private User userUpdate;
     private Long userId;
@@ -43,11 +43,11 @@ public class UserServiceImplTest {
 
     @Before
     public void init() {
-        this.list = new ArrayList<>();
+        this.ids = new ArrayList<>();
         Chat chatOne = new Chat(1L, 5L, 1L, "chat", Arrays.asList(5L, 6L), null);
         Chat chatTwo = new Chat(2L, 5L, 1L, "chat12", Arrays.asList(5L, 6L, 9L), null);
-        this.list.add(chatOne.getId());
-        this.list.add(chatTwo.getId());
+        this.ids.add(chatOne.getId());
+        this.ids.add(chatTwo.getId());
         this.user = new User(null, "login", "pass", "name", "nick", 1, null);
         this.userUpdate = new User(null, "logidsdsn", "padsdss", "nddddme", "nicddddk", 1, null);
         this.userId = 1L;
@@ -59,20 +59,22 @@ public class UserServiceImplTest {
         ArgumentCaptor<User> userArgs = ArgumentCaptor.forClass(User.class);
         service.createUser(user);
         verify(userRepository).createUser(userArgs.capture());
+        User userArgsValue = userArgs.getValue();
+        assertThat(userArgsValue, samePropertyValuesAs(user, "createAt"));
     }
 
     @Test
     public void testGetUserById() {
         when(userRepository.getUserById(eq(userId))).thenReturn(user);
         User userById = service.getUserById(userId);
-        assertThat(user, samePropertyValuesAs(userById, "create_at"));
+        assertThat(userById, samePropertyValuesAs(user));
     }
 
     @Test
     public void testGetUserByLogin() {
         when(userRepository.getUserByLogin(eq(user.getLogin()))).thenReturn(user);
         User userByLogin = service.getUserByLogin(user.getLogin());
-        assertThat(user, samePropertyValuesAs(userByLogin, "create_at"));
+        assertThat(userByLogin, samePropertyValuesAs(user));
     }
 
     @Test
@@ -83,9 +85,9 @@ public class UserServiceImplTest {
 
     @Test
     public void testGetAllAvailChats() {
-        when(chatRepository.getAllAvailChats(eq(creatorId))).thenReturn(list);
+        when(chatRepository.getAllAvailChats(eq(creatorId))).thenReturn(ids);
         List<Long> empList = service.getAllAvailChats(creatorId);
-        assertThat(2, is(empList.size()));
+        assertThat(empList.size(), is(ids.size()));
         verify(chatRepository).getAllAvailChats(creatorId);
     }
 

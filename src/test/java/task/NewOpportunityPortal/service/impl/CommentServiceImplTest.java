@@ -8,6 +8,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import task.NewOpportunityPortal.entity.Comment;
+import task.NewOpportunityPortal.entity.Message;
 import task.NewOpportunityPortal.repository.CommentRepository;
 
 import java.util.ArrayList;
@@ -29,18 +30,18 @@ public class CommentServiceImplTest {
     @Mock
     private CommentRepository repository;
 
-    private List<Comment> list;
+    private List<Comment> ids;
     private Comment comment;
     private Comment commentUpdate;
     private Long commentId;
 
     @Before
     public void init() {
-        this.list = new ArrayList<>();
+        this.ids = new ArrayList<>();
         Comment commentOne = new Comment(null, 5L, 1L, "text", null);
         Comment commentTwo = new Comment(null, 5L, 1L, "tet2", null);
-        this.list.add(commentOne);
-        this.list.add(commentTwo);
+        this.ids.add(commentOne);
+        this.ids.add(commentTwo);
         this.comment = new Comment(1L, 5L, 1L, "text", null);
         this.commentUpdate = new Comment(1L, 5L, 1L, "text123", null);
         this.commentId = 1L;
@@ -51,13 +52,15 @@ public class CommentServiceImplTest {
         ArgumentCaptor<Comment> commentArgs = ArgumentCaptor.forClass(Comment.class);
         service.createComment(comment);
         verify(repository).createComment(commentArgs.capture());
+        Comment commentArgsValue = commentArgs.getValue();
+        assertThat(commentArgsValue, samePropertyValuesAs(comment, "createAt"));
     }
 
     @Test
     public void testGetComment() {
         when(repository.getComment(eq(commentId))).thenReturn(comment);
         Comment getComment = service.getComment(commentId);
-        assertThat(comment, samePropertyValuesAs(getComment, "create_at"));
+        assertThat(getComment, samePropertyValuesAs(comment));
     }
 
     @Test
@@ -68,9 +71,9 @@ public class CommentServiceImplTest {
 
     @Test
     public void testGetCommentAdverts() {
-        when(repository.getCommentAdverts(eq(commentId))).thenReturn(list);
+        when(repository.getCommentAdverts(eq(commentId))).thenReturn(ids);
         List<Comment> empList = service.getCommentAdverts(commentId);
-        assertThat(2, is(empList.size()));
+        assertThat(empList.size(), is(ids.size()));
         verify(repository).getCommentAdverts(commentId);
     }
 }

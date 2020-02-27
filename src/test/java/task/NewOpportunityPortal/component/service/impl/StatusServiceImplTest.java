@@ -28,19 +28,19 @@ public class StatusServiceImplTest {
     @Mock
     private StatusRepository repository;
 
-    private List<Status> list;
+    private List<Status> ids;
     private Status status;
     private Long statusId;
 
     @Before
     public void init() {
-        this.list = new ArrayList<>();
+        this.ids = new ArrayList<>();
         Status statusOne = new Status(null, "name1");
         Status statusTwo = new Status(null, "name2");
         Status statusTree = new Status(null, "name3");
-        this.list.add(statusOne);
-        this.list.add(statusTwo);
-        this.list.add(statusTree);
+        this.ids.add(statusOne);
+        this.ids.add(statusTwo);
+        this.ids.add(statusTree);
         this.status = new Status(null, "name");
         this.statusId = 1L;
     }
@@ -60,9 +60,9 @@ public class StatusServiceImplTest {
 
     @Test
     public void testGetAllStatuses() {
-        when(repository.getAllStatuses()).thenReturn(list);
+        when(repository.getAllStatuses()).thenReturn(ids);
         List<Status> empList = service.getAllStatuses();
-        assertThat(3, is(empList.size()));
+        assertThat(empList.size(), is(ids.size()));
         verify(repository).getAllStatuses();
     }
 }

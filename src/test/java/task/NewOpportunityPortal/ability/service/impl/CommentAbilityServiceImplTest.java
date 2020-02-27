@@ -8,6 +8,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import task.NewOpportunityPortal.ability.entity.CommentAbility;
+import task.NewOpportunityPortal.ability.entity.UserAbility;
 import task.NewOpportunityPortal.ability.repository.CommentAbilityRepository;
 
 import static org.hamcrest.Matchers.samePropertyValuesAs;
@@ -41,6 +42,8 @@ public class CommentAbilityServiceImplTest {
         ArgumentCaptor<CommentAbility> commentAbilityArgs = ArgumentCaptor.forClass(CommentAbility.class);
         service.createCommentAbilityRate(commentAbility);
         verify(repository).createCommentAbilityRate(commentAbilityArgs.capture());
+        CommentAbility commentAbilityArgsValue = commentAbilityArgs.getValue();
+        assertThat(commentAbilityArgsValue, samePropertyValuesAs(commentAbility, "createAt"));
     }
 
     @Test

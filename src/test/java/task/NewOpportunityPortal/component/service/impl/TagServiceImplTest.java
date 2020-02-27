@@ -28,19 +28,19 @@ public class TagServiceImplTest {
     @Mock
     private TagRepository repository;
 
-    private List<Tag> list;
+    private List<Tag> ids;
     private Tag tag;
     private Long tagId;
 
     @Before
     public void init() {
-        this.list = new ArrayList<>();
+        this.ids = new ArrayList<>();
         Tag tagOne = new Tag(null, "name1");
         Tag tagTwo = new Tag(null, "name2");
         Tag tagTree = new Tag(null, "name3");
-        this.list.add(tagOne);
-        this.list.add(tagTwo);
-        this.list.add(tagTree);
+        this.ids.add(tagOne);
+        this.ids.add(tagTwo);
+        this.ids.add(tagTree);
         this.tag = new Tag(null, "name");
         this.tagId=1L;
     }
@@ -60,9 +60,9 @@ public class TagServiceImplTest {
 
     @Test
     public void testGetAllTags() {
-        when(repository.getAllTags()).thenReturn(list);
+        when(repository.getAllTags()).thenReturn(ids);
         List<Tag> empList = service.getAllTags();
-        assertThat(3, is(empList.size()));
+        assertThat(empList.size(), is(ids.size()));
         verify(repository).getAllTags();
     }
 }
