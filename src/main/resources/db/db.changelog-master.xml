@@ -20,5 +20,6 @@
     <include file="changelog/19-user-ability-schema.xml"
              relativeToChangelogFile="true" />
     <include file="changelog/21-comment-ability-schema.xml"
-             relativeToChangelogFile="true" />
+             relativeToChangelogFile="true" /> 
+  
 </databaseChangeLog>
